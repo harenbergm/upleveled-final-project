@@ -5,19 +5,15 @@ const navStyles = css`
   margin-top: 20px;
   padding: 10px 100px;
   display: flex;
-  justify-content: space-between;
-  text-align: center;
+  justify-content: center;
+
 
   > div > a {
     margin-left: 40px;
-  }
-
-  > div > a {
     text-transform: uppercase;
-    :hover {
+  }:hover {
       color: white;
-    }
-  }
+
 
   > div > Link {
     gap: 20px;

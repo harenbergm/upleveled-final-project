@@ -5,19 +5,14 @@ const navStyles = css`
   margin-top: 20px;
   padding: 10px 100px;
   display: flex;
-  justify-content: space-between;
-  text-align: center;
-  z-index: 10;
+  justify-content: center;
 
   > div > a {
     margin-left: 40px;
-  }
-
-  > div > a {
     text-transform: uppercase;
-    :hover {
-      color: #e04326;
-    }
+  }
+  :hover {
+    color: #e04326;
   }
 
   > div > Link {
@@ -32,8 +27,9 @@ export default function Header() {
         <div></div>
         <div>
           <Link href="/">HOME</Link>
-          <Link href="/api/login">Login</Link>
-          <Link href="/api/sign-up">Sign Up</Link>
+          <Link href="/show-recipes">Show Recipes</Link>
+          <Link href="/login">Login</Link>
+          <Link href="/signup">Sign Up</Link>
         </div>
       </nav>
     </header>
