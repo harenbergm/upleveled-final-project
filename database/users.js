@@ -1,23 +1,65 @@
-import { config } from 'dotenv-safe';
-import postgres from 'postgres';
+// import { sql } from './connect';
 
-// This loads all environment variables from a .env file
-// for all code after this line
-if (!process.env.FLY_IO) config();
+// export async function getUserByUsername(username) {
+//   if (!username) return undefined;
 
-// Connect only once to the database
-// https://github.com/vercel/next.js/issues/7811#issuecomment-715259370
-function connectOneTimeToDatabase() {
-  if (!globalThis.postgresSqlClient) {
-    globalThis.postgresSqlClient = postgres({
-      transform: {
-        ...postgres.camel,
-        undefined: null,
-      },
-    });
-  }
-  return globalThis.postgresSqlClient;
-}
+//   const user = await sql`
+//   SELECT
+//     id,
+//     username
+//   FROM
+//     users
+//   WHERE
+//     users.username = ${username}
+//   `;
 
-// Connect to PostgreSQL
-export const sql = connectOneTimeToDatabase();
+//   return user;
+// }
+
+// export async function getUserWithPasswordHashByUsername(username: string) {
+//   if (!username) return undefined;
+
+//   const [user] = await sql<User[]>`
+//   SELECT
+//     *
+//   FROM
+//     users
+//   WHERE
+//     users.username = ${username}
+//   `;
+
+//   return user;
+// }
+
+// export async function getUserBySessionToken(token: string) {
+//   if (!token) return undefined;
+
+//   const [user] = await sql<{ id: number; username: string }[]>`
+//   SELECT
+//     users.id,
+//     users.username
+//   FROM
+//     users,
+//     sessions
+//   WHERE
+//     sessions.token = ${token} AND
+//     sessions.user_id = users.id AND
+//     sessions.expiry_timestamp > now();
+//   `;
+
+//   return user;
+// }
+
+// export async function createUser(username: string, password_hash: string) {
+//   const [userWithoutPassword] = await sql<{ id: number; username: string }[]>`
+//   INSERT INTO users
+//     (username, password_hash)
+//   VALUES
+//     (${username}, ${password_hash})
+//   RETURNING
+//     id,
+//     username
+//   `;
+
+//   return userWithoutPassword!;
+// }
