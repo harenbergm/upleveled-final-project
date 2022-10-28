@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
+    "@types/dotenv-safe": "^8.1.2",
     "cli": "^1.0.1",
     "dotenv": "^16.0.3",
+    "dotenv-cli": "^6.0.0",
     "dotenv-safe": "^8.2.0",
     "ley": "^0.8.1",
     "next": "13.0.0",
