@@ -28,6 +28,7 @@ export default function Header() {
         <div>
           <Link href="/">HOME</Link>
           <Link href="/show-recipes">Show Recipes</Link>
+          <Link href="/private-profile">Private Profile</Link>
           <Link href="/login">Login</Link>
           <Link href="/signup">Sign Up</Link>
         </div>
