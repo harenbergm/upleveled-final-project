@@ -46,7 +46,8 @@ export default async function handler(
     );
 
     // 5. create a csrf secret
-    const secret = await createCsrfSecret();
+    // const secret = await createCsrfSecret();
+
     // 6.Create a session token and serialize a cookie with the token
     const session = await createSession(
       userWithoutPassword.id,
