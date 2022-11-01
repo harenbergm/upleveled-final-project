@@ -20,18 +20,33 @@ const navStyles = css`
   }
 `;
 
-export default function Header() {
+export default function Header(props) {
   return (
     <header>
       <nav css={navStyles}>
-        <div></div>
         <div>
           <Link href="/">HOME</Link>
           <Link href="/show-recipes">Show Recipes</Link>
           <Link href="/private-profile">Private Profile</Link>
-          <Link href="/login">Login</Link>
-          <Link href="/logout">Logout</Link>
-          <Link href="/signup">Sign Up</Link>
+        </div>
+        <div>
+          {props.user && props.user.username}
+          {props.user ? (
+            <Anchor
+              css={css`
+                margin-left: 30px;
+              `}
+              href="/logout"
+            >
+              Logout
+            </Anchor>
+          ) : (
+            <>
+              <Link href="/login">Login</Link>
+              <Link href="/logout">Logout</Link>
+              <Link href="/signup">Signup</Link>
+            </>
+          )}
         </div>
       </nav>
     </header>
