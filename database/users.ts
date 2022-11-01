@@ -25,6 +25,21 @@ export async function getUserByUsername(username: string) {
   return user;
 }
 
+export async function getEmailAddress(email: string) {
+  if (!email) return undefined;
+
+  const emailAdress: string = await sql<{ email: string }>`
+SELECT
+    e_mail
+FROM
+    users
+WHERE
+    e_mail = ${email}
+`;
+
+  return emailAdress;
+}
+
 export async function getUserWithPasswordHashWithoutEmailByUsername(
   username: string,
 ) {

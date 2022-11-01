@@ -4,7 +4,11 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createSession } from '../../database/sessions';
-import { createUser, getUserByUsername } from '../../database/users';
+import {
+  createUser,
+  getEmailAddress,
+  getUserByUsername,
+} from '../../database/users';
 import { createSerializedRegisterSessionTokenCookie } from '../../utils/cookies';
 
 export type RegisterResponseBody =
@@ -25,11 +29,9 @@ export default async function handler(
       !request.body.password ||
       !request.body.email
     ) {
-      return response
-        .status(400)
-        .json({
-          errors: [{ message: 'username, password or e-mail not provided' }],
-        });
+      return response.status(400).json({
+        errors: [{ message: 'username, password or e-mail not provided' }],
+      });
     }
     // 2.we check if the user already exist
     const user = await getUserByUsername(request.body.username);
@@ -38,6 +40,15 @@ export default async function handler(
       return response
         .status(401)
         .json({ errors: [{ message: 'username is already taken' }] });
+    }
+
+    // 2.we check if the user already exist
+    const email = await getEmailAddress(request.body.email);
+
+    if (email) {
+      return response
+        .status(401)
+        .json({ errors: [{ message: 'e-mail is already taken' }] });
     }
 
     // 3. we hash the password
