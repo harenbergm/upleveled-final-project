@@ -31,7 +31,7 @@ export default function Header(props) {
         </div>
         <div>
           {props.user && props.user.username}
-          {props.user ? (
+          {props.username ? (
             <Anchor
               css={css`
                 margin-left: 30px;
