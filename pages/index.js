@@ -10,9 +10,9 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>Welcome to Next.js!</h1>
+        <h1>Home</h1>
 
-        <p>Get started by editin gpages/index.js</p>
+        <p>Homepage</p>
       </main>
 
       <footer></footer>

@@ -43,6 +43,7 @@ export default async function handler(
     const userWithoutPassword = await createUser(
       request.body.username,
       passwordHash,
+      request.body.email,
     );
 
     // 5. create a csrf secret
