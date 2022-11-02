@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }) {
           }
         `}
       />
-      <Layout>
+      <Layout user={user}>
         <Component {...pageProps} refreshUserProfile={refreshUserProfile} />
       </Layout>
     </>

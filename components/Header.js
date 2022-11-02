@@ -36,8 +36,8 @@ export default function Header(props) {
           <Link href="/private-profile">Private Profile</Link>
         </div>
         <div>
-          {/* {props.user && props.user.username} */}
-          {props.username ? (
+          {props.user && props.user.username}
+          {props.user ? (
             <Anchor
               css={css`
                 margin-left: 30px;
