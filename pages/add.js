@@ -4,6 +4,8 @@ import UploadImage from '../components/UploadIMage';
 
 export default function Contact() {
   const [imageUrl, setImageUrl] = useState('');
+  const [cloudUrl, setCloudUrl] = useState(imageUrl);
+  const URL = imageUrl;
   return (
     <>
       <Head>
@@ -16,6 +18,14 @@ export default function Contact() {
           <form>
             <UploadImage setImageUrl={setImageUrl} />;<button>Submit</button>
           </form>
+
+          <img
+            height={100}
+            width={100}
+            src="https://res.cloudinary.com/ditcqem7b/image/upload/v1667399934/iguana_g9acuj.jpg"
+          />
+          <br></br>
+          <img height={100} width={100} src={cloudUrl} />
         </div>
       </main>
     </>
