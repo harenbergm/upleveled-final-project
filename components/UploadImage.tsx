@@ -7,31 +7,34 @@ type Props = {
 };
 
 function UploadImage({ setImageUrl }: Props) {
-  const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
-  console.log('preview', String(preview));
+  // console.log('preview', String(preview));
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const newFile = e.target.files?.[0];
     if (!newFile) return;
-    // setFile(newFile);
-    /* Creating a URL for the file. */
+
+    /* Creating an URL for the file. */
     setPreview(URL.createObjectURL(newFile));
+    console.log('newFile', newFile);
 
     /* Creating a form data object and appending the file and the upload preset to it. */
     const formData = new FormData();
     formData.append('file', newFile);
-    formData.append('upload_preset', 'bookstore');
+    formData.append('upload_preset', 'o7t0b9ra');
+
+    console.log('formData', formData);
 
     /* Sending the image to cloudinary and getting the url back. */
     const data = await fetch(
-      'https://api.cloudinary.com/v1_1/diz1cgduk/image/upload',
+      'https://api.cloudinary.com/v1_1/ditcqem7b/image/upload',
       {
         method: 'POST',
         body: formData,
       },
     ).then((res) => res.json());
     setImageUrl(data.secure_url);
+    console.log('data', data);
   };
 
   return (
@@ -44,7 +47,7 @@ function UploadImage({ setImageUrl }: Props) {
         onChange={handleFileChange}
       />
       {!!preview && (
-        <Image width={30} height={30} src={String(preview)} alt="preview" />
+        <Image width={100} height={100} src={String(preview)} alt="preview" />
       )}
     </div>
   );
