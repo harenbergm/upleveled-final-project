@@ -6,3 +6,10 @@
 // logout returnTo Homepage - ok
 // suignup no returnTo
 // login returnTo Homepage - private profile - ok
+
+// Database
+// table comments recipe_id integer REFERENCES recipes (id) ON DELETE CASCADE
+
+// table recipes preparation_time in minutes
+
+// table difficulties will receive easy - medium - diffuclt as options

@@ -97,6 +97,7 @@ export default function Register(props: Props) {
       <label>
         email
         <input
+          type="email"
           value={email}
           onChange={(event) => {
             setEmail(event.currentTarget.value);
