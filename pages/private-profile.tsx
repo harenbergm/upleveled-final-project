@@ -1,11 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
-import { userAgent } from 'next/server';
-import {
-  getUserBySessionToken,
-  getUserByUsername,
-  User,
-} from '../database/users';
+// import { userAgent } from 'next/server';
+import { getUserBySessionToken, User } from '../database/users';
 
 type Props = {
   user?: User;
@@ -38,20 +34,17 @@ export default function UserProfile(props: Props) {
       <br />
       Password: ******** <button>Edit</button>
       <br />
-      E-Mail-Adress: {props.user.e_mail} <button>Edit</button>
+      E-Mail-Adress: {props.user.eMail} <button>Edit</button>
       <br />
       <br />
       <button>Delete Profile</button>
       <br />
       <h2>Create Recipe</h2>
-      {console.log(props)}
     </>
   );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const userProfile = await getUserByUsername(username);
-
   const token = context.req.cookies.sessionToken;
 
   const user = token && (await getUserBySessionToken(token));

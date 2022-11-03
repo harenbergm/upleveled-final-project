@@ -7,7 +7,7 @@ export type User = {
   id: number;
   username: string;
   passwordHash: string;
-  e_mail: string;
+  eMail: string;
 };
 
 export async function getUserByUsername(username: string) {
@@ -63,10 +63,11 @@ export async function getUserWithPasswordHashWithoutEmailByUsername(
 export async function getUserBySessionToken(token: string) {
   if (!token) return undefined;
 
-  const [user] = await sql<{ id: number; username: string }[]>`
+  const [user] = await sql<{ id: number; username: string; e_mail: string }[]>`
   SELECT
     users.id,
-    users.username
+    users.username,
+    e_mail
   FROM
     users,
     sessions
