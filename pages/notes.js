@@ -10,6 +10,8 @@
 // Database
 // table comments recipe_id integer REFERENCES recipes (id) ON DELETE CASCADE
 
-// table recipes preparation_time in minutes
+// table recipes
 
 // table difficulties will receive easy - medium - diffuclt as options
+
+// admin panel https://github.com/upleveled/next-js-example-fall-2022-vienna-austria/blob/main/pages/animals/admin.tsx

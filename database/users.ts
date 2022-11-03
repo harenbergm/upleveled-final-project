@@ -1,5 +1,6 @@
 // !! EMAIL FEHLT ALS PARAMETER !! Z 68
 
+import { userAgentFromString } from 'next/server';
 import { sql } from './connect';
 
 export type User = {
@@ -94,3 +95,23 @@ export async function createUser(
 
   return userWithoutPassword!;
 }
+
+// export async function updateUserById(
+//   id: number,
+//   username: string,
+//   password: string,
+//   email: string,
+// ) {
+//   const [user] = await sql`
+//   UPDATE
+//     users
+//   SET
+//     username = ${username},
+//     password_hash = ${password},
+//     e_mail = ${email}
+//   WHERE
+//     id = ${id}
+//   RETURNING *
+//   `;
+//   return user;
+// }

@@ -27,11 +27,19 @@ export default function UserProfile(props: Props) {
         <meta name="description" content="Biography of the person" />
       </Head>
       <h1>Personal Information</h1>
-      id: {props.user.id} username: {props.user.username}
-      <hr />
-      THIS IS NOT FUNCTINAL BUT AN EXAMPLE
+      id: {props.user.id}
       <br />
-      <button>Delete User</button>
+      username: {props.user.username} <button>Edit</button>
+      <br />
+      Password: ******** <button>Edit</button>
+      <br />
+      E-Mail-Adress: {props.user.e_mail} <button>Edit</button>
+      <br />
+      <br />
+      <button>Delete Profile</button>
+      <br />
+      <h2>Create Recipe</h2>
+      {console.log(props)}
     </>
   );
 }
