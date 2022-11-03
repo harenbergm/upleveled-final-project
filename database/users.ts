@@ -1,6 +1,6 @@
 // !! EMAIL FEHLT ALS PARAMETER !! Z 68
 
-import { userAgentFromString } from 'next/server';
+// import { userAgentFromString } from 'next/server';
 import { sql } from './connect';
 
 export type User = {
@@ -25,6 +25,25 @@ export async function getUserByUsername(username: string) {
     users.username = ${username}
   `;
 
+  return user;
+}
+
+// Get a single users by valid session token
+export async function getUserByValidSessionToken(token: string | undefined) {
+  if (!token) return undefined;
+  // STRETCH: Update this adding a role to the users and matching it with the session token
+  const [user] = await sql<User[]>`
+    SELECT
+      users.*
+    FROM
+      users,
+      sessions
+    WHERE
+      sessions.token = ${token}
+    AND
+      sessions.expiry_timestamp > now()
+
+  `;
   return user;
 }
 
@@ -80,12 +99,34 @@ export async function getUserBySessionToken(token: string) {
   return user;
 }
 
+// Get a user by name and valid session token
+export async function getUserByUsernameAndValidSessionToken(
+  username: string,
+  token: string,
+) {
+  if (!token) return undefined;
+
+  const [user] = await sql<User[]>`
+  SELECT
+    users.*
+  FROM
+    users,
+    sessions
+  WHERE
+    sessions.token = ${token}
+  AND
+    sessions.expiry_timestamp > now()
+  AND
+    users.username = ${username}
+`;
+  return user;
+}
+
 export async function createUser(
   username: string,
   password_hash: string,
   e_mail: string,
 ) {
-  // !! EMAIL FEHLT ALS PARAMETER !!
   const [userWithoutPassword] = await sql<{ id: number; username: string }[]>`
   INSERT INTO users
     (username, password_hash, e_mail)
@@ -99,22 +140,16 @@ export async function createUser(
   return userWithoutPassword!;
 }
 
-// export async function updateUserById(
-//   id: number,
-//   username: string,
-//   password: string,
-//   email: string,
-// ) {
-//   const [user] = await sql`
-//   UPDATE
-//     users
-//   SET
-//     username = ${username},
-//     password_hash = ${password},
-//     e_mail = ${email}
-//   WHERE
-//     id = ${id}
-//   RETURNING *
-//   `;
-//   return user;
-// }
+export async function updateUserByUsername(username: string, email: string) {
+  const [user] = await sql`
+  UPDATE
+    users
+  SET
+    username = ${username},
+    e_mail = ${email}
+  WHERE
+    username = ${username}
+  RETURNING *
+  `;
+  return user;
+}

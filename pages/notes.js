@@ -15,3 +15,5 @@
 // table difficulties will receive easy - medium - diffuclt as options
 
 // admin panel https://github.com/upleveled/next-js-example-fall-2022-vienna-austria/blob/main/pages/animals/admin.tsx
+
+// updateUserFromApiByUsername
