@@ -16,7 +16,9 @@ export async function getUserByUsername(username: string) {
   const [user] = await sql<{ id: number; username: string }[]>`
   SELECT
     id,
-    username
+    username,
+    password_hash,
+    e_mail
   FROM
     users
   WHERE

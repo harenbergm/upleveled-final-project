@@ -1,6 +1,11 @@
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
-import { getUserBySessionToken, User } from '../database/users';
+import { userAgent } from 'next/server';
+import {
+  getUserBySessionToken,
+  getUserByUsername,
+  User,
+} from '../database/users';
 
 type Props = {
   user?: User;
@@ -45,6 +50,8 @@ export default function UserProfile(props: Props) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const userProfile = await getUserByUsername(username);
+
   const token = context.req.cookies.sessionToken;
 
   const user = token && (await getUserBySessionToken(token));

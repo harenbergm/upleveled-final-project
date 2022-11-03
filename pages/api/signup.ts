@@ -46,16 +46,13 @@ export default async function handler(
     const email = await getEmailAddress(request.body.email);
 
     if (email) {
-      return response
-        .status(401)
-        .json({
-          errors: [
-            {
-              message:
-                'e-mail format is not correct or e-mail is already taken',
-            },
-          ],
-        });
+      return response.status(401).json({
+        errors: [
+          {
+            message: 'e-mail format is not correct or e-mail is already taken',
+          },
+        ],
+      });
     }
 
     // 3. we hash the password
