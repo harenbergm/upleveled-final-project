@@ -2,6 +2,7 @@ import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 // import { userAgent } from 'next/server';
 import { useState } from 'react';
+import UploadImage from '../components/UploadImage';
 import { getUserBySessionToken, User } from '../database/users';
 
 type Props = {
@@ -11,8 +12,7 @@ type Props = {
 export default function UserProfile(props: Props) {
   const [username, setUsername] = useState(props.user.username);
   const [email, setEmail] = useState(props.user.eMail);
-
-  console.log('props.user.username', props.user.username);
+  const [imageUrl, setImageUrl] = useState('');
 
   async function updateUserFromApiById(id: number) {
     const response = await fetch(`/api/profile/${id}`, {
@@ -28,6 +28,18 @@ export default function UserProfile(props: Props) {
     });
 
     const updatedUsernameFromApi = (await response.json()) as User;
+  }
+
+  async function deleteUserFromApiById(id: number) {
+    const response = await fetch(`/api/profile/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        iD: id,
+      }),
+    });
   }
 
   if (!props.user) {
@@ -52,7 +64,11 @@ export default function UserProfile(props: Props) {
       Account ID: {props.user.id}
       <br />
       <h2>Personal Information</h2>
-      <form>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+      >
         <label>
           Username:
           <input
@@ -83,17 +99,22 @@ export default function UserProfile(props: Props) {
         </label>
       </form>
       <br />
-      {console.log('user', props.user)}
       <br />
+      <button
+        onClick={() => {
+          deleteUserFromApiById(props.user.id);
+        }}
+      >
+        Delete Profile
+      </button>
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <button>Delete Profile</button>
       <br />
       <h2>Create Recipe</h2>
+      <div>
+        <form>
+          <UploadImage setImageUrl={setImageUrl} />
+        </form>
+      </div>
     </>
   );
 }

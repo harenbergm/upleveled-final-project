@@ -1,8 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { stringify } from 'node:querystring';
 import { getValidSessionByToken } from '../../../database/sessions';
 import {
   getUserByValidSessionToken,
   updateUserById,
+  deleteUserById,
 } from '../../../database/users';
 
 // import { validateTokenWithSecret } from '../../../utils/csrf';
@@ -65,7 +67,16 @@ export default async function handler(
     // response with the new created user
     return response.status(200).json(newUser);
   }
-  return response.status(200).json(user);
+
+  if (request.method === 'DELETE') {
+    const deletedUser = await deleteUserById(userId);
+
+    if (!deletedUser) {
+      return response.status(404).json({ message: 'Not a valid Id' });
+    }
+
+    return response.status(200).json(user);
+  }
 }
 
 // prevent the endpoint to be accessed by cross site requests

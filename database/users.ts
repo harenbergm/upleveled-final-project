@@ -157,3 +157,14 @@ export async function updateUserById(
   `;
   return user;
 }
+
+export async function deleteUserById(id: number) {
+  const [user] = await sql<User[]>`
+    DELETE FROM
+      users
+    WHERE
+      id = ${id}
+    RETURNING *
+  `;
+  return user;
+}

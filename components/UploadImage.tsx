@@ -6,7 +6,7 @@ type Props = {
   setImageUrl: (imageUrl: string) => void;
 };
 
-function UploadImage({ setImageUrl }: Props) {
+export function UploadImage({ setImageUrl }: Props) {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   // console.log('preview', String(preview));

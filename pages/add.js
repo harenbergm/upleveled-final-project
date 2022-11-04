@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import UploadImage from '../components/UploadIMage';
+import UploadImage from '../components/UploadImage';
 
 export default function Contact() {
   const [imageUrl, setImageUrl] = useState('');
