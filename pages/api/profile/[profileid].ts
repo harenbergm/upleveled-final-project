@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getValidSessionByToken } from '../../../database/sessions';
 import {
   getUserByValidSessionToken,
-  updateUserByUsername,
+  updateUserById,
 } from '../../../database/users';
 
 // import { validateTokenWithSecret } from '../../../utils/csrf';
@@ -11,6 +11,8 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse,
 ) {
+  // check if session token exists
+  console.log('request.query', request.query);
   const session =
     request.cookies.sessionToken &&
     (await getValidSessionByToken(request.cookies.sessionToken));
@@ -22,38 +24,45 @@ export default async function handler(
     return;
   }
 
+  const userId = Number(request.query.profileId);
+
+  // check if the id is a number
+  if (!userId) {
+    return response.status(404).json({ message: 'Not a valid Id' });
+  }
+
+  // check if user exists and has a valid session token
   const user = await getUserByValidSessionToken(request.cookies.sessionToken);
 
-  // check if user exists on the database
+  // check if user exists in the database
   if (!user) {
     return response
       .status(404)
-      .json({ message: 'Not a valid Id or not a valid session token' });
+      .json({ message: 'Not a valid username or not a valid session token' });
   }
 
   if (request.method === 'PUT') {
     // NOT getting the id from the body since is already on the query
-    const firstName = request.body?.firstName;
-    const accessory = request.body?.accessory;
-    const type = request.body?.type;
+    const userName = request.body?.userName;
+    const eMail = request.body?.eMail;
 
     // Check if all the information exist to create the user
-    if (!(firstName && accessory && type)) {
+    if (!(userName && eMail)) {
       return response
         .status(400)
-        .json({ message: 'property firstName, accessory or type missing' });
+        .json({ message: 'property username or email missing' });
     }
 
     // TODO: add type checking to the api
 
-    // Create the animal using the database util function
-    const newUser = await updateUserByUsername(username, firstName);
+    // Create the user using the database util function
+    const newUser = await updateUserById(userId, userName, eMail);
 
     if (!newUser) {
       return response.status(404).json({ message: 'Not a valid Username' });
     }
 
-    // response with the new created animal
+    // response with the new created user
     return response.status(200).json(newUser);
   }
   return response.status(200).json(user);

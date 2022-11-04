@@ -8,6 +8,7 @@ import {
   createUser,
   getEmailAddress,
   getUserByUsername,
+  updateUsernameById,
 } from '../../database/users';
 import { createSerializedRegisterSessionTokenCookie } from '../../utils/cookies';
 
@@ -45,7 +46,7 @@ export default async function handler(
     // 2.we check if the user already exist
     const email = await getEmailAddress(request.body.email);
 
-    if (email) {
+    if (!email) {
       return response.status(401).json({
         errors: [
           {

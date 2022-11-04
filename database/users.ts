@@ -140,7 +140,11 @@ export async function createUser(
   return userWithoutPassword!;
 }
 
-export async function updateUserByUsername(username: string, email: string) {
+export async function updateUserById(
+  id: number,
+  username: string,
+  email: string,
+) {
   const [user] = await sql`
   UPDATE
     users
@@ -148,7 +152,7 @@ export async function updateUserByUsername(username: string, email: string) {
     username = ${username},
     e_mail = ${email}
   WHERE
-    username = ${username}
+    id = ${id}
   RETURNING *
   `;
   return user;

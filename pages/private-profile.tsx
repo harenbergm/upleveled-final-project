@@ -5,30 +5,29 @@ import { useState } from 'react';
 import { getUserBySessionToken, User } from '../database/users';
 
 type Props = {
-  user?: User;
+  user: User;
 };
 
 export default function UserProfile(props: Props) {
-  const [username, setUsername] = useState(props.user?.username);
-  const [email, setEmail] = useState(props.user?.eMail);
+  const [username, setUsername] = useState(props.user.username);
+  const [email, setEmail] = useState(props.user.eMail);
 
-  // export function handleChange(event: any) {
-  //   return event.preventDefault();
-  // }
+  console.log('props.user.username', props.user.username);
 
-  async function updateUserFromApiByUsername(id: number) {
+  async function updateUserFromApiById(id: number) {
     const response = await fetch(`/api/profile/${id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
+        iD: id,
         userName: username,
         eMail: email,
       }),
     });
 
-    const updatedUserFromApi = (await response.json()) as User;
+    const updatedUsernameFromApi = (await response.json()) as User;
   }
 
   if (!props.user) {
@@ -39,7 +38,6 @@ export default function UserProfile(props: Props) {
           <meta name="description" content="User not found" />
         </Head>
         <h1>404 - User not found</h1>
-        Better luck next time
       </>
     );
   }
@@ -50,10 +48,10 @@ export default function UserProfile(props: Props) {
         <title>Personal Information</title>
         <meta name="description" content="Biography of the person" />
       </Head>
-      <h1>Personal Information</h1>
+      <h1>Private Profile</h1>
       Account ID: {props.user.id}
       <br />
-      <h2>Change Personal Inforamtion</h2>
+      <h2>Personal Information</h2>
       <form>
         <label>
           Username:
@@ -73,16 +71,18 @@ export default function UserProfile(props: Props) {
               setEmail(event?.currentTarget.value);
             }}
           />
+          <br />
+          <br />
+          <button
+            onClick={() => {
+              updateUserFromApiById(props.user.id);
+            }}
+          >
+            Save Changes
+          </button>
         </label>
-        <br />
-        <button
-          onClick={() => {
-            updateUserFromApiByUsername(3);
-          }}
-        >
-          Save Changes
-        </button>
       </form>
+      <br />
       {console.log('user', props.user)}
       <br />
       <br />

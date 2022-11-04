@@ -10,6 +10,30 @@ type Props = {
   refreshUserProfile: () => Promise<void>;
 };
 
+const loginStyles = css`
+  justify-content: center;
+  text-align: center;
+  padding-top: 100px;
+  margin: 100px auto 100px;
+  width: 400px;
+  height: 400px;
+  border: 1px solid black;
+  border-radius: 12px;
+
+  > label {
+    display: block;
+    margin-bottom: -10px;
+    /* margin-right: 20px; */
+  }
+
+  > label ~ input {
+  }
+
+  > button {
+    margin-top: 30px;
+  }
+`;
+
 export default function Login(props: Props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -61,47 +85,49 @@ export default function Login(props: Props) {
         <title>Login</title>
         <meta name="description" content="Login new users" />
       </Head>
-      <h1>Login</h1>
-      {errors.map((error) => {
-        return (
-          <p
-            css={css`
-              background-color: red;
-              color: white;
-              padding: 5px;
-            `}
-            key={error.message}
-          >
-            ERROR: {error.message}
-          </p>
-        );
-      })}
-      <label>
-        username
-        <input
-          value={username}
-          onChange={(event) => {
-            setUsername(event.currentTarget.value.toLowerCase());
+      <div css={loginStyles}>
+        <h1>Login</h1>
+        {errors.map((error) => {
+          return (
+            <p
+              css={css`
+                background-color: red;
+                color: white;
+                padding: 5px;
+              `}
+              key={error.message}
+            >
+              ERROR: {error.message}
+            </p>
+          );
+        })}
+        <label>
+          Username
+          <input
+            value={username}
+            onChange={(event) => {
+              setUsername(event.currentTarget.value.toLowerCase());
+            }}
+          />
+        </label>
+        <br />
+        <label>
+          Password
+          <input
+            value={password}
+            onChange={(event) => {
+              setPassword(event.currentTarget.value);
+            }}
+          />
+        </label>
+        <button
+          onClick={async () => {
+            await loginHandler();
           }}
-        />
-      </label>
-      <br />
-      <label>
-        password
-        <input
-          value={password}
-          onChange={(event) => {
-            setPassword(event.currentTarget.value);
-          }}
-        />
-      </label>
-      <button
-        onClick={async () => {
-          await loginHandler();
-        }}
-      >
-        Login
-      </button>
+        >
+          Login
+        </button>
+      </div>
     </>
   );
 }

@@ -5,11 +5,11 @@ const navStyles = css`
   margin-top: 20px;
   padding: 10px 100px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 
   > div > a {
     margin-left: 40px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
   }
   :hover {
     color: #e04326;
@@ -17,6 +17,10 @@ const navStyles = css`
 
   > div > Link {
     gap: 20px;
+  }
+
+  > div:first-child {
+    justify-content: left;
   }
 `;
 
@@ -29,14 +33,24 @@ export default function Header(props) {
   return (
     <header>
       <nav css={navStyles}>
+        {/* Using a Link component is faster than an <a> tag */}
         <div>
-          {/* Using a Link component is faster than an <a> tag */}
-          <Link href="/">HOME</Link>
-          <Link href="/show-recipes">Show Recipes</Link>
-          <Link href="/private-profile">Private Profile</Link>
+          <Link href="/">Logo</Link>
         </div>
         <div>
+          <Link href="/show-recipes">Show Recipes</Link>
+          <Link href="/private-profile">Create Recipe</Link>
+        </div>
+        <div>
+          {/* <div
+            css={css`
+              border: 1px solid black;
+              border-radius: 50%;
+            `}
+          > */}
           {props.user && props.user.username}
+          {/* </div> */}
+
           {props.user ? (
             <Anchor
               css={css`
@@ -49,7 +63,6 @@ export default function Header(props) {
           ) : (
             <>
               <Link href="/login">Login</Link>
-              <Link href="/logout">Logout</Link>
               <Link href="/signup">Signup</Link>
             </>
           )}

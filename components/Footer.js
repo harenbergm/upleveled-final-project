@@ -7,16 +7,16 @@ const navStyles = css`
   display: flex;
   justify-content: center;
 
-
   > div > a {
-    margin-left: 40px;
-    text-transform: uppercase;
-  }:hover {
-      color: white;
+    margin-right: 40px;
+    /* text-transform: uppercase; */
+  }
+  :hover {
+    color: white;
 
-
-  > div > Link {
-    gap: 20px;
+    > div > Link {
+      gap: 20px;
+    }
   }
 `;
 
