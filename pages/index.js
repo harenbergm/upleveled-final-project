@@ -1,6 +1,18 @@
 import Head from 'next/head';
+import { css } from '@emotion/react';
 
 export default function Home() {
+  const homeStyles = css`
+    justify-content: center;
+    text-align: center;
+    padding-top: 100px;
+    margin: 100px auto 100px;
+    width: 400px;
+    height: 400px;
+    /* border: 1px solid black; */
+    border-radius: 12px;
+  `;
+
   return (
     <div>
       <Head>
@@ -10,9 +22,11 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>Home </h1>
+        <div css={homeStyles}>
+          <h1>Home </h1>
 
-        <p>Homepage</p>
+          {/* <p>Homepage</p> */}
+        </div>
       </main>
 
       <footer></footer>
