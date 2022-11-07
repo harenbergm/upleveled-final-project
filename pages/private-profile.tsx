@@ -14,9 +14,25 @@ export default function UserProfile(props: Props) {
   const [username, setUsername] = useState(props.user.username);
   const [email, setEmail] = useState(props.user.eMail);
   const [imageUrl, setImageUrl] = useState('');
+  console.log('imageUrl', imageUrl);
+
+  async function createRecipeFromApi() {
+    const response = await fetch(`/api/recipes`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        imageURL: imageUrl,
+      }),
+    });
+
+    const cloudinaryBodyUrl = await response.json();
+    console.log('cloudinaryBodyUrl', cloudinaryBodyUrl);
+  }
 
   async function updateUserFromApiById(id: number) {
-    const response = await fetch(`/api/profile/${id}`, {
+    const response = await fetch(`/api/profiles/${id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -32,7 +48,7 @@ export default function UserProfile(props: Props) {
   }
 
   async function deleteUserFromApiById(id: number) {
-    const response = await fetch(`/api/profile/${id}`, {
+    const response = await fetch(`/api/profiles/${id}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',
@@ -44,7 +60,7 @@ export default function UserProfile(props: Props) {
   }
 
   async function createRecipeFromApiById(id: number) {
-    const response = await fetch(`/api/profile/${id}`, {
+    const response = await fetch(`/api/profiles/${id}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',
@@ -127,6 +143,14 @@ export default function UserProfile(props: Props) {
         <h4>Upload Image</h4>
         <form>
           <UploadImage setImageUrl={setImageUrl} />
+          <button
+            onClick={(event) => {
+              createRecipeFromApi();
+              event.preventDefault();
+            }}
+          >
+            Submit
+          </button>
           <RecipeUpload />
         </form>
       </div>
