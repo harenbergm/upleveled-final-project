@@ -7,6 +7,9 @@ export default async function handler(
   response: NextApiResponse,
 ) {
   if (request.method === 'POST') {
+    const cloudinaryBodyUrl = request.body?.imageURL;
+    console.log('cloudinaryBodyUrl', cloudinaryBodyUrl);
+
     // 1. Get the cookie from the request and use it to validate the session
     const session =
       request.cookies.sessionToken &&
