@@ -6,7 +6,7 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse,
 ) {
-  if (request.method === 'GET') {
+  if (request.method === 'POST') {
     // 1. Get the cookie from the request and use it to validate the session
     const session =
       request.cookies.sessionToken &&
@@ -32,6 +32,17 @@ export default async function handler(
     // return the user from the session token
     response.status(200).json({ user: user });
   } else {
+    response.status(405).json({ errors: [{ message: 'method not allowed' }] });
+  }
+
+  if (request.method === 'POST') {
+  }
+
+  if (request.method === 'PUT') {
+    response.status(405).json({ errors: [{ message: 'method not allowed' }] });
+  }
+
+  if (request.method === 'DELETE') {
     response.status(405).json({ errors: [{ message: 'method not allowed' }] });
   }
 }
