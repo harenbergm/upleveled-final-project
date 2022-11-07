@@ -16,4 +16,7 @@
 
 // admin panel https://github.com/upleveled/next-js-example-fall-2022-vienna-austria/blob/main/pages/animals/admin.tsx
 
-// updateUserFromApiByUsername
+// API FE https://github.com/upleveled/next-js-example-fall-2022-vienna-austria/blob/main/pages/animals/admin.tsx
+// API BE https://github.com/upleveled/next-js-example-fall-2022-vienna-austria/blob/main/pages/api/animals/index.ts
+// API BE https://github.com/upleveled/next-js-example-fall-2022-vienna-austria/blob/main/pages/api/animals/%5BanimalId%5D.ts
+// DB https://github.com/upleveled/next-js-example-fall-2022-vienna-austria/blob/main/database/animals.ts
