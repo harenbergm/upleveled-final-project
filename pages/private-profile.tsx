@@ -2,6 +2,7 @@ import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 // import { userAgent } from 'next/server';
 import { useState } from 'react';
+import RecipeUpload from '../components/RecipeUpload';
 import UploadImage from '../components/UploadImage';
 import { getUserBySessionToken, User } from '../database/users';
 
@@ -31,6 +32,18 @@ export default function UserProfile(props: Props) {
   }
 
   async function deleteUserFromApiById(id: number) {
+    const response = await fetch(`/api/profile/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        iD: id,
+      }),
+    });
+  }
+
+  async function createRecipeFromApiById(id: number) {
     const response = await fetch(`/api/profile/${id}`, {
       method: 'DELETE',
       headers: {
@@ -111,8 +124,10 @@ export default function UserProfile(props: Props) {
       <br />
       <h2>Create Recipe</h2>
       <div>
+        <h4>Upload Image</h4>
         <form>
           <UploadImage setImageUrl={setImageUrl} />
+          <RecipeUpload />
         </form>
       </div>
     </>
