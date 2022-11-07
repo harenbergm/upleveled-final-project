@@ -35,7 +35,7 @@ export default async function handler(
     response.status(405).json({ errors: [{ message: 'method not allowed' }] });
   }
 
-  if (request.method === 'POST') {
+  if (request.method === 'GET') {
   }
 
   if (request.method === 'PUT') {
