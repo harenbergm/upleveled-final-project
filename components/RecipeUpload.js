@@ -8,9 +8,8 @@ export default function RecipeUpload() {
     height: 300px;
   `;
 
-  const [recipeName, setRecipeName] = useState(false);
   const [recipeInstructions, setRecipeInstructions] = useState('');
-  const [almondMeal, setAlmondMeal] = useState('');
+
   const [almond, setAlmond] = useState('');
   const [amaranth, setAmaranth] = useState('');
   const [apples, setApples] = useState('');
@@ -102,6 +101,45 @@ export default function RecipeUpload() {
   const [whiteWine, setWhiteWine] = useState('');
   const [whiteOnions, setWhiteOnions] = useState('');
 
+  const [ingredients, setIngredients] = useState([]);
+  const [almondMeal, setAlmondMeal] = useState('');
+
+  function addAlmondMealToIngredientsNEW(event) {
+    // setAlmondMeal(event.currentTarget.checked);
+    const id = { id: 1 };
+    setIngredients([...ingredients, id]);
+
+    if (ingredients[0]) {
+      setIngredients([]);
+    }
+
+    if (ingredients[ingredients.length - 1]) {
+      setIngredients(ingredients.pop());
+    }
+  }
+
+  function addAlmondMealToIngredients(event) {
+    setAlmondMeal(event.currentTarget.checked);
+    const id = { id: 1 };
+    setIngredients([...ingredients, id]);
+  }
+
+  // if (ingredients === false) {
+  //   setIngredients([ingredients.shift()]);
+  // }
+
+  //   setIngredients([...ingredients, id]);
+  //   // return ingredients;
+  // }
+
+  // if (almondMeal === false) {
+  //   setIngredients([ingredients.shift()]);
+  //   return ingredients;
+  // }
+
+  console.log('almondMeal', almondMeal);
+  console.log('ingredients', ingredients);
+
   return (
     <div>
       <Head>
@@ -121,13 +159,14 @@ export default function RecipeUpload() {
         </div>
         <div>
           <h3>Chose Your Ingredients</h3>
+
           <label>
             Almond Meal
             <input
               type="checkbox"
               value={almondMeal}
               onChange={(event) => {
-                setAlmondMeal(event.currentTarget.checked);
+                addAlmondMealToIngredientsNEW(event);
               }}
             />
           </label>
@@ -947,6 +986,16 @@ export default function RecipeUpload() {
             />
           </label>
           <label>
+            Tomatoes
+            <input
+              type="checkbox"
+              value={tomatoes}
+              onChange={(event) => {
+                setTomatoes(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
             Turkey
             <input
               type="checkbox"
@@ -1045,7 +1094,6 @@ export default function RecipeUpload() {
                 setRecipeInstructions(event.currentTarget.value);
               }}
             />
-            {console.log('almondMeal', almondMeal)}
           </div>
         </div>
       </main>
