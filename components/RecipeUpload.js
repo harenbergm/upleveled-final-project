@@ -9,6 +9,7 @@ export default function RecipeUpload() {
   `;
 
   const [recipeName, setRecipeName] = useState(false);
+  const [recipeInstructions, setRecipeInstructions] = useState('');
   const [almondMeal, setAlmondMeal] = useState('');
   const [almond, setAlmond] = useState('');
   const [amaranth, setAmaranth] = useState('');
@@ -16,48 +17,22 @@ export default function RecipeUpload() {
   const [apricots, setApricots] = useState('');
   const [avocados, setAvocados] = useState('');
   const [bananas, setBananas] = useState('');
+  const [bacon, setBacon] = useState('');
+  const [bakingPowder, setBakingPowder] = useState('');
+  const [bayLeaves, setBayLeaves] = useState('');
   const [barley, setBarley] = useState('');
   const [beefChuck, setBeefChuck] = useState('');
   const [beefRibs, setBeefRibs] = useState('');
   const [beefTenderloin, setBeefTenderloin] = useState('');
   const [beefBrisket, setBeefBrisket] = useState('');
-  // butter
-  // sour cream
-  // bacon
-  // spring onion
-  // feta cheese
-  // pumpkin
-  // sweet potatoes
-  // carrots
-  // cucumber
-  // red cabbage
-  // baking powder
-  // creme fraiche
-  // mustard
-  // salt
-  // pepper
-  // eggs
-  // ketchup
-  // milk
-  // bay leaves
-  // flour
-  // nutmeg
-  // lasagna sheets
-  // olive oil
-  // red wine
-  // celery
-  // white beans
-  // white wine
-  // kidney beans
-  // lemon
-  // garlic
-  // milk
-  // red onions
-  // white onions
-  // vinegar
+  const [butter, setButter] = useState('');
   const [buckWheat, setBuckWheat] = useState('');
   const [bulgur, setBulgur] = useState('');
   const [cheese, setCheese] = useState('');
+  const [carrots, setCarrots] = useState('');
+  const [cucumber, setCucumber] = useState('');
+  const [celery, setCelery] = useState('');
+  const [cremeFraiche, setCremeFraiche] = useState('');
   const [cherries, setCherries] = useState('');
   const [chiaSeeds, setChiaSeeds] = useState('');
   const [chickenBreast, setChickenBreast] = useState('');
@@ -69,18 +44,32 @@ export default function RecipeUpload() {
   const [cornFlour, setCornFlour] = useState('');
   const [cornMeal, setcornMeal] = useState('');
   const [duck, setDuck] = useState('');
+  const [eggs, setEggs] = useState('');
   const [fish, setFish] = useState('');
+  const [fetaCheese, setFetaCheese] = useState('');
+  const [flour, setFlour] = useState('');
+  const [garlic, setGarlic] = useState('');
   const [groundBeef, setGroundBeef] = useState('');
   const [groundChicken, setGroundChicken] = useState('');
   const [groundPork, setGroundPork] = useState('');
   const [groundTurkey, setGroundTurkey] = useState('');
+  const [ketchup, setKetchup] = useState('');
+  const [kidneyBeans, setKidneyBeans] = useState('');
   const [lamb, setLamb] = useState('');
+  const [lasagnaSheets, setLasagnaSheets] = useState('');
+  const [lemon, setLemon] = useState('');
+  const [mustard, setMustard] = useState('');
+  const [milk, setMilk] = useState('');
   const [mangos, setMangos] = useState('');
   const [millet, setMillet] = useState('');
   const [mushrooms, setMushrooms] = useState('');
+  const [nutmeg, setNutmeg] = useState('');
   const [nectarines, setNectarines] = useState('');
+  const [oliveOil, setOliveOil] = useState('');
   const [oatFlour, setOatFlour] = useState('');
   const [oats, setOats] = useState('');
+  const [pumpkin, setPumpkin] = useState('');
+  const [pepper, setPepper] = useState('');
   const [peaches, setPeaches] = useState('');
   const [peanutes, setPeanutes] = useState('');
   const [pears, setPears] = useState('');
@@ -90,17 +79,28 @@ export default function RecipeUpload() {
   const [porkShoulder, setPorkShoulder] = useState('');
   const [porkTenderloin, setPorkTenderloin] = useState('');
   const [quinoa, setQuinoa] = useState('');
+  const [redWine, setRedWine] = useState('');
+  const [redCabbage, setRedCabbage] = useState('');
+  const [redOnions, setRedOnions] = useState('');
+  const [sweetPotatoes, setSweetPotatoes] = useState('');
+  const [salt, setSalt] = useState('');
+  const [sourCream, setSourCream] = useState('');
+  const [springOnion, setSpringOnion] = useState('');
   const [shrimps, setShrimps] = useState('');
   const [sirloin, setSirloin] = useState('');
   const [spelt, setSpelt] = useState('');
   const [steak, setSteak] = useState('');
   const [tapiocaFlour, setTapiocaFlour] = useState('');
+  const [tomatoes, setTomatoes] = useState('');
   const [turkey, setTurkey] = useState('');
+  const [vinegar, setVinegar] = useState('');
   const [veal, setVeal] = useState('');
   const [venison, setVenison] = useState('');
   const [whiteRiceFlour, setWhiteRiceFlour] = useState('');
   const [wildRice, setWildRice] = useState('');
-  const [recipeInstructions, setRecipeInstructions] = useState('');
+  const [whiteBeans, setWhiteBeans] = useState('');
+  const [whiteWine, setWhiteWine] = useState('');
+  const [whiteOnions, setWhiteOnions] = useState('');
 
   return (
     <div>
@@ -192,6 +192,36 @@ export default function RecipeUpload() {
             />
           </label>
           <label>
+            Bacon
+            <input
+              type="checkbox"
+              value={bacon}
+              onChange={(event) => {
+                setBacon(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Baking Powder
+            <input
+              type="checkbox"
+              value={bakingPowder}
+              onChange={(event) => {
+                setBakingPowder(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Bay Leaves
+            <input
+              type="checkbox"
+              value={bayLeaves}
+              onChange={(event) => {
+                setBayLeaves(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
             Barley
             <input
               type="checkbox"
@@ -243,6 +273,16 @@ export default function RecipeUpload() {
             />
           </label>
           <label>
+            Butter
+            <input
+              type="checkbox"
+              value={butter}
+              onChange={(event) => {
+                setButter(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
             Buck Wheat
             <input
               type="checkbox"
@@ -269,6 +309,56 @@ export default function RecipeUpload() {
               value={cheese}
               onChange={(event) => {
                 setCheese(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Carrots
+            <input
+              type="checkbox"
+              value={carrots}
+              onChange={(event) => {
+                setCarrots(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Carrots
+            <input
+              type="checkbox"
+              value={carrots}
+              onChange={(event) => {
+                setCarrots(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Cucumber
+            <input
+              type="checkbox"
+              value={cucumber}
+              onChange={(event) => {
+                setCucumber(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Celery
+            <input
+              type="checkbox"
+              value={celery}
+              onChange={(event) => {
+                setCelery(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Creme Fraiche
+            <input
+              type="checkbox"
+              value={cremeFraiche}
+              onChange={(event) => {
+                setCremeFraiche(event.currentTarget.checked);
               }}
             />
           </label>
@@ -384,12 +474,52 @@ export default function RecipeUpload() {
             />
           </label>
           <label>
+            Eggs
+            <input
+              type="checkbox"
+              value={eggs}
+              onChange={(event) => {
+                setEggs(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
             Fish
             <input
               type="checkbox"
               value={fish}
               onChange={(event) => {
                 setFish(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Feta Cheese
+            <input
+              type="checkbox"
+              value={fetaCheese}
+              onChange={(event) => {
+                setFetaCheese(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Flour
+            <input
+              type="checkbox"
+              value={flour}
+              onChange={(event) => {
+                setFlour(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Garlic
+            <input
+              type="checkbox"
+              value={garlic}
+              onChange={(event) => {
+                setGarlic(event.currentTarget.checked);
               }}
             />
           </label>
@@ -435,12 +565,72 @@ export default function RecipeUpload() {
             />
           </label>
           <label>
+            Ketchup
+            <input
+              type="checkbox"
+              value={ketchup}
+              onChange={(event) => {
+                setKetchup(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Kidney Beans
+            <input
+              type="checkbox"
+              value={kidneyBeans}
+              onChange={(event) => {
+                setKidneyBeans(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
             Lamb
             <input
               type="checkbox"
               value={lamb}
               onChange={(event) => {
                 setLamb(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Lasagna Sheets
+            <input
+              type="checkbox"
+              value={lasagnaSheets}
+              onChange={(event) => {
+                setLasagnaSheets(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Lemon
+            <input
+              type="checkbox"
+              value={lemon}
+              onChange={(event) => {
+                setLemon(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Mustard
+            <input
+              type="checkbox"
+              value={mustard}
+              onChange={(event) => {
+                setMustard(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Milk
+            <input
+              type="checkbox"
+              value={milk}
+              onChange={(event) => {
+                setMilk(event.currentTarget.checked);
               }}
             />
           </label>
@@ -475,12 +665,32 @@ export default function RecipeUpload() {
             />
           </label>
           <label>
+            Nutmeg
+            <input
+              type="checkbox"
+              value={nutmeg}
+              onChange={(event) => {
+                setNutmeg(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
             Nectarines
             <input
               type="checkbox"
               value={nectarines}
               onChange={(event) => {
                 setNectarines(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Olive Oil
+            <input
+              type="checkbox"
+              value={oliveOil}
+              onChange={(event) => {
+                setOliveOil(event.currentTarget.checked);
               }}
             />
           </label>
@@ -501,6 +711,26 @@ export default function RecipeUpload() {
               value={oats}
               onChange={(event) => {
                 setOats(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Pumpkin
+            <input
+              type="checkbox"
+              value={pumpkin}
+              onChange={(event) => {
+                setPumpkin(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Pepper
+            <input
+              type="checkbox"
+              value={pepper}
+              onChange={(event) => {
+                setPepper(event.currentTarget.checked);
               }}
             />
           </label>
@@ -596,6 +826,76 @@ export default function RecipeUpload() {
             />
           </label>
           <label>
+            Red Wine
+            <input
+              type="checkbox"
+              value={redWine}
+              onChange={(event) => {
+                setRedWine(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Red Cabbage
+            <input
+              type="checkbox"
+              value={redCabbage}
+              onChange={(event) => {
+                setRedCabbage(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Red Onions
+            <input
+              type="checkbox"
+              value={redOnions}
+              onChange={(event) => {
+                setRedOnions(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Sweet Potatoes
+            <input
+              type="checkbox"
+              value={sweetPotatoes}
+              onChange={(event) => {
+                setSweetPotatoes(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Salt
+            <input
+              type="checkbox"
+              value={salt}
+              onChange={(event) => {
+                setSalt(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Sour Cream
+            <input
+              type="checkbox"
+              value={sourCream}
+              onChange={(event) => {
+                setSourCream(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            Spring Onion
+            <input
+              type="checkbox"
+              value={springOnion}
+              onChange={(event) => {
+                setSpringOnion(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
             Shrimps
             <input
               type="checkbox"
@@ -657,6 +957,16 @@ export default function RecipeUpload() {
             />
           </label>
           <label>
+            Vinegar
+            <input
+              type="checkbox"
+              value={vinegar}
+              onChange={(event) => {
+                setVinegar(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
             Veal
             <input
               type="checkbox"
@@ -693,6 +1003,36 @@ export default function RecipeUpload() {
               value={wildRice}
               onChange={(event) => {
                 setWildRice(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            White Beans
+            <input
+              type="checkbox"
+              value={whiteBeans}
+              onChange={(event) => {
+                setWhiteBeans(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            White Wine
+            <input
+              type="checkbox"
+              value={whiteWine}
+              onChange={(event) => {
+                setWhiteWine(event.currentTarget.checked);
+              }}
+            />
+          </label>
+          <label>
+            White Onions
+            <input
+              type="checkbox"
+              value={whiteOnions}
+              onChange={(event) => {
+                setWhiteOnions(event.currentTarget.checked);
               }}
             />
           </label>
