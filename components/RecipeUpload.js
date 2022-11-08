@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import { css } from '@emotion/react';
+import Head from 'next/head';
 import { useState } from 'react';
 
 export default function RecipeUpload() {
@@ -21,6 +21,40 @@ export default function RecipeUpload() {
   const [beefRibs, setBeefRibs] = useState('');
   const [beefTenderloin, setBeefTenderloin] = useState('');
   const [beefBrisket, setBeefBrisket] = useState('');
+  // butter
+  // sour cream
+  // bacon
+  // spring onion
+  // feta cheese
+  // pumpkin
+  // sweet potatoes
+  // carrots
+  // cucumber
+  // red cabbage
+  // baking powder
+  // creme fraiche
+  // mustard
+  // salt
+  // pepper
+  // eggs
+  // ketchup
+  // milk
+  // bay leaves
+  // flour
+  // nutmeg
+  // lasagna sheets
+  // olive oil
+  // red wine
+  // celery
+  // white beans
+  // white wine
+  // kidney beans
+  // lemon
+  // garlic
+  // milk
+  // red onions
+  // white onions
+  // vinegar
   const [buckWheat, setBuckWheat] = useState('');
   const [bulgur, setBulgur] = useState('');
   const [cheese, setCheese] = useState('');
