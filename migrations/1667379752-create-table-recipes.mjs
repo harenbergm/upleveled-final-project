@@ -5,7 +5,7 @@ export async function up(sql) {
       name varchar(50) NOT NULL,
       user_id integer NOT NULL,
       preparation_time integer NOT NULL,
-      difficulty_id integer NOT NULL,
+      difficulty_id integer REFERENCES difficulties (id) NOT NULL,
       imageurl varchar (120) NOT NULL,
       instruction varchar(1000) NOT NULL
 
