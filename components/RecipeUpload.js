@@ -9,52 +9,37 @@ export default function RecipeUpload(props) {
   `;
 
   const [recipeInstructions, setRecipeInstructions] = useState('');
-
   const [ingredients, setIngredients] = useState([]);
+  console.log('ingredients', ingredients);
 
-  function addAlmondMealToIngredientsNEW(event) {
-    console.log('event', event);
-    setAlmondMeal(event.currentTarget.value);
+  const [checked, setChecked] = useState([]);
 
-    const id = { id: 1 };
-    setIngredients([...ingredients, id]);
+  // // Add/Remove checked item from list
+  // const handleCheck = (event) => {
+  //   let updatedList = [...checked];
+  //   if (event.target.checked) {
+  //     updatedList = [...checked, { id: event.target.value }];
+  //   } else {
+  //     updatedList.splice(checked.indexOf(event.target.value), 1);
+  //   }
+  //   setChecked(updatedList);
+  //   console.log('updatedList', updatedList);
+  // };
 
-    // if (ingredients !== []) {
-    //   const filteredIngredient = ingredients.filter((ingredient) => {
-    //     ingredient.id === id;
-    //   });
-    // console.log('ingredients[0].id', ingredients[0].id);
-    // console.log('filteredIngredient', filteredIngredient);
-    // }
-    // const findIngredient = ingredients.filter((ingredient) => {
-    //   ingredient.id === id;
-    //   return findIngredient;
-    // });
+  // console.log('checked', checked);
 
-    // if (findIngredient) {
-    //   setIngredients(
-    //     ingredients.filter((ingredient) => {
-    //       ingredient.id !== id;
-    //     }),
-    //   );
-    //   return ingredients;
-    // }
-
-    if (ingredients[0]) {
-      setIngredients([]);
-    }
-
-    if (ingredients[ingredients.length - 1]) {
-      setIngredients(ingredients.pop());
+  function handleCheck(index) {
+    if (ingredients.includes(index)) {
+      const filteredIngredient = ingredients.filter((ingredient) => {
+        return ingredient !== index;
+      });
+      setIngredients(filteredIngredient);
+    } else {
+      setIngredients([...ingredients, index]);
     }
   }
 
-  function addAlmondMealToIngredients(event) {
-    setAlmondMeal(event.currentTarget.checked);
-    const id = { id: 1 };
-    setIngredients([...ingredients, id]);
-  }
-
+  console.log('ingredientsOutside', ingredients);
   return (
     <div>
       <Head>
@@ -77,9 +62,16 @@ export default function RecipeUpload(props) {
 
           {props.ingredients.map((ingredient, index) => {
             return (
-              <label>
+              <label key={index}>
                 {ingredient.name}
-                <input type="checkbox" />
+                <input
+                  value={ingredient.id}
+                  type="checkbox"
+                  onChange={() => {
+                    handleCheck(index + 1);
+                    // handleCheck;
+                  }}
+                />
               </label>
             );
           })}

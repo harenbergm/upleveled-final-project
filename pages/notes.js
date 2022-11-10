@@ -20,3 +20,5 @@
 // API BE https://github.com/upleveled/next-js-example-fall-2022-vienna-austria/blob/main/pages/api/animals/index.ts
 // API BE https://github.com/upleveled/next-js-example-fall-2022-vienna-austria/blob/main/pages/api/animals/%5BanimalId%5D.ts
 // DB https://github.com/upleveled/next-js-example-fall-2022-vienna-austria/blob/main/database/animals.ts
+
+// JoinTable https://www.youtube.com/watch?v=PX82bbRemp8&ab_channel=UpLeveled 57 min
