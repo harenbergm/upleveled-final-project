@@ -4,17 +4,18 @@ import Head from 'next/head';
 import { useState } from 'react';
 import RecipeUpload from '../components/RecipeUpload';
 import UploadImage from '../components/UploadImage';
+import getIngredients from '../database/ingredients';
 import { getUserBySessionToken, User } from '../database/users';
 
 type Props = {
   user: User;
+  ingredients: Awaited<ReturnType<typeof getIngredients>>;
 };
 
 export default function UserProfile(props: Props) {
   const [username, setUsername] = useState(props.user.username);
   const [email, setEmail] = useState(props.user.eMail);
   const [imageUrl, setImageUrl] = useState('');
-  console.log('imageUrl', imageUrl);
 
   async function createRecipeFromApi() {
     const response = await fetch(`/api/recipes`, {
@@ -151,7 +152,7 @@ export default function UserProfile(props: Props) {
           >
             Submit
           </button>
-          <RecipeUpload />
+          <RecipeUpload ingredients={props.ingredients} />
         </form>
       </div>
     </>
@@ -159,8 +160,9 @@ export default function UserProfile(props: Props) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const token = context.req.cookies.sessionToken;
+  const ingredients = await getIngredients();
 
+  const token = context.req.cookies.sessionToken;
   const user = token && (await getUserBySessionToken(token));
 
   if (!user) {
@@ -173,6 +175,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   return {
-    props: { user },
+    props: {
+      user,
+      ingredients,
+    },
   };
 }
