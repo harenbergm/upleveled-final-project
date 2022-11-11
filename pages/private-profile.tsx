@@ -15,7 +15,6 @@ type Props = {
 };
 
 export default function UserProfile(props: Props) {
-  console.log('props', props.difficulties);
   const profileStyles = css`
     margin: 50px 200px 0px;
 
@@ -87,8 +86,6 @@ export default function UserProfile(props: Props) {
   const [difficulty, setDifficulty] = useState('Easy');
   const [recipeInstructions, setRecipeInstructions] = useState('');
 
-  console.log('ingredients', ingredients);
-
   // selects and filter the ingredients
   function handleCheck(index: number) {
     if (ingredients.includes(index)) {
@@ -102,23 +99,65 @@ export default function UserProfile(props: Props) {
   }
 
   // creates recipe
-  async function createRecipeFromApi() {
+  async function createRecipeFromApiById(id: any) {
     const response = await fetch(`/api/recipes`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        imageURL: imageUrl,
-        ingredientsSelected: ingredients,
+        iD: id,
         titleSelected: recipeTitle,
-        recipeInstructionsSelected: recipeInstructions,
         preparationTimeSelected: preparationTime,
+        imageURL: imageUrl,
+        recipeInstructionsSelected: recipeInstructions,
       }),
     });
 
-    const cloudinaryBodyUrl = await response.json();
-    console.log('cloudinaryBodyUrl', cloudinaryBodyUrl);
+    const createdRecipeFromApi = await response.json();
+    console.log('createdRecipeFromApi', createdRecipeFromApi);
+    console.log('iD', id);
+    console.log('titleSelected', recipeTitle);
+    console.log('imageURL', imageUrl);
+    console.log('preparationTimeSelected', preparationTime);
+    console.log('recipeInstructionsSelected', recipeInstructions);
+  }
+
+  // creates recipes_ingredients
+  async function createRecipes_IngredientsFromApi() {
+    const response = await fetch(`/api/recipes`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        ingredientsSelected: ingredients,
+      }),
+    });
+
+    const createdRecipesIngredientsFromApi = await response.json();
+    console.log(
+      'createdRecipesIngredientsFromApi',
+      createdRecipesIngredientsFromApi,
+    );
+    console.log('ingredientsSelected', ingredients);
+  }
+
+  // creates difficulty
+  async function createDifficultiesFromApi() {
+    const response = await fetch(`/api/recipes`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        difficultySelected: difficulty,
+      }),
+    });
+
+    const createdDifficultiesFromApi = await response.json();
+    console.log('createdRecipesIngredientsFromApi', createdDifficultiesFromApi);
+    console.log('difficultySelected', difficulty);
   }
 
   // Updates User Profile
@@ -138,6 +177,7 @@ export default function UserProfile(props: Props) {
     const updatedUsernameFromApi = (await response.json()) as User;
   }
 
+  // Deletes User Profile
   async function deleteUserFromApiById(id: number) {
     const response = await fetch(`/api/profiles/${id}`, {
       method: 'DELETE',
@@ -148,6 +188,7 @@ export default function UserProfile(props: Props) {
         iD: id,
       }),
     });
+    const deletedUserFromApiById = await response.json();
   }
 
   if (!props.user) {
@@ -232,7 +273,12 @@ export default function UserProfile(props: Props) {
           <div>
             <form
               onSubmit={(event) => {
-                return event.preventDefault();
+                return (
+                  event.preventDefault(),
+                  createRecipeFromApiById(props.user.id),
+                  createRecipes_IngredientsFromApi(),
+                  createDifficultiesFromApi()
+                );
               }}
             >
               <h4>1. Upload Image</h4>
@@ -297,15 +343,8 @@ export default function UserProfile(props: Props) {
                   }}
                 />
               </div>
-              {/* <RecipeUpload ingredients={props.ingredients} /> */}
-              <button
-                onClick={(event) => {
-                  createRecipeFromApi();
-                  event.preventDefault();
-                }}
-              >
-                Submit My Recipe
-              </button>
+
+              <button>Submit My Recipe</button>
             </form>
           </div>
         </div>
