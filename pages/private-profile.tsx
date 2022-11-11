@@ -141,18 +141,6 @@ export default function UserProfile(props: Props) {
     });
   }
 
-  // async function createRecipeFromApiById(id: number) {
-  //   const response = await fetch(`/api/profiles/${id}`, {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       iD: id,
-  //     }),
-  //   });
-  // }
-
   if (!props.user) {
     return (
       <>
@@ -236,16 +224,15 @@ export default function UserProfile(props: Props) {
             <form>
               <h4>1. Upload Image</h4>
               <UploadImage setImageUrl={setImageUrl} />
+
+              <h4>2. Chose a Title</h4>
+              <input
+                value={recipeTitle}
+                onChange={(event) => {
+                  setRecipeTitle(event?.currentTarget.value);
+                }}
+              />
               <div>
-                <h4>2. Chose a Title</h4>
-
-                <input
-                  value={recipeTitle}
-                  onChange={(event) => {
-                    setRecipeTitle(event?.currentTarget.value);
-                  }}
-                />
-
                 <h4>3. Chose Ingredients</h4>
                 {props.ingredients.map((ingredient: any, index: any) => {
                   return (
@@ -264,7 +251,7 @@ export default function UserProfile(props: Props) {
                 })}
               </div>
               <div>
-                <h4>Instruction (max. 1000 chars)</h4>
+                <h4>4. Instruction (max. 1000 chars)</h4>
                 <input
                   id="instructions"
                   value={recipeInstructions}

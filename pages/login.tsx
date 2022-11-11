@@ -1,8 +1,9 @@
 import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { getValidSessionByToken } from '../database/sessions';
 import { LoginResponseBody } from './api/login';
 
@@ -31,7 +32,14 @@ const loginStyles = css`
 
   > button {
     margin-top: 30px;
+    border-radius: 4px;
+    width: 100px;
+    border: 1px solid black;
   }
+`;
+
+const signupStyles = css`
+  margin: 30px 35px 0px;
 `;
 
 export default function Login(props: Props) {
@@ -127,6 +135,12 @@ export default function Login(props: Props) {
         >
           Login
         </button>
+        <div css={signupStyles}>
+          <hr />
+          <span>
+            Don't have an account? <Link href="/signup">Sign Up!</Link>
+          </span>
+        </div>
       </div>
     </>
   );
