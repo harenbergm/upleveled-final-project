@@ -4,15 +4,18 @@ import Head from 'next/head';
 import { useState } from 'react';
 // import RecipeUpload from '../components/RecipeUpload';
 import UploadImage from '../components/UploadImage';
+import getDifficulties from '../database/difficulties';
 import getIngredients from '../database/ingredients';
 import { getUserBySessionToken, User } from '../database/users';
 
 type Props = {
   user: User;
   ingredients: Awaited<ReturnType<typeof getIngredients>>;
+  difficulties: Awaited<ReturnType<typeof getDifficulties>>;
 };
 
 export default function UserProfile(props: Props) {
+  console.log('props', props.difficulties);
   const profileStyles = css`
     margin: 50px 200px 0px;
 
@@ -81,6 +84,7 @@ export default function UserProfile(props: Props) {
   const [recipeTitle, setRecipeTitle] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [preparationTime, setPreparationTime] = useState('');
+  const [difficulty, setDifficulty] = useState('Easy');
   const [recipeInstructions, setRecipeInstructions] = useState('');
 
   console.log('ingredients', ingredients);
@@ -267,7 +271,24 @@ export default function UserProfile(props: Props) {
                 }}
               />
               <div>
-                <h4>5. Instruction (max. 1000 chars)</h4>
+                <h4>5. Select Difficulty</h4>
+
+                <select
+                  name="selectList"
+                  id="selectList"
+                  onChange={(event) => {
+                    setDifficulty(event?.target.value);
+                  }}
+                >
+                  {props.difficulties.map((difficulty: string) => {
+                    return (
+                      <option value={difficulty.name}>{difficulty.name}</option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div>
+                <h4>6. Instruction (max. 1000 chars)</h4>
                 <input
                   id="instructions"
                   value={recipeInstructions}
@@ -295,7 +316,7 @@ export default function UserProfile(props: Props) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const ingredients = await getIngredients();
-
+  const difficulties = await getDifficulties();
   const token = context.req.cookies.sessionToken;
   const user = token && (await getUserBySessionToken(token));
 
@@ -312,6 +333,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       user,
       ingredients,
+      difficulties,
     },
   };
 }
