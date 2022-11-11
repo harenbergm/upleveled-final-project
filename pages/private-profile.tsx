@@ -99,18 +99,24 @@ export default function UserProfile(props: Props) {
   }
 
   // creates recipe
-  async function createRecipeFromApiById(id: any) {
+  async function createRecipeFromApiById(id: number) {
     const response = await fetch(`/api/recipes`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        iD: id,
-        titleSelected: recipeTitle,
-        preparationTimeSelected: preparationTime,
-        imageURL: imageUrl,
-        recipeInstructionsSelected: recipeInstructions,
+        recipe: {
+          iD: id,
+          titleSelected: recipeTitle,
+          preparationTimeSelected: preparationTime,
+          imageURL: imageUrl,
+          recipeInstructionsSelected: recipeInstructions,
+          difficultyId: difficulty,
+        },
+        recipeIngredients: {
+          selectedIngredients: ingredients,
+        },
       }),
     });
 
@@ -274,17 +280,16 @@ export default function UserProfile(props: Props) {
             <form
               onSubmit={(event) => {
                 return (
-                  event.preventDefault(),
-                  createRecipeFromApiById(props.user.id),
-                  createRecipes_IngredientsFromApi(),
-                  createDifficultiesFromApi()
+                  event.preventDefault(), createRecipeFromApiById(props.user.id)
+                  // createRecipes_IngredientsFromApi(),
+                  // createDifficultiesFromApi()
                 );
               }}
             >
               <h4>1. Upload Image</h4>
               <UploadImage setImageUrl={setImageUrl} />
 
-              <h4>2. Chose a Title</h4>
+              <h4>2. Choose a Title</h4>
               <input
                 value={recipeTitle}
                 onChange={(event) => {
@@ -292,7 +297,7 @@ export default function UserProfile(props: Props) {
                 }}
               />
               <div>
-                <h4>3. Chose Ingredients</h4>
+                <h4>3. Choose Ingredients</h4>
                 {props.ingredients.map((ingredient: any, index: any) => {
                   return (
                     <label key={index}>
@@ -328,7 +333,7 @@ export default function UserProfile(props: Props) {
                 >
                   {props.difficulties.map((difficulty: string) => {
                     return (
-                      <option value={difficulty.name}>{difficulty.name}</option>
+                      <option value={difficulty.id}>{difficulty.name}</option>
                     );
                   })}
                 </select>

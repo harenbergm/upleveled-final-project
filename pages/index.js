@@ -1,5 +1,6 @@
-import Head from 'next/head';
 import { css } from '@emotion/react';
+import Head from 'next/head';
+import Image from 'next/image';
 
 export default function Home() {
   const homeStyles = css`
@@ -7,10 +8,11 @@ export default function Home() {
     text-align: center;
     padding-top: 100px;
     margin: 100px auto 100px;
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    height: 100%;
     /* border: 1px solid black; */
     border-radius: 12px;
+    position: relative;
   `;
 
   return (
@@ -23,9 +25,8 @@ export default function Home() {
 
       <main>
         <div css={homeStyles}>
-          <h1>Home </h1>
-
-          {/* <p>Homepage</p> */}
+          {/* <h1>Home </h1> */}
+          {/* <Image src={'/Homepage_resized.jpg'} layout="fill" /> */}
         </div>
       </main>
 
