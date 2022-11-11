@@ -79,8 +79,10 @@ export default function UserProfile(props: Props) {
   const [email, setEmail] = useState(props.user.eMail);
   const [imageUrl, setImageUrl] = useState('');
   const [recipeTitle, setRecipeTitle] = useState('');
-  const [recipeInstructions, setRecipeInstructions] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const [preparationTime, setPreparationTime] = useState('');
+  const [recipeInstructions, setRecipeInstructions] = useState('');
+
   console.log('ingredients', ingredients);
 
   // selects and filter the ingredients
@@ -105,6 +107,9 @@ export default function UserProfile(props: Props) {
       body: JSON.stringify({
         imageURL: imageUrl,
         ingredientsSelected: ingredients,
+        titleSelected: recipeTitle,
+        recipeInstructionsSelected: recipeInstructions,
+        preparationTimeSelected: preparationTime,
       }),
     });
 
@@ -221,7 +226,11 @@ export default function UserProfile(props: Props) {
             like-minded cooking lovers!
           </p>
           <div>
-            <form>
+            <form
+              onSubmit={(event) => {
+                return event.preventDefault();
+              }}
+            >
               <h4>1. Upload Image</h4>
               <UploadImage setImageUrl={setImageUrl} />
 
@@ -250,8 +259,15 @@ export default function UserProfile(props: Props) {
                   );
                 })}
               </div>
+              <h4>4. Preparation Time in minutes</h4>
+              <input
+                value={preparationTime}
+                onChange={(event) => {
+                  setPreparationTime(event?.currentTarget.value);
+                }}
+              />
               <div>
-                <h4>4. Instruction (max. 1000 chars)</h4>
+                <h4>5. Instruction (max. 1000 chars)</h4>
                 <input
                   id="instructions"
                   value={recipeInstructions}
