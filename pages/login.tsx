@@ -15,7 +15,7 @@ const loginStyles = css`
   justify-content: center;
   text-align: center;
   padding-top: 100px;
-  margin: 100px auto 100px;
+  margin: 8% auto;
   width: 400px;
   height: 400px;
   border: 1px solid black;

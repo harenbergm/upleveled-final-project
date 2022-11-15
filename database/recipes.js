@@ -20,11 +20,15 @@ export async function createRecipeByUserid(
   return recipe;
 }
 
-export async function getRecipeId(id) {
+export async function getLastRecipeId(id) {
   const recipeId = await sql`
 SELECT id FROM recipes
 
 WHERE user_id = ${id}
+
+ORDER BY recipes.id DESC
+
+LIMIT 1
 
 `;
   return recipeId;
@@ -34,26 +38,76 @@ export async function createRecipeIngredientsByReceipeIdAndIngredientId(
   recipeId,
   ingredientId,
 ) {
-  const Ingredients = await sql`
+  const ingredients = await sql`
   INSERT INTO recipes_ingredients
     (recipe_id, ingredient_id)
   VALUES
     (${recipeId}, ${ingredientId})
   RETURNING *
 `;
-  return Ingredients;
+  return ingredients;
 }
 
-// export async function createDifficulty(difficulty) {
-//   const difficulty = await sql`
-//     INSERT INTO difficulties
-//       (name)
-//     VALUES
-//       (${difficulty})
-//     RETURNING *
-//   `;
-//   return difficulty;
+// export async function createRecipeIngredientsByReceipeIdAndIngredientId(
+//   recipeIds,
+//   ingredientIds,
+// ) {
+//   for (const recipeId of recipeIds) {
+//     await sql`
+//   INSERT INTO recipes_ingredients
+//     (recipe_id)
+//   VALUES
+//     (${recipeId})
+//   -- FROM
+//   --   recipes
+//   -- WHERE
+//   --   (recipes.id = ${recipeId})
+// `;
+//   }
+
+//   for (const ingredientId of ingredientIds) {
+//     await sql`
+//   INSERT INTO recipes_ingredients
+//     (ingredient_id)
+//   VALUES
+//     (${ingredientId})
+//   WHERE
+//     recipe_id = ${recipeId}
+
+// `;
+//     // return ingredients;
+//     // return ingredients;
+//   }
 // }
+
+export async function createRecipeIngredientsByReceipeIdAndIngredientId(
+  recipeIds,
+  ingredientIds,
+) {
+  for (const recipeId of recipeIds) {
+    await sql`
+  INSERT INTO recipes_ingredients
+    (recipe_id)
+  VALUES
+    (${recipeId})
+    RETURNING *
+`;
+    return recipeId;
+  }
+
+  for (const ingredientId of ingredientIds) {
+    await sql`
+  INSERT INTO recipes_ingredients
+    (ingredient_id)
+  VALUES
+    (${ingredientId})
+  WHERE
+    recipe_id = ${recipeId}
+    RETURNING *
+`;
+    return ingredientId;
+  }
+}
 
 export async function getAllRecipes() {
   const allRecipes = await sql`

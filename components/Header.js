@@ -2,11 +2,11 @@ import { css } from '@emotion/react';
 import Link from 'next/link';
 
 const navStyles = css`
-  margin-top: 20px;
-  padding: 10px 100px;
+  margin-top: 10px;
+  padding: 0px 100px;
   display: flex;
   justify-content: space-between;
-
+  background-color: transparent;
   > div > a {
     margin-left: 40px;
     /* text-transform: uppercase; */
@@ -38,7 +38,7 @@ export default function Header(props) {
           <Link href="/">Logo</Link>
         </div>
         <div>
-          <Link href="/show-recipes">Show Recipes</Link>
+          <Link href="/recipes">Recipes</Link>
           <Link href="/private-profile">Create Recipe</Link>
         </div>
         <div>

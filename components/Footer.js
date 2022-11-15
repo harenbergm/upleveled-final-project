@@ -22,11 +22,11 @@ const navStyles = css`
 
 export default function Footer() {
   return (
-    <footer>
+    <footer style={{ position: 'absolute', bottom: 0, width: '100%' }}>
       <nav css={navStyles}>
         <div>
           <Link href="/show-recipes">Show Recipes</Link>
-          <Link href="/contact">Contact Us</Link>
+          <Link href="/login">Login</Link>
           <Link href="/signup">Sign Up</Link>
         </div>
       </nav>

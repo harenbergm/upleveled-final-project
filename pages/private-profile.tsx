@@ -85,6 +85,7 @@ export default function UserProfile(props: Props) {
   const [preparationTime, setPreparationTime] = useState('');
   const [difficulty, setDifficulty] = useState('Easy');
   const [recipeInstructions, setRecipeInstructions] = useState('');
+  const userAccountId = props.user.id;
 
   // selects and filter the ingredients
   function handleCheck(index: number) {
@@ -99,7 +100,7 @@ export default function UserProfile(props: Props) {
   }
 
   // creates recipe
-  async function createRecipeFromApiById(id: number) {
+  async function createRecipeFromApiById(userAccountId: number) {
     const response = await fetch(`/api/recipes`, {
       method: 'POST',
       headers: {
@@ -107,7 +108,7 @@ export default function UserProfile(props: Props) {
       },
       body: JSON.stringify({
         recipe: {
-          iD: id,
+          userAccountId: userAccountId,
           titleSelected: recipeTitle,
           preparationTimeSelected: preparationTime,
           imageURL: imageUrl,
@@ -119,14 +120,7 @@ export default function UserProfile(props: Props) {
         },
       }),
     });
-
-    const createdRecipeFromApi = await response.json();
-    console.log('createdRecipeFromApi', createdRecipeFromApi);
-    console.log('iD', id);
-    console.log('titleSelected', recipeTitle);
-    console.log('imageURL', imageUrl);
-    console.log('preparationTimeSelected', preparationTime);
-    console.log('recipeInstructionsSelected', recipeInstructions);
+    const createdRecipeFromApiById = await response.json();
   }
 
   // creates recipes_ingredients
@@ -280,9 +274,14 @@ export default function UserProfile(props: Props) {
             <form
               onSubmit={(event) => {
                 return (
-                  event.preventDefault(), createRecipeFromApiById(props.user.id)
-                  // createRecipes_IngredientsFromApi(),
-                  // createDifficultiesFromApi()
+                  event.preventDefault(),
+                  createRecipeFromApiById(userAccountId),
+                  console.log('userAccountId', userAccountId),
+                  console.log('titleSelected', recipeTitle),
+                  console.log('imageURL', imageUrl),
+                  console.log('preparationTimeSelected', preparationTime),
+                  console.log('recipeInstructionsSelected', recipeInstructions),
+                  console.log('difficultyId', difficulty)
                 );
               }}
             >
@@ -348,7 +347,6 @@ export default function UserProfile(props: Props) {
                   }}
                 />
               </div>
-
               <button>Submit My Recipe</button>
             </form>
           </div>

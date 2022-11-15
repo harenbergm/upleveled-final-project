@@ -1,19 +1,27 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
-import Image from 'next/image';
 
 export default function Home() {
   const homeStyles = css`
     justify-content: center;
     text-align: center;
-    padding-top: 100px;
-    margin: 100px auto 100px;
-    width: 100%;
-    height: 100%;
-    /* border: 1px solid black; */
-    border-radius: 12px;
+    margin: 0px auto;
     position: relative;
   `;
+
+  const headlineStyles = css`
+    margin-top: 100px;
+    color: white;
+    margin-top: 100px;
+  `;
+
+  // const imageStyles = css`
+  //   max-width: 100%;
+  //   max-height: 100%;
+  //   z-index: -100;
+  //   position: absolute;
+  //   overflow: 'hidden';
+  // `;
 
   return (
     <div>
@@ -25,12 +33,23 @@ export default function Home() {
 
       <main>
         <div css={homeStyles}>
-          {/* <h1>Home </h1> */}
-          {/* <Image src={'/Homepage_resized.jpg'} layout="fill" /> */}
+          <div
+            style={{
+              zIndex: -1,
+              position: 'fixed',
+              width: '100vw',
+              height: '100vh',
+            }}
+          >
+            <img src={'/home2resized.png'} width="100%" height="100%" />
+          </div>
+          <div css={{ headlineStyles }}>
+            <h1>Get new delicious recipes every day</h1>
+            <p>Select what you have at home and get surprised</p>
+            <button>Hi</button>
+          </div>
         </div>
       </main>
-
-      <footer></footer>
     </div>
   );
 }
