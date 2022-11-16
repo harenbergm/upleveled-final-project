@@ -1,6 +1,6 @@
 import { sql } from './connect';
 
-export async function createRecipeByUserid(
+export async function createRecipeByUserId(
   name,
   userId,
   preparationTime,
@@ -20,7 +20,7 @@ export async function createRecipeByUserid(
   return recipe;
 }
 
-export async function getLastRecipeId(id) {
+export async function getLastRecipeIdByUserId(id) {
   const recipeId = await sql`
 SELECT id FROM recipes
 
@@ -31,108 +31,106 @@ ORDER BY recipes.id DESC
 LIMIT 1
 
 `;
-  return recipeId;
+  return recipeId[0];
 }
 
-export async function createRecipeIngredientsByReceipeIdAndIngredientId(
+export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
   recipeId,
-  ingredientId,
-) {
-  const ingredients = await sql`
-  INSERT INTO recipes_ingredients
-    (recipe_id, ingredient_id)
-  VALUES
-    (${recipeId}, ${ingredientId})
-  RETURNING *
-`;
-  return ingredients;
-}
-
-// export async function createRecipeIngredientsByReceipeIdAndIngredientId(
-//   recipeIds,
-//   ingredientIds,
-// ) {
-//   for (const recipeId of recipeIds) {
-//     await sql`
-//   INSERT INTO recipes_ingredients
-//     (recipe_id)
-//   VALUES
-//     (${recipeId})
-//   -- FROM
-//   --   recipes
-//   -- WHERE
-//   --   (recipes.id = ${recipeId})
-// `;
-//   }
-
-//   for (const ingredientId of ingredientIds) {
-//     await sql`
-//   INSERT INTO recipes_ingredients
-//     (ingredient_id)
-//   VALUES
-//     (${ingredientId})
-//   WHERE
-//     recipe_id = ${recipeId}
-
-// `;
-//     // return ingredients;
-//     // return ingredients;
-//   }
-// }
-
-export async function createRecipeIngredientsByReceipeIdAndIngredientId(
-  recipeIds,
   ingredientIds,
 ) {
-  for (const recipeId of recipeIds) {
+  ingredientIds.forEach(async (ingredientId) => {
     await sql`
-  INSERT INTO recipes_ingredients
-    (recipe_id)
-  VALUES
-    (${recipeId})
-    RETURNING *
-`;
-    return recipeId;
-  }
 
-  for (const ingredientId of ingredientIds) {
-    await sql`
-  INSERT INTO recipes_ingredients
-    (ingredient_id)
-  VALUES
-    (${ingredientId})
-  WHERE
-    recipe_id = ${recipeId}
+    INSERT INTO recipes_ingredients
+      ( recipe_id, ingredient_id)
+    VALUES
+      (${recipeId}, ${ingredientId})
+
     RETURNING *
-`;
+  `;
     return ingredientId;
-  }
+  });
 }
+
+// // Insert specializations
+// specializationIds.forEach(async (specializationId) => {
+//   await sql`
+//   INSERT INTO schools_specializations
+//    (school_id, specialization_id)
+//   VALUES
+//    (${school!.id}, ${specializationId})
+// `;
+// });
+
+// export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
+//   recipeId,
+//   ingredientIds,
+// ) {
+//   console.log('recipeId', recipeId);
+//   for (const ingredientId of ingredientIds) {
+//     const ingredients = await sql`
+
+//     INSERT INTO recipes_ingredients
+//       ( recipe_id, ingredient_id)
+//     VALUES
+//       (${recipeId}, ${ingredientId})
+
+//     RETURNING *
+//   `;
+//     return ingredients;
+//   }
+// }
 
 export async function getAllRecipes() {
   const allRecipes = await sql`
   SELECT
-    recipes.id as recipes_ingredients,
+    recipes.id,
     recipes.name,
     recipes.preparation_time,
     recipes.imageurl,
     recipes.instruction,
-    recipes.user_id,
+    ingredients.name,
+    recipes_ingredients.ingredient_id as ingredient_id,
     recipes.difficulty_id,
-    ingredients.name as ingredients_name,
     difficulties.name as difficulty_name
   FROM
     recipes,
-    users,
     recipes_ingredients,
     ingredients,
     difficulties
   WHERE
-    users.id = recipes.user_id AND
-    difficulties.id = recipes.difficulty_id AND
-    recipes_ingredients.ingredient_id = recipes.id AND
-    recipes_ingredients.ingredient_id = ingredients.id ;
+    recipes.id = recipes_ingredients.recipe_id AND
+     recipes_ingredients.ingredient_id = ingredients.id AND
+     recipes.difficulty_id = difficulties.id
   `;
 
   return allRecipes;
 }
+
+// export async function getAllRecipes() {
+//   const allRecipes = await sql`
+//   SELECT
+//     recipes.id as recipes_ingredients,
+//     recipes.name,
+//     recipes.preparation_time,
+//     recipes.imageurl,
+//     recipes.instruction,
+//     recipes.user_id,
+//     recipes.difficulty_id,
+//     ingredients.name as ingredients_name,
+//     difficulties.name as difficulty_name
+//   FROM
+//     recipes,
+//     users,
+//     recipes_ingredients,
+//     ingredients,
+//     difficulties
+//   WHERE
+//     users.id = recipes.user_id AND
+//     difficulties.id = recipes.difficulty_id AND
+//     recipes_ingredients.ingredient_id = recipes.id AND
+//     recipes_ingredients.ingredient_id = ingredients.id ;
+//   `;
+
+//   return allRecipes;
+// }

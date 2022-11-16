@@ -4,11 +4,10 @@ import {
   NextApiResponse,
 } from 'next';
 import {
-  createRecipeByUserid as createRecipeByUserId,
-  createRecipeIngredientsByReceipeIdAndIngredientId,
-  createRecipeIngredientsByReceipeIdAndIngredientIdNEW,
+  createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId,
+  createRecipeByUserId,
   getAllRecipes,
-  getLastRecipeId,
+  getLastRecipeIdByUserId,
 } from '../../../database/recipes';
 import { getValidSessionByToken } from '../../../database/sessions';
 import { getUserBySessionToken } from '../../../database/users';
@@ -22,10 +21,6 @@ export default async function handler(
   response: NextApiResponse,
   // props: Props,
 ) {
-  // const userId = props.user.id;
-
-  console.log('request.body', request.body);
-
   // if (request.method === 'POST') {
   //   // 1. Get the cookie from the request and use it to validate the session
   //   const session =
@@ -65,6 +60,12 @@ export default async function handler(
   const recipeInstructionsSelected = recipe.recipeInstructionsSelected;
   const difficultySelected = recipe.difficultyId;
   const ingredientsSelected = recipeIngredients.selectedIngredients;
+  console.log('ingredientsSelected', typeof ingredientsSelected[0]);
+
+  // const converted = recipeIngredients.selectedIngredients.map((ar) => {
+  //   return Number(ar);
+  // });
+  // console.log('converted', typeof converted[0]);
 
   // console.log('request.body', request.body);
 
@@ -97,16 +98,29 @@ export default async function handler(
     imageURL,
     recipeInstructionsSelected,
   );
-  const getRecipeIdFromCreatedRecipe = await getLastRecipeId(userId);
+
+  console.log('ingredientsSelected', ingredientsSelected);
+  const getRecipeIdFromCreatedRecipe = await getLastRecipeIdByUserId(userId);
   console.log('getRecipeIdFromCreatedRecipe', getRecipeIdFromCreatedRecipe);
-  const newRecipeIngredients =
-    createRecipeIngredientsByReceipeIdAndIngredientIdNEW(
-      getRecipeIdFromCreatedRecipe,
-      userId,
+  const newRecipeIngredientsRecipeId =
+    await createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
+      getRecipeIdFromCreatedRecipe.id,
+      ingredientsSelected,
     );
+  console.log('newRecipeIngredientsRecipeId', newRecipeIngredientsRecipeId);
+  // const newRecipeIngredientsIngredientIds =
+  //   createRecipeIngredientsIngredientIdsByReceipeId(ingredientsSelected);
+  // console.log(
+  //   'newRecipeIngredientsIngredientIds',
+  //   newRecipeIngredientsIngredientIds,
+  // );
 
   if (
-    !(createNewRecipe || getRecipeIdFromCreatedRecipe || newRecipeIngredients)
+    !(
+      createNewRecipe ||
+      getRecipeIdFromCreatedRecipe ||
+      newRecipeIngredientsRecipeId
+    )
   ) {
     return response
       .status(400)

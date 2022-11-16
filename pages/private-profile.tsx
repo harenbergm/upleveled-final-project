@@ -83,7 +83,7 @@ export default function UserProfile(props: Props) {
   const [recipeTitle, setRecipeTitle] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [preparationTime, setPreparationTime] = useState('');
-  const [difficulty, setDifficulty] = useState('Easy');
+  const [difficulty, setDifficulty] = useState(1);
   const [recipeInstructions, setRecipeInstructions] = useState('');
   const userAccountId = props.user.id;
 
@@ -144,21 +144,21 @@ export default function UserProfile(props: Props) {
   }
 
   // creates difficulty
-  async function createDifficultiesFromApi() {
-    const response = await fetch(`/api/recipes`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        difficultySelected: difficulty,
-      }),
-    });
+  // async function createDifficultiesFromApi() {
+  //   const response = await fetch(`/api/recipes`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       difficultySelected: difficulty,
+  //     }),
+  //   });
 
-    const createdDifficultiesFromApi = await response.json();
-    console.log('createdRecipesIngredientsFromApi', createdDifficultiesFromApi);
-    console.log('difficultySelected', difficulty);
-  }
+  //   const createdDifficultiesFromApi = await response.json();
+  //   console.log('createdRecipesIngredientsFromApi', createdDifficultiesFromApi);
+  //   console.log('difficultySelected', difficulty);
+  // }
 
   // Updates User Profile
   async function updateUserFromApiById(id: number) {
@@ -274,14 +274,7 @@ export default function UserProfile(props: Props) {
             <form
               onSubmit={(event) => {
                 return (
-                  event.preventDefault(),
-                  createRecipeFromApiById(userAccountId),
-                  console.log('userAccountId', userAccountId),
-                  console.log('titleSelected', recipeTitle),
-                  console.log('imageURL', imageUrl),
-                  console.log('preparationTimeSelected', preparationTime),
-                  console.log('recipeInstructionsSelected', recipeInstructions),
-                  console.log('difficultyId', difficulty)
+                  event.preventDefault(), createRecipeFromApiById(userAccountId)
                 );
               }}
             >
