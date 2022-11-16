@@ -132,22 +132,22 @@ export default async function handler(
 
   //   // const cloudinaryBodyUrl = request.body?.imageURL;
   //   // console.log('cloudinaryBodyUrl', cloudinaryBodyUrl);
+  // }
+
+  if (request.method === 'GET') {
+    const allRecipes = await getAllRecipes();
+
+    if (!allRecipes) {
+      return response.status(500).json({ message: 'Internal Server Error' });
+    }
+    return response.status(200).json(allRecipes);
+  }
+
+  if (request.method === 'PUT') {
+    response.status(405).json({ errors: [{ message: 'method not allowed' }] });
+  }
+
+  if (request.method === 'DELETE') {
+    response.status(405).json({ errors: [{ message: 'method not allowed' }] });
+  }
 }
-
-// if (request.method === 'GET') {
-//   const allRecipes = await getAllRecipes();
-
-//   if (!allRecipes) {
-//     return response.status(500).json({ message: 'Internal Server Error' });
-//   }
-//   return response.status(200).json(allRecipes);
-// }
-
-// if (request.method === 'PUT') {
-//   response.status(405).json({ errors: [{ message: 'method not allowed' }] });
-// }
-
-// if (request.method === 'DELETE') {
-//   response.status(405).json({ errors: [{ message: 'method not allowed' }] });
-// }
-// }

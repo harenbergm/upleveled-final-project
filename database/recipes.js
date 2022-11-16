@@ -52,16 +52,6 @@ export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeI
   });
 }
 
-// // Insert specializations
-// specializationIds.forEach(async (specializationId) => {
-//   await sql`
-//   INSERT INTO schools_specializations
-//    (school_id, specialization_id)
-//   VALUES
-//    (${school!.id}, ${specializationId})
-// `;
-// });
-
 // export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
 //   recipeId,
 //   ingredientIds,
@@ -85,11 +75,11 @@ export async function getAllRecipes() {
   const allRecipes = await sql`
   SELECT
     recipes.id,
-    recipes.name,
+    recipes.name as recipes_title,
     recipes.preparation_time,
     recipes.imageurl,
     recipes.instruction,
-    ingredients.name,
+    ingredients.name as ingredients_name,
     recipes_ingredients.ingredient_id as ingredient_id,
     recipes.difficulty_id,
     difficulties.name as difficulty_name
