@@ -6,7 +6,7 @@ import {
 import {
   createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId,
   createRecipeByUserId,
-  getAllRecipes,
+  getAllRecipesWithoutDuplicatesRecipeId,
   getLastRecipeIdByUserId,
 } from '../../../database/recipes';
 import { getValidSessionByToken } from '../../../database/sessions';
@@ -121,7 +121,7 @@ export default async function handler(
   }
 
   if (request.method === 'GET') {
-    const allRecipes = await getAllRecipes();
+    const allRecipes = await getAllRecipesWithoutDuplicatesRecipeId();
 
     if (!allRecipes) {
       return response.status(500).json({ message: 'Internal Server Error' });

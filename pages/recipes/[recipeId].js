@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
-import Image from 'next/image';
 import { useState } from 'react';
 import { getRecipeById } from '../../database/recipes';
 
@@ -37,12 +36,17 @@ export default function ShowSingleRecipe(props) {
               <button css={backButtonStyles}> 🠔 Back</button>
             </a>
           </div>
-
-          <h1>{props.singleRecipe[0].recipesTitle}</h1>
-          <h1>{props.singleRecipe[0].id}</h1>
-          {console.log('singleRecipe', props.singleRecipe)}
-        </div>
-        <div>
+          <div>
+            <div>
+              <h1>Title: {props.singleRecipe[0].recipesTitle}</h1>
+            </div>
+            <div>ID: {props.singleRecipe[0].id}</div>
+            <div>
+              Preparation Time: {props.singleRecipe[0].preparationTime} Minutes
+            </div>
+            <p>Difficulty: {props.singleRecipe[0].difficultyName}</p>
+            {console.log('singleRecipe', props.singleRecipe)}
+          </div>
           <img
             src={`${props.singleRecipe[0].imageurl}`}
             width="758"
@@ -51,6 +55,8 @@ export default function ShowSingleRecipe(props) {
               border-radius: 12px;
             `}
           />
+          <p>Ingredients: {props.singleRecipe[0].ingredientsName}</p>
+          <p>Instruction: {props.singleRecipe[0].instruction}</p>
         </div>
       </div>
     </>

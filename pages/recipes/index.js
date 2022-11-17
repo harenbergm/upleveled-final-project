@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { getAllRecipes } from '../../database/recipes';
+import { getIngredientsByRecipeId } from '../../database/ingredients';
+import { getAllRecipesWithoutDuplicatesRecipeId } from '../../database/recipes';
 
 export default function ShowRecipes(props) {
   return (
@@ -15,13 +16,14 @@ export default function ShowRecipes(props) {
       </Head>
       <h1>Choose Your Ingredients</h1>
       <p>You wish to include in your recipe</p>
-      {props.allRecipes.map((recipe) => {
-        // console.log('recipe', recipe);
+      {props.getAllRecipes.map((recipe) => {
+        console.log('getRecipeIngredients', props.getRecipeIngredients);
         return (
           <div>
             <h1>Title: {recipe.recipesTitle}</h1>
             <span>Preparation Time: {recipe.preparationTime} minutes</span> |
             <span> Difficulty: {recipe.difficultyName}</span>
+            {/* <div>Ingredients {recipe.getRecipeIngredients(recipe.id)}</div> */}
             <div>
               <a href={`/recipes/${recipe.id}`}>
                 <img width="576" heigth="384" src={`${recipe.imageurl}`} />
@@ -38,13 +40,18 @@ export default function ShowRecipes(props) {
 }
 
 export async function getServerSideProps() {
-  const allRecipes = await getAllRecipes();
-  // const allIngredients = await getIngredients();
-
+  const getAllRecipes = await getAllRecipesWithoutDuplicatesRecipeId();
+  const getRecipeIngredients = await getIngredientsByRecipeId();
+  console.log('getAllRecipes', getAllRecipes);
+  let ingredients = [];
+  ingredients = await getAllRecipes.map(async (recipe) => {
+    return getIngredientsByRecipeId(recipe.id);
+  });
+  console.log('ingredients', ingredients);
   return {
     props: {
-      allRecipes: allRecipes,
-      // allIngredients: allIngredients,
+      getAllRecipes: getAllRecipes,
+      getRecipeIngredients: getRecipeIngredients,
     },
   };
 }

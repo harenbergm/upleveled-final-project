@@ -52,10 +52,36 @@ export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeI
   });
 }
 
-export async function getAllRecipes() {
+// export async function getAllRecipes() {
+//   const allRecipes = await sql`
+//   SELECT
+//     recipes.id,
+//     recipes.name as recipes_title,
+//     recipes.preparation_time,
+//     recipes.imageurl,
+//     recipes.instruction,
+//     ingredients.name as ingredients_name,
+//     recipes_ingredients.ingredient_id as ingredient_id,
+//     recipes.difficulty_id,
+//     difficulties.name as difficulty_name
+//   FROM
+//     recipes,
+//     recipes_ingredients,
+//     ingredients,
+//     difficulties
+//   WHERE
+//     recipes.id = recipes_ingredients.recipe_id AND
+//      recipes_ingredients.ingredient_id = ingredients.id AND
+//      recipes.difficulty_id = difficulties.id
+//   `;
+
+//   return allRecipes;
+// }
+
+export async function getAllRecipesWithoutDuplicatesRecipeId() {
   const allRecipes = await sql`
   SELECT
-    recipes.id,
+    DISTINCT ON (recipes.id) recipes.id,
     recipes.name as recipes_title,
     recipes.preparation_time,
     recipes.imageurl,
@@ -71,8 +97,10 @@ export async function getAllRecipes() {
     difficulties
   WHERE
     recipes.id = recipes_ingredients.recipe_id AND
-     recipes_ingredients.ingredient_id = ingredients.id AND
-     recipes.difficulty_id = difficulties.id
+    recipes_ingredients.ingredient_id = ingredients.id AND
+    recipes.difficulty_id = difficulties.id
+  ORDER BY
+  recipes.id
   `;
 
   return allRecipes;
