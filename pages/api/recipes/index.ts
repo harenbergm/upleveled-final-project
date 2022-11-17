@@ -21,7 +21,7 @@ export default async function handler(
   response: NextApiResponse,
 ) {
   if (request.method === 'POST') {
-    // 1. Get the cookie from the request and use it to validate the session
+    /*  // 1. Get the cookie from the request and use it to validate the session
     const session =
       request.cookies.sessionToken &&
       (await getValidSessionByToken(request.cookies.sessionToken));
@@ -46,7 +46,7 @@ export default async function handler(
     // return the user from the session token
     response.status(200).json({ user: user });
   } else {
-    response.status(405).json({ errors: [{ message: 'method not allowed' }] });
+    response.status(405).json({ errors: [{ message: 'method not allowed' }] }); */
 
     // information coming from from createRecipeFromApiById();
 
@@ -111,7 +111,7 @@ export default async function handler(
         .json({ message: 'Properties to create the receipe are missing' });
     }
 
-    if (request.method === 'GET') {
+    /*     if (request.method === 'GET') {
       const allRecipes = await getAllRecipesWithoutDuplicatesRecipeId();
 
       if (!allRecipes) {
@@ -130,6 +130,6 @@ export default async function handler(
       response
         .status(405)
         .json({ errors: [{ message: 'method not allowed' }] });
-    }
+    } */
   }
 }
