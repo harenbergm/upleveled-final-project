@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import { useState } from 'react';
 import { getRecipeById } from '../../database/recipes';
+import { getUserBySessionToken } from '../../database/users';
 
 const backButtonStyles = css`
   margin-left: 20px;
@@ -16,8 +17,30 @@ const backButtonStyles = css`
 `;
 
 export default function ShowSingleRecipe(props) {
-  const [productQuantity, setPoductQuantity] = useState(1);
-  // console.log('singleRecipe', singleRecipe);
+  let currentDate = new Date().toJSON().slice(0, 10);
+  const [comment, setComment] = useState('');
+  const userAccountId = props.user.id;
+  const recipeId = props.singleRecipe[0].id;
+
+  // creates comment
+  async function createCommentFromApiByUserDd(userAccountId) {
+    const response = await fetch(`/api/comments`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        comment: {
+          content: comment,
+          recipeId: recipeId,
+          userAccountId: userAccountId,
+          currentDate: currentDate,
+        },
+      }),
+    });
+    const createdCommentFromApiById = await response.json();
+  }
+
   return (
     <>
       <Head>
@@ -45,7 +68,6 @@ export default function ShowSingleRecipe(props) {
               Preparation Time: {props.singleRecipe[0].preparationTime} Minutes
             </div>
             <p>Difficulty: {props.singleRecipe[0].difficultyName}</p>
-            {console.log('singleRecipe', props.singleRecipe)}
           </div>
           <img
             src={`${props.singleRecipe[0].imageurl}`}
@@ -57,6 +79,24 @@ export default function ShowSingleRecipe(props) {
           />
           <p>Ingredients: {props.singleRecipe[0].ingredientsName}</p>
           <p>Instruction: {props.singleRecipe[0].instruction}</p>
+          <hr />
+          <form
+            onSubmit={(event) => {
+              return (
+                event.preventDefault(),
+                createCommentFromApiByUserDd(userAccountId)
+              );
+            }}
+          >
+            <h4>Leave a comment (max. 400 chars)</h4>
+            <input
+              value={comment}
+              onChange={(event) => {
+                setComment(event.currentTarget.value);
+              }}
+            />
+            <button css={backButtonStyles}>Comment</button>
+          </form>
         </div>
       </div>
     </>
@@ -66,9 +106,12 @@ export default function ShowSingleRecipe(props) {
 export async function getServerSideProps(context) {
   const recipeId = parseInt(context.query.recipeId);
   const singleRecipe = await getRecipeById(recipeId);
+  const token = context.req.cookies.sessionToken;
+  const user = token && (await getUserBySessionToken(token));
 
   return {
     props: {
+      user: user,
       singleRecipe: singleRecipe,
       // allIngredients: allIngredients,
     },

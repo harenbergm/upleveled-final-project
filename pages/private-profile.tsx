@@ -136,98 +136,82 @@ export default function UserProfile(props: Props) {
     });
 
     const createdRecipesIngredientsFromApi = await response.json();
-    console.log(
-      'createdRecipesIngredientsFromApi',
-      createdRecipesIngredientsFromApi,
-    );
-    console.log('ingredientsSelected', ingredients);
-  }
+    //   console.log(
+    //     'createdRecipesIngredientsFromApi',
+    //     createdRecipesIngredientsFromApi,
+    //   );
+    //   console.log('ingredientsSelected', ingredients);
+    // }
 
-  // Updates User Profile
-  async function updateUserFromApiById(id: number) {
-    const response = await fetch(`/api/profiles/${id}`, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        iD: id,
-        userName: username,
-        eMail: email,
-      }),
-    });
+    // Updates User Profile
+    async function updateUserFromApiById(id: number) {
+      const response = await fetch(`/api/profiles/${id}`, {
+        method: 'PUT',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          iD: id,
+          userName: username,
+          eMail: email,
+        }),
+      });
 
-    const updatedUsernameFromApi = (await response.json()) as User;
-  }
+      const updatedUsernameFromApi = (await response.json()) as User;
+    }
 
-  // Deletes User Profile
-  async function deleteUserFromApiById(id: number) {
-    const response = await fetch(`/api/profiles/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        iD: id,
-      }),
-    });
-    const deletedUserFromApiById = await response.json();
-  }
+    // Deletes User Profile
+    async function deleteUserFromApiById(id: number) {
+      const response = await fetch(`/api/profiles/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          iD: id,
+        }),
+      });
+      const deletedUserFromApiById = await response.json();
+    }
 
-  if (!props.user) {
+    if (!props.user) {
+      return (
+        <>
+          <Head>
+            <title>User not found</title>
+            <meta name="description" content="User not found" />
+          </Head>
+          <h1>404 - User not found</h1>
+        </>
+      );
+    }
+
     return (
       <>
         <Head>
-          <title>User not found</title>
-          <meta name="description" content="User not found" />
+          <title>Personal Information</title>
+          <meta name="description" content="Biography of the person" />
         </Head>
-        <h1>404 - User not found</h1>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <Head>
-        <title>Personal Information</title>
-        <meta name="description" content="Biography of the person" />
-      </Head>
-      <div css={profileStyles}>
-        <h1>Private Profile</h1>
-        <hr />
-        <h2>Personal Information</h2>
-        <span> Account ID: {props.user.id}</span>
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-          }}
-        >
-          <div css={personalInformationStyles}>
-            <label>
-              Username:
-              <input
-                value={username}
-                onChange={(event) => {
-                  setUsername(event?.currentTarget.value);
-                }}
-              />
-            </label>
-            <button
-              onClick={() => {
-                updateUserFromApiById(props.user.id);
-              }}
-            >
-              Save Changes
-            </button>
-            <br />
-            <label>
-              E-Mail:
-              <input
-                value={email}
-                onChange={(event) => {
-                  setEmail(event?.currentTarget.value);
-                }}
-              />
+        <div css={profileStyles}>
+          <h1>Private Profile</h1>
+          <hr />
+          <h2>Personal Information</h2>
+          <span> Account ID: {props.user.id}</span>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+            }}
+          >
+            <div css={personalInformationStyles}>
+              <label>
+                Username:
+                <input
+                  value={username}
+                  onChange={(event) => {
+                    setUsername(event?.currentTarget.value);
+                  }}
+                />
+              </label>
               <button
                 onClick={() => {
                   updateUserFromApiById(props.user.id);
@@ -235,101 +219,119 @@ export default function UserProfile(props: Props) {
               >
                 Save Changes
               </button>
-            </label>
-            <button
-              id="deleteProfile"
-              onClick={() => {
-                deleteUserFromApiById(props.user.id);
-              }}
-            >
-              Delete Profile
-            </button>
-            <hr />
-          </div>
-        </form>
-        <div css={recipeStyles}>
-          <h2>Share Your Recipes</h2>
-          <p>
-            Share your recipes in four easy steps and get in touch with
-            like-minded cooking lovers!
-          </p>
-          <div>
-            <form
-              onSubmit={(event) => {
-                return (
-                  event.preventDefault(), createRecipeFromApiById(userAccountId)
-                );
-              }}
-            >
-              <h4>1. Upload Image</h4>
-              <UploadImage setImageUrl={setImageUrl} />
-
-              <h4>2. Choose a Title</h4>
-              <input
-                value={recipeTitle}
-                onChange={(event) => {
-                  setRecipeTitle(event?.currentTarget.value);
-                }}
-              />
-              <div>
-                <h4>3. Choose Ingredients</h4>
-                {props.ingredients.map((ingredient: any, index: any) => {
-                  return (
-                    <label key={index}>
-                      {ingredient.name}
-                      <input
-                        id="ingredients"
-                        value={ingredient.id}
-                        type="checkbox"
-                        onChange={() => {
-                          handleCheck(index + 1);
-                        }}
-                      />
-                    </label>
-                  );
-                })}
-              </div>
-              <h4>4. Preparation Time in minutes</h4>
-              <input
-                value={preparationTime}
-                onChange={(event) => {
-                  setPreparationTime(event?.currentTarget.value);
-                }}
-              />
-              <div>
-                <h4>5. Select Difficulty</h4>
-
-                <select
-                  name="selectList"
-                  id="selectList"
-                  onChange={(event) => {
-                    setDifficulty(event?.target.value);
-                  }}
-                >
-                  {props.difficulties.map((difficulty: string) => {
-                    return (
-                      <option value={difficulty.id}>{difficulty.name}</option>
-                    );
-                  })}
-                </select>
-              </div>
-              <div>
-                <h4>6. Instruction (max. 1000 chars)</h4>
+              <br />
+              <label>
+                E-Mail:
                 <input
-                  id="instructions"
-                  value={recipeInstructions}
+                  value={email}
                   onChange={(event) => {
-                    setRecipeInstructions(event.currentTarget.value);
+                    setEmail(event?.currentTarget.value);
                   }}
                 />
-              </div>
-              <button>Submit My Recipe</button>
-            </form>
+                <button
+                  onClick={() => {
+                    updateUserFromApiById(props.user.id);
+                  }}
+                >
+                  Save Changes
+                </button>
+              </label>
+              <button
+                id="deleteProfile"
+                onClick={() => {
+                  deleteUserFromApiById(props.user.id);
+                }}
+              >
+                Delete Profile
+              </button>
+              <hr />
+            </div>
+          </form>
+          <div css={recipeStyles}>
+            <h2>Share Your Recipes</h2>
+            <p>
+              Share your recipes in four easy steps and get in touch with
+              like-minded cooking lovers!
+            </p>
+            <div>
+              <form
+                onSubmit={(event) => {
+                  return (
+                    event.preventDefault(),
+                    createRecipeFromApiById(userAccountId)
+                  );
+                }}
+              >
+                <h4>1. Upload Image</h4>
+                <UploadImage setImageUrl={setImageUrl} />
+
+                <h4>2. Choose a Title</h4>
+                <input
+                  value={recipeTitle}
+                  onChange={(event) => {
+                    setRecipeTitle(event?.currentTarget.value);
+                  }}
+                />
+                <div>
+                  <h4>3. Choose Ingredients</h4>
+                  {props.ingredients.map((ingredient: any, index: any) => {
+                    return (
+                      <label key={index}>
+                        {ingredient.name}
+                        <input
+                          id="ingredients"
+                          value={ingredient.id}
+                          type="checkbox"
+                          onChange={() => {
+                            handleCheck(index + 1);
+                          }}
+                        />
+                      </label>
+                    );
+                  })}
+                </div>
+                <h4>4. Preparation Time in minutes</h4>
+                <input
+                  value={preparationTime}
+                  onChange={(event) => {
+                    setPreparationTime(event?.currentTarget.value);
+                  }}
+                />
+                <div>
+                  <h4>5. Select Difficulty</h4>
+
+                  <select
+                    name="selectList"
+                    id="selectList"
+                    onChange={(event) => {
+                      setDifficulty(event?.target.value);
+                    }}
+                  >
+                    {props.difficulties.map((difficulty: string) => {
+                      return (
+                        <option value={difficulty.id}>{difficulty.name}</option>
+                      );
+                    })}
+                  </select>
+                </div>
+                <div>
+                  <h4>6. Instruction (max. 1000 chars)</h4>
+                  <input
+                    id="instructions"
+                    value={recipeInstructions}
+                    onChange={(event) => {
+                      setRecipeInstructions(event.currentTarget.value);
+                    }}
+                  />
+                </div>
+                <button>Submit My Recipe</button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {

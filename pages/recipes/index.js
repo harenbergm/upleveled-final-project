@@ -19,7 +19,7 @@ export default function ShowRecipes(props) {
       {props.getAllRecipes.map((recipe) => {
         console.log('getRecipeIngredients', props.getRecipeIngredients);
         return (
-          <div>
+          <div key={props.recipe.id}>
             <h1>Title: {recipe.recipesTitle}</h1>
             <span>Preparation Time: {recipe.preparationTime} minutes</span> |
             <span> Difficulty: {recipe.difficultyName}</span>
@@ -42,12 +42,12 @@ export default function ShowRecipes(props) {
 export async function getServerSideProps() {
   const getAllRecipes = await getAllRecipesWithoutDuplicatesRecipeId();
   const getRecipeIngredients = await getIngredientsByRecipeId();
-  console.log('getAllRecipes', getAllRecipes);
-  let ingredients = [];
-  ingredients = await getAllRecipes.map(async (recipe) => {
-    return getIngredientsByRecipeId(recipe.id);
-  });
-  console.log('ingredients', ingredients);
+  // console.log('getAllRecipes', getAllRecipes);
+
+  // ingredients = await getAllRecipes.map(async (recipe) => {
+  //   return getIngredientsByRecipeId(recipe.id);
+  // });
+  // console.log('ingredients', ingredients);
   return {
     props: {
       getAllRecipes: getAllRecipes,
