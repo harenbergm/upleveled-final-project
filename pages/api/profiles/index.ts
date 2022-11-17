@@ -15,6 +15,8 @@ export default async function handler(
       request.cookies.sessionToken &&
       (await getValidSessionByToken(request.cookies.sessionToken));
 
+    console.log('session', session);
+
     if (!session) {
       response
         .status(400)

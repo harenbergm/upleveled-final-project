@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { getRecipeById } from '../../database/recipes';
 import { getUserBySessionToken } from '../../database/users';
+import { getCommentByRecipeId } from '../../database/recipecomments';
 
 const backButtonStyles = css`
   margin-left: 20px;
@@ -21,9 +22,11 @@ export default function ShowSingleRecipe(props) {
   const [comment, setComment] = useState('');
   const userAccountId = props.user.id;
   const recipeId = props.singleRecipe[0].id;
+  const username = props.user.username;
+  // console.log('user', props.user);
 
   // creates comment
-  async function createCommentFromApiByUserDd(userAccountId) {
+  async function createCommentFromApiByUserId(userAccountId) {
     const response = await fetch(`/api/comments`, {
       method: 'POST',
       headers: {
@@ -34,11 +37,12 @@ export default function ShowSingleRecipe(props) {
           content: comment,
           recipeId: recipeId,
           userAccountId: userAccountId,
+          username: username,
           currentDate: currentDate,
         },
       }),
     });
-    const createdCommentFromApiById = await response.json();
+    const createdCommentFromApiByUserId = await response.json();
   }
 
   return (
@@ -80,11 +84,31 @@ export default function ShowSingleRecipe(props) {
           <p>Ingredients: {props.singleRecipe[0].ingredientsName}</p>
           <p>Instruction: {props.singleRecipe[0].instruction}</p>
           <hr />
+          {props.comments ? (
+            props.comments.map((comment) => {
+              return (
+                <div>
+                  <div>
+                    Username: {comment.userName} on {comment.date}
+                    <br />
+                    <span>
+                      <i>"{comment.content}"</i>
+                    </span>
+                    <br />
+                  </div>
+                  <br />
+                </div>
+              );
+            })
+          ) : (
+            <hr />
+          )}
+          <hr />
           <form
             onSubmit={(event) => {
               return (
                 event.preventDefault(),
-                createCommentFromApiByUserDd(userAccountId)
+                createCommentFromApiByUserId(userAccountId)
               );
             }}
           >
@@ -105,6 +129,7 @@ export default function ShowSingleRecipe(props) {
 
 export async function getServerSideProps(context) {
   const recipeId = parseInt(context.query.recipeId);
+  const comments = await getCommentByRecipeId(recipeId);
   const singleRecipe = await getRecipeById(recipeId);
   const token = context.req.cookies.sessionToken;
   const user = token && (await getUserBySessionToken(token));
@@ -113,6 +138,7 @@ export async function getServerSideProps(context) {
     props: {
       user: user,
       singleRecipe: singleRecipe,
+      comments: comments,
       // allIngredients: allIngredients,
     },
   };

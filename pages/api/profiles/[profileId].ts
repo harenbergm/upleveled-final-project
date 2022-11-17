@@ -14,7 +14,7 @@ export default async function handler(
   response: NextApiResponse,
 ) {
   // check if session token exists
-  console.log('request.query', request.query);
+  // console.log('request.query', request.query);
   const session =
     request.cookies.sessionToken &&
     (await getValidSessionByToken(request.cookies.sessionToken));

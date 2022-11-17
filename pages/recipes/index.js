@@ -19,7 +19,7 @@ export default function ShowRecipes(props) {
       {props.getAllRecipes.map((recipe) => {
         console.log('getRecipeIngredients', props.getRecipeIngredients);
         return (
-          <div key={props.recipe.id}>
+          <div key={recipe.id}>
             <h1>Title: {recipe.recipesTitle}</h1>
             <span>Preparation Time: {recipe.preparationTime} minutes</span> |
             <span> Difficulty: {recipe.difficultyName}</span>

@@ -27,7 +27,7 @@ export default function Footer() {
     >
       <nav css={navStyles}>
         <div>
-          <Link href="/show-recipes">Show Recipes</Link>
+          <Link href="/recipes">Recipes</Link>
           <Link href="/login">Login</Link>
           <Link href="/signup">Sign Up</Link>
         </div>
