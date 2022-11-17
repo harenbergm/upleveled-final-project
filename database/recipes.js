@@ -52,25 +52,6 @@ export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeI
   });
 }
 
-// export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
-//   recipeId,
-//   ingredientIds,
-// ) {
-//   console.log('recipeId', recipeId);
-//   for (const ingredientId of ingredientIds) {
-//     const ingredients = await sql`
-
-//     INSERT INTO recipes_ingredients
-//       ( recipe_id, ingredient_id)
-//     VALUES
-//       (${recipeId}, ${ingredientId})
-
-//     RETURNING *
-//   `;
-//     return ingredients;
-//   }
-// }
-
 export async function getAllRecipes() {
   const allRecipes = await sql`
   SELECT
@@ -96,31 +77,3 @@ export async function getAllRecipes() {
 
   return allRecipes;
 }
-
-// export async function getAllRecipes() {
-//   const allRecipes = await sql`
-//   SELECT
-//     recipes.id as recipes_ingredients,
-//     recipes.name,
-//     recipes.preparation_time,
-//     recipes.imageurl,
-//     recipes.instruction,
-//     recipes.user_id,
-//     recipes.difficulty_id,
-//     ingredients.name as ingredients_name,
-//     difficulties.name as difficulty_name
-//   FROM
-//     recipes,
-//     users,
-//     recipes_ingredients,
-//     ingredients,
-//     difficulties
-//   WHERE
-//     users.id = recipes.user_id AND
-//     difficulties.id = recipes.difficulty_id AND
-//     recipes_ingredients.ingredient_id = recipes.id AND
-//     recipes_ingredients.ingredient_id = ingredients.id ;
-//   `;
-
-//   return allRecipes;
-// }

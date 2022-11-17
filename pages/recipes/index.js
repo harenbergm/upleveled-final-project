@@ -27,34 +27,13 @@ export default function ShowRecipes(props) {
         return (
           <div>
             <h1>Title: {recipe.recipesTitle}</h1>
-            <p>ID: {recipe.id}</p>
-            <p>Preparation Time: {recipe.preparationTime} minutes</p>
-            <p>Ingredients: {recipe.ingredientsName}</p>
-            <p>Instruction: {recipe.instruction}</p>
-            <p>Difficulty: {recipe.difficultyName}</p>
-
+            <span>Preparation Time: {recipe.preparationTime} minutes</span> |
+            <span> Difficulty: {recipe.difficultyName}</span>
             <div>
-              {/* <a href={`/recipes/${recipe.id}`}>
-                <Image
-                  src={`${recipe.imageurl}`}
-                  width="576"
-                  height="384"
-                  alt="text"
-                />
-              </a> */}
+              <img width="576" heigth="384" src={`${recipe.imageurl}`} />
+              <p>Ingredients: {recipe.ingredientsName}</p>
+              <p>Instruction: {recipe.instruction}</p>
             </div>
-            {/* <div>
-              <h1>{recipe.name}</h1> */}
-            {/* <p>
-                Difficulty: {recipe.difficulty_id} | Preparation time:{' '}
-                {recipe.preparation_time} min
-              </p>
-              <p>Ingrediences: {recipes_ingrediences.ingredient_id}</p>
-              <br />
-              Instruction:
-              <br />
-              {recipe.instruction}
-            </div> */}
           </div>
         );
       })}
