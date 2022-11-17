@@ -107,13 +107,6 @@ export default async function handler(
       getRecipeIdFromCreatedRecipe.id,
       ingredientsSelected,
     );
-  console.log('newRecipeIngredientsRecipeId', newRecipeIngredientsRecipeId);
-  // const newRecipeIngredientsIngredientIds =
-  //   createRecipeIngredientsIngredientIdsByReceipeId(ingredientsSelected);
-  // console.log(
-  //   'newRecipeIngredientsIngredientIds',
-  //   newRecipeIngredientsIngredientIds,
-  // );
 
   if (
     !(
@@ -126,13 +119,6 @@ export default async function handler(
       .status(400)
       .json({ message: 'Properties to create the receipe are missing' });
   }
-
-  //   // response with the new created user ??
-  //   // return response.status(200).json(newUser); ??
-
-  //   // const cloudinaryBodyUrl = request.body?.imageURL;
-  //   // console.log('cloudinaryBodyUrl', cloudinaryBodyUrl);
-  // }
 
   if (request.method === 'GET') {
     const allRecipes = await getAllRecipes();

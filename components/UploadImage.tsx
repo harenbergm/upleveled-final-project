@@ -34,7 +34,6 @@ export function UploadImage({ setImageUrl }: Props) {
       },
     ).then((res) => res.json());
     setImageUrl(data.secure_url);
-    console.log('data', data);
   };
 
   return (

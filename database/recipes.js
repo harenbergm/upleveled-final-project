@@ -77,3 +77,30 @@ export async function getAllRecipes() {
 
   return allRecipes;
 }
+
+export async function getRecipeById(recipeId) {
+  const singleRecipe = await sql`
+  SELECT
+    recipes.id as id,
+    recipes.name as recipes_title,
+    recipes.preparation_time,
+    recipes.imageurl,
+    recipes.instruction,
+    ingredients.name as ingredients_name,
+    recipes_ingredients.ingredient_id as ingredient_id,
+    recipes.difficulty_id,
+    difficulties.name as difficulty_name
+  FROM
+    recipes,
+    recipes_ingredients,
+    ingredients,
+    difficulties
+  WHERE
+    recipes.id = recipes_ingredients.recipe_id AND
+     recipes_ingredients.ingredient_id = ingredients.id AND
+     recipes.difficulty_id = difficulties.id AND
+     recipes.id = ${recipeId}
+  `;
+
+  return singleRecipe;
+}

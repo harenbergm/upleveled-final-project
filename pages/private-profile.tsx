@@ -143,23 +143,6 @@ export default function UserProfile(props: Props) {
     console.log('ingredientsSelected', ingredients);
   }
 
-  // creates difficulty
-  // async function createDifficultiesFromApi() {
-  //   const response = await fetch(`/api/recipes`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       difficultySelected: difficulty,
-  //     }),
-  //   });
-
-  //   const createdDifficultiesFromApi = await response.json();
-  //   console.log('createdRecipesIngredientsFromApi', createdDifficultiesFromApi);
-  //   console.log('difficultySelected', difficulty);
-  // }
-
   // Updates User Profile
   async function updateUserFromApiById(id: number) {
     const response = await fetch(`/api/profiles/${id}`, {

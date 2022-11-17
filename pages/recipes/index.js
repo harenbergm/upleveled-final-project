@@ -15,24 +15,20 @@ export default function ShowRecipes(props) {
       </Head>
       <h1>Choose Your Ingredients</h1>
       <p>You wish to include in your recipe</p>
-      <div>
-        {/* <select>
-          {props.ingredients.map((ingredient) => {
-            return <option value={1}>{ingredient.name}</option>;
-          })}
-        </select> */}
-      </div>
       {props.allRecipes.map((recipe) => {
-        console.log('recipe', recipe);
+        // console.log('recipe', recipe);
         return (
           <div>
             <h1>Title: {recipe.recipesTitle}</h1>
             <span>Preparation Time: {recipe.preparationTime} minutes</span> |
             <span> Difficulty: {recipe.difficultyName}</span>
             <div>
-              <img width="576" heigth="384" src={`${recipe.imageurl}`} />
+              <a href={`/recipes/${recipe.id}`}>
+                <img width="576" heigth="384" src={`${recipe.imageurl}`} />
+              </a>
               <p>Ingredients: {recipe.ingredientsName}</p>
               <p>Instruction: {recipe.instruction}</p>
+              <span> ID: {recipe.id}</span>
             </div>
           </div>
         );
