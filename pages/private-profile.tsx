@@ -6,12 +6,14 @@ import { useState } from 'react';
 import UploadImage from '../components/UploadImage';
 import getDifficulties from '../database/difficulties';
 import getIngredients from '../database/ingredients';
+import { getRecipesByUserId } from '../database/recipes';
 import { getUserBySessionToken, User } from '../database/users';
 
 type Props = {
   user: User;
   ingredients: Awaited<ReturnType<typeof getIngredients>>;
   difficulties: Awaited<ReturnType<typeof getDifficulties>>;
+  userRecipes: Awaited<ReturnType<typeof getRecipesByUserId>>;
 };
 
 export default function UserProfile(props: Props) {
@@ -192,6 +194,7 @@ export default function UserProfile(props: Props) {
         <title>Personal Information</title>
         <meta name="description" content="Biography of the person" />
       </Head>
+
       <div css={profileStyles}>
         <h1>Private Profile</h1>
         <hr />
@@ -327,6 +330,25 @@ export default function UserProfile(props: Props) {
             </form>
           </div>
         </div>
+        <br />
+        <hr />
+        <h2>My Created Recipes</h2>
+        {props.userRecipes.map((userRecipe) => {
+          return (
+            <div key={userRecipe.id}>
+              <h3>Title: {userRecipe.recipesTitle}</h3>
+              <span>
+                Preparation Time: {userRecipe.preparationTime} minutes |
+                Difficulty: {userRecipe.difficultyName}
+              </span>
+              <span>Ingredients: {userRecipe.ingredientsName}</span>
+              <button>Edit</button>
+              <button>Delete</button>
+              <br />
+            </div>
+          );
+        })}
+        <div></div>
       </div>
     </>
   );
@@ -337,6 +359,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const difficulties = await getDifficulties();
   const token = context.req.cookies.sessionToken;
   const user = token && (await getUserBySessionToken(token));
+  const userId = user.id;
+  const userRecipes = await getRecipesByUserId(userId);
 
   if (!user) {
     return {
@@ -349,9 +373,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   return {
     props: {
-      user,
-      ingredients,
-      difficulties,
+      user: user,
+      ingredients: ingredients,
+      difficulties: difficulties,
+      userRecipes: userRecipes,
     },
   };
 }

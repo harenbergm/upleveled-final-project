@@ -20,7 +20,6 @@ export default function ShowRecipes(props) {
         console.log('getRecipeIngredients', props.getRecipeIngredients);
         return (
           <div key={recipe.id}>
-            <h1>Title: {recipe.recipesTitle}</h1>
             <span>Preparation Time: {recipe.preparationTime} minutes</span> |
             <span> Difficulty: {recipe.difficultyName}</span>
             {/* <div>Ingredients {recipe.getRecipeIngredients(recipe.id)}</div> */}
