@@ -4,6 +4,23 @@ import Image from 'next/image';
 import { getIngredientsByRecipeId } from '../../database/ingredients';
 import { getAllRecipesWithoutDuplicatesRecipeId } from '../../database/recipes';
 
+// const gridStyles = css`
+//   display: grid;
+//   grid-template-columns: 420px 420px 420px 420px;
+//   grid-template-rows: 420px 420px 420px 420px;
+//   grid-gap: 10px;
+//   justify-content: center;
+//   align-items: center;
+// `;
+
+// const gridboxStyles = css`
+//   grid-auto-flow: row;
+//   width: 420px;
+//   height: 280px;
+//   border-radius: 12px;
+//   display: block;
+// `;
+
 export default function ShowRecipes(props) {
   return (
     <>
@@ -17,19 +34,23 @@ export default function ShowRecipes(props) {
       <h1>Choose Your Ingredients</h1>
       <p>You wish to include in your recipe</p>
       {props.getAllRecipes.map((recipe) => {
-        console.log('getRecipeIngredients', props.getRecipeIngredients);
         return (
-          <div key={recipe.id}>
-            <span>Preparation Time: {recipe.preparationTime} minutes</span> |
-            <span> Difficulty: {recipe.difficultyName}</span>
-            {/* <div>Ingredients {recipe.getRecipeIngredients(recipe.id)}</div> */}
-            <div>
-              <a href={`/recipes/${recipe.id}`}>
-                <img width="576" heigth="384" src={`${recipe.imageurl}`} />
-              </a>
-              <p>Ingredients: {recipe.ingredientsName}</p>
-              <p>Instruction: {recipe.instruction}</p>
-              <span> ID: {recipe.id}</span>
+          <div>
+            <div key={recipe.id}>
+              <h2>{recipe.recipesTitle}</h2>
+              <span>Preparation Time: {recipe.preparationTime} minutes</span> |
+              <span> Difficulty: {recipe.difficultyName}</span>
+              {/* <div>Ingredients {recipe.getRecipeIngredients(recipe.id)}</div> */}
+              <div>
+                <a href={`/recipes/${recipe.id}`}>
+                  <img width="576" heigth="384" src={`${recipe.imageurl}`} />
+                </a>
+                <p>Ingredients: {recipe.ingredientsName}</p>
+                <p>Instruction: {recipe.instruction}</p>
+                <span> ID: {recipe.id}</span>
+              </div>
+              {props.ingredients}
+              {/* {console.log('props.ingredients', props.ingredients)} */}
             </div>
           </div>
         );
@@ -39,18 +60,25 @@ export default function ShowRecipes(props) {
 }
 
 export async function getServerSideProps() {
+  // calls all recipes without duplicates
   const getAllRecipes = await getAllRecipesWithoutDuplicatesRecipeId();
+  // calls only 1 ingredient per recipe
   const getRecipeIngredients = await getIngredientsByRecipeId();
-  // console.log('getAllRecipes', getAllRecipes);
 
-  // ingredients = await getAllRecipes.map(async (recipe) => {
-  //   return getIngredientsByRecipeId(recipe.id);
-  // });
-  // console.log('ingredients', ingredients);
+  // calls arrays with ingredients
+  const ingredients = await getAllRecipes.map(async (recipe) => {
+    return Promise.all(
+      getIngredientsByRecipeId(recipe.id).then((ingredients) => {
+        console.log('ingredients', ingredients);
+      }),
+    );
+  });
+
   return {
     props: {
       getAllRecipes: getAllRecipes,
       getRecipeIngredients: getRecipeIngredients,
+      // ingredients: ingredients,
     },
   };
 }

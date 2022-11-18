@@ -125,26 +125,6 @@ export default function UserProfile(props: Props) {
     const createdRecipeFromApiById = await response.json();
   }
 
-  // creates recipes_ingredients
-  async function createRecipes_IngredientsFromApi() {
-    const response = await fetch(`/api/recipes`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        ingredientsSelected: ingredients,
-      }),
-    });
-
-    const createdRecipesIngredientsFromApi = await response.json();
-    //   console.log(
-    //     'createdRecipesIngredientsFromApi',
-    //     createdRecipesIngredientsFromApi,
-    //   );
-    //   console.log('ingredientsSelected', ingredients);
-  }
-
   // Updates User Profile
   async function updateUserFromApiById(id: number) {
     const response = await fetch(`/api/profiles/${id}`, {

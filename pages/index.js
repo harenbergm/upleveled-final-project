@@ -15,14 +15,6 @@ export default function Home() {
     margin-top: 100px;
   `;
 
-  // const imageStyles = css`
-  //   max-width: 100%;
-  //   max-height: 100%;
-  //   z-index: -100;
-  //   position: absolute;
-  //   overflow: 'hidden';
-  // `;
-
   return (
     <div>
       <Head>
