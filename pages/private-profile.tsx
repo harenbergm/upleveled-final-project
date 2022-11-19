@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 // import RecipeUpload from '../components/RecipeUpload';
 import UploadImage from '../components/UploadImage';
 import getDifficulties from '../database/difficulties';
@@ -87,7 +88,7 @@ export default function UserProfile(props: Props) {
   const [preparationTime, setPreparationTime] = useState('');
   const [difficulty, setDifficulty] = useState(1);
   const [recipeInstructions, setRecipeInstructions] = useState('');
-  const [recipeCreated, setRecipeCreated] = useState('');
+  const [recipeCreated, setRecipeCreated] = useState(false);
   const userAccountId = props.user.id;
 
   // selects and filter the ingredients
@@ -103,6 +104,7 @@ export default function UserProfile(props: Props) {
   }
 
   // creates recipe
+
   async function createRecipeFromApiById(userAccountId: number) {
     const response = await fetch(`/api/recipes`, {
       method: 'POST',
@@ -125,7 +127,7 @@ export default function UserProfile(props: Props) {
     });
 
     const createdRecipeFromApiById = await response.json();
-    setRecipeCreated(createdRecipeFromApiById);
+    setRecipeCreated(true);
   }
 
   // Updates User Profile
@@ -311,7 +313,13 @@ export default function UserProfile(props: Props) {
                   }}
                 />
               </div>
-              <button>Submit My Recipe</button>
+              <button
+                onClick={async () => {
+                  await createRecipeFromApiById(userAccountId);
+                }}
+              >
+                Submit My Recipe
+              </button>
             </form>
           </div>
         </div>
@@ -322,6 +330,7 @@ export default function UserProfile(props: Props) {
           return (
             <div key={userRecipe.id}>
               <h3>Title: {userRecipe.recipesTitle}</h3>
+              <div>{userRecipe.id}</div>
               <span>
                 Preparation Time: {userRecipe.preparationTime} minutes |
                 Difficulty: {userRecipe.difficultyName}

@@ -176,7 +176,7 @@ export async function getRecipeById(recipeId) {
 export async function getRecipesByUserId(userId) {
   const userRecipes = await sql`
   SELECT
-    recipes.id as id,
+  DISTINCT ON (recipes.id) recipes.id,
     recipes.name as recipes_title,
     recipes.preparation_time,
     recipes.imageurl,
@@ -194,7 +194,9 @@ export async function getRecipesByUserId(userId) {
      recipes.id = recipes_ingredients.recipe_id AND
      recipes_ingredients.ingredient_id = ingredients.id AND
      recipes.difficulty_id = difficulties.id AND
-     user_id = ${userId}
+     user_id = 1
+  ORDER BY
+    recipes.id
   `;
 
   return userRecipes;
