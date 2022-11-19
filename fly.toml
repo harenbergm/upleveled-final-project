@@ -1,4 +1,4 @@
-app = "nextjs-ecom-store"
+app = "upleveled-final-project"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []

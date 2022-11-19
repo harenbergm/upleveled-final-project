@@ -3,6 +3,7 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
+import postgres from 'postgres';
 import {
   createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId,
   createRecipeByUserId,
@@ -95,7 +96,7 @@ export default async function handler(
     // take recipe id and add ingredients
     const newRecipeIngredientsRecipeId =
       await createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
-        getRecipeIdFromCreatedRecipe.id,
+        getRecipeIdFromCreatedRecipe?.id,
         ingredientsSelected,
       );
 

@@ -50,7 +50,7 @@ export async function getUserByValidSessionToken(token: string | undefined) {
 export async function getEmailAddress(email: string) {
   if (!email) return undefined;
 
-  const emailAdress: string = await sql<{ email: string }>`
+  const emailAdress = await sql<User[]>`
 SELECT
     e_mail
 FROM

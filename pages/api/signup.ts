@@ -8,7 +8,6 @@ import {
   createUser,
   getEmailAddress,
   getUserByUsername,
-  updateUsernameById,
 } from '../../database/users';
 import { createSerializedRegisterSessionTokenCookie } from '../../utils/cookies';
 

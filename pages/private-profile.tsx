@@ -163,7 +163,7 @@ export default function UserProfile(props: Props) {
 
   // deletes recipe by recipe id
   async function deleteRecipeFromApiByRecipeId(recipeId: number) {
-    const response = await fetch(`/api/recipes/${id}`, {
+    const response = await fetch(`/api/recipes/${recipeId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',
@@ -310,7 +310,7 @@ export default function UserProfile(props: Props) {
                     setDifficulty(event?.target.value);
                   }}
                 >
-                  {props.difficulties.map((difficulty: string) => {
+                  {props.difficulties.map((difficulty) => {
                     return (
                       <option value={difficulty.id}>{difficulty.name}</option>
                     );
@@ -366,7 +366,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const difficulties = await getDifficulties();
   const token = context.req.cookies.sessionToken;
   const user = token && (await getUserBySessionToken(token));
-  const userId = user.id;
+  const userId = user!.id;
   const userRecipes = await getRecipesByUserId(userId);
 
   if (!user) {
