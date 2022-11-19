@@ -161,6 +161,20 @@ export default function UserProfile(props: Props) {
     const deletedUserFromApiById = await response.json();
   }
 
+  // deletes recipe by recipe id
+  async function deleteRecipeFromApiByRecipeId(recipeId: number) {
+    const response = await fetch(`/api/recipes/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        recipeId: recipeId,
+      }),
+    });
+    const deletedRecipeFromApiByRecipeId = await response.json();
+  }
+
   if (!props.user) {
     return (
       <>

@@ -17,6 +17,57 @@ const backButtonStyles = css`
   }
 `;
 
+const commentButtonStyles = css`
+  border-radius: 4px;
+  width: 80px;
+  background-color: green;
+  color: white;
+  :hover {
+    background-color: white;
+    color: green;
+  }
+`;
+
+const recipeStyles = css`
+  img {
+    display: block;
+    margin: auto;
+  }
+  div {
+    display: flex;
+    justify-content: center;
+  }
+
+  h4 {
+    width: 576px;
+    display: flex;
+    justify-content: right;
+  }
+
+  div > span {
+    margin-top: 10px;
+    margin-right: 5px;
+  }
+
+  p {
+    display: flex;
+    justify-content: center;
+  }
+  #preparation {
+    width: 576px;
+    margin-bottom: 30px;
+  }
+`;
+
+const formStyles = css`
+  margin-left: 470px;
+  div {
+    display: block;
+    justify-content: right;
+    margin: 0 auto;
+  }
+`;
+
 export default function ShowSingleRecipe(props) {
   let currentDate = new Date().toJSON().slice(0, 10);
   const [comment, setComment] = useState('');
@@ -63,65 +114,80 @@ export default function ShowSingleRecipe(props) {
               <button css={backButtonStyles}> 🠔 Back</button>
             </a>
           </div>
-          <div>
+          <div css={recipeStyles}>
             <div>
-              <h1>Title: {props.singleRecipe[0].recipesTitle}</h1>
-            </div>
-            <div>ID: {props.singleRecipe[0].id}</div>
-            <div>
-              Preparation Time: {props.singleRecipe[0].preparationTime} Minutes
-            </div>
-            <p>Difficulty: {props.singleRecipe[0].difficultyName}</p>
-          </div>
-          <img
-            src={`${props.singleRecipe[0].imageurl}`}
-            width="758"
-            height="380"
-            css={css`
-              border-radius: 12px;
-            `}
-          />
-          <p>Ingredients: {props.singleRecipe[0].ingredientsName}</p>
-          <p>Instruction: {props.singleRecipe[0].instruction}</p>
-          <hr />
-          {props.comments ? (
-            props.comments.map((comment) => {
-              return (
+              <div>
                 <div>
-                  <div>
-                    Username: {comment.userName} on {comment.date}
-                    <br />
-                    <span>
-                      <i>"{comment.content}"</i>
-                    </span>
-                    <br />
-                  </div>
-                  <br />
+                  <h1>{props.singleRecipe[0].recipesTitle}</h1>
                 </div>
-              );
-            })
-          ) : (
-            <hr />
-          )}
-          <hr />
-          <form
-            onSubmit={(event) => {
-              return (
-                event.preventDefault(),
-                createCommentFromApiByUserId(userAccountId)
-              );
-            }}
-          >
-            <h4>Leave a comment (max. 400 chars)</h4>
-            <textarea
-              value={comment}
-              onChange={(event) => {
-                setComment(event.currentTarget.value);
-              }}
+              </div>
+              <div>ID: {props.singleRecipe[0].id}</div>
+            </div>
+            <img
+              src={`${props.singleRecipe[0].imageurl}`}
+              width="576"
+              height="432"
+              css={css`
+                border-radius: 12px;
+              `}
             />
-            <button css={backButtonStyles}>Comment</button>
-          </form>
+            <div>
+              <span>
+                Preparation Time: {props.singleRecipe[0].preparationTime}{' '}
+                Minutes |
+              </span>
+              <span> Difficulty: {props.singleRecipe[0].difficultyName}</span>
+            </div>
+            <p>Ingredients: {props.singleRecipe[0].ingredientsName}</p>
+            <h4>Preparation:</h4>
+            <div>
+              <div id="preparation">{props.singleRecipe[0].instruction}</div>
+            </div>
+            <hr width="576" />
+          </div>
         </div>
+      </div>
+
+      {props.comments ? (
+        props.comments.map((comment) => {
+          return (
+            <div css={{ marginLeft: 470 }}>
+              <p>
+                <b>
+                  {comment.userName} on {comment.date}
+                </b>
+              </p>
+              <div css={{ marginBottom: 30 }}>
+                <i>{comment.content}</i>
+              </div>
+            </div>
+          );
+        })
+      ) : (
+        <></>
+      )}
+
+      <div css={formStyles}>
+        <form
+          onSubmit={(event) => {
+            return (
+              event.preventDefault(),
+              createCommentFromApiByUserId(userAccountId)
+            );
+          }}
+        >
+          <h4 css={{ marginTop: 40 }}>Leave a comment (max. 400 chars)</h4>
+
+          <textarea
+            css={{ width: 350 }}
+            value={comment}
+            onChange={(event) => {
+              setComment(event.currentTarget.value);
+            }}
+          />
+          <br />
+          <button css={commentButtonStyles}>Comment</button>
+        </form>
       </div>
     </>
   );

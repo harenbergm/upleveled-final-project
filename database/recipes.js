@@ -201,3 +201,15 @@ export async function getRecipesByUserId(userId) {
 
   return userRecipes;
 }
+
+export async function deleteRecipeByRecipeId(recipeId) {
+  const deletedRecipe = await sql`
+  DELETE FROM
+    recipes
+  WHERE
+    recipes.id = ${recipeId}
+    RETURNING *
+  `;
+
+  return deletedRecipe;
+}

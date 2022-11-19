@@ -13,26 +13,34 @@ type Props = {
 const signupStyles = css`
   justify-content: center;
   text-align: center;
-  padding-top: 100px;
+  padding-top: 20px;
   margin: 8% auto;
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 380px;
   border: 1px solid black;
   border-radius: 12px;
 
-  > label {
-    display: block;
-    margin-bottom: -10px;
-    /* margin-right: 20px; */
+  p {
+    width: 300px;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 12px;
+    margin-bottom: 15px;
   }
 
-  > label ~ input {
+  input {
+    height: 30px;
+    width: 300px;
+    margin-bottom: 15px;
+    border-radius: 8px;
   }
 
-  > button {
-    margin-top: 30px;
-    border-radius: 4px;
-    width: 100px;
+  button {
+    height: 30px;
+    width: 300px;
+    background-color: #89da59;
+    margin-top: 20px;
+    border-radius: 8px;
     border: 1px solid black;
   }
 `;
@@ -87,7 +95,9 @@ export default function Register(props: Props) {
         <meta name="description" content="Sign up new users" />
       </Head>
       <div css={signupStyles}>
-        <h1>Register</h1>
+        <div>LOGO</div>
+        <h1>Sign Up</h1>
+        <p>By loggin in you are accepting our cookie policy.</p>
         {errors.map((error) => {
           return (
             <p
@@ -103,36 +113,28 @@ export default function Register(props: Props) {
           );
         })}
 
-        <label>
-          Username
-          <input
-            value={username}
-            onChange={(event) => {
-              setUsername(event.currentTarget.value.toLowerCase());
-            }}
-          />
-        </label>
-        <br />
-        <label>
-          Password
-          <input
-            value={password}
-            onChange={(event) => {
-              setPassword(event.currentTarget.value);
-            }}
-          />
-        </label>
-        <br />
-        <label>
-          E-Mail
-          <input
-            type="email"
-            value={email}
-            onChange={(event) => {
-              setEmail(event.currentTarget.value);
-            }}
-          />
-        </label>
+        <input
+          placeholder="Username"
+          value={username}
+          onChange={(event) => {
+            setUsername(event.currentTarget.value.toLowerCase());
+          }}
+        />
+        <input
+          placeholder="Password"
+          value={password}
+          onChange={(event) => {
+            setPassword(event.currentTarget.value);
+          }}
+        />
+        <input
+          type="email"
+          placeholder="E-Mail"
+          value={email}
+          onChange={(event) => {
+            setEmail(event.currentTarget.value);
+          }}
+        />
         <button
           onClick={async () => {
             await registerHandler();

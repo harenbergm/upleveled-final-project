@@ -14,26 +14,34 @@ type Props = {
 const loginStyles = css`
   justify-content: center;
   text-align: center;
-  padding-top: 100px;
+  padding-top: 20px;
   margin: 8% auto;
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 380px;
   border: 1px solid black;
   border-radius: 12px;
 
-  > label {
-    display: block;
-    margin-bottom: -10px;
-    /* margin-right: 20px; */
+  p {
+    width: 300px;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 12px;
+    margin-bottom: 15px;
   }
 
-  > label ~ input {
+  input {
+    height: 30px;
+    width: 300px;
+    margin-bottom: 15px;
+    border-radius: 8px;
   }
 
-  > button {
-    margin-top: 30px;
-    border-radius: 4px;
-    width: 100px;
+  button {
+    height: 30px;
+    width: 300px;
+    background-color: #89da59;
+    margin-top: 20px;
+    border-radius: 8px;
     border: 1px solid black;
   }
 `;
@@ -94,6 +102,7 @@ export default function Login(props: Props) {
         <meta name="description" content="Login new users" />
       </Head>
       <div css={loginStyles}>
+        <div>LOGO</div>
         <h1>Login</h1>
         {errors.map((error) => {
           return (
@@ -109,37 +118,34 @@ export default function Login(props: Props) {
             </p>
           );
         })}
-        <label>
-          Username
+        <div>
           <input
+            placeholder="Username"
             value={username}
             onChange={(event) => {
               setUsername(event.currentTarget.value.toLowerCase());
             }}
           />
-        </label>
-        <br />
-        <label>
-          Password
           <input
+            placeholder="Password"
             value={password}
             onChange={(event) => {
               setPassword(event.currentTarget.value);
             }}
           />
-        </label>
-        <button
-          onClick={async () => {
-            await loginHandler();
-          }}
-        >
-          Login
-        </button>
-        <div css={signupStyles}>
-          <hr />
-          <span>
-            Don't have an account? <Link href="/signup">Sign Up!</Link>
-          </span>
+          <button
+            onClick={async () => {
+              await loginHandler();
+            }}
+          >
+            Login
+          </button>
+          <div css={signupStyles}>
+            <hr />
+            <span>
+              Don't have an account? <Link href="/signup">Sign Up!</Link>
+            </span>
+          </div>
         </div>
       </div>
     </>

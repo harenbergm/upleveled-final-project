@@ -11,7 +11,7 @@ const footerStyles = css`
   background-color: lightblue;
   justify-content: center;
   gap: 5rem;
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   width: 100%;
 

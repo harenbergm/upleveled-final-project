@@ -1,4 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import {
+  deleteRecipeByRecipeId,
+  getRecipesByUserId,
+} from '../../../database/recipes';
 import { getValidSessionByToken } from '../../../database/sessions';
 import { getUserByValidSessionToken } from '../../../database/users';
 
@@ -40,6 +44,7 @@ export default async function handler(
   }
 
   if (request.method === 'DELETE') {
+    const deletedRecipe = await deleteRecipeByRecipeId(userId);
   }
 
   if (request.method === 'POST') {
