@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import { useState } from 'react';
+import { getCommentByRecipeId } from '../../database/recipecomments';
 import { getRecipeById } from '../../database/recipes';
 import { getUserBySessionToken } from '../../database/users';
-import { getCommentByRecipeId } from '../../database/recipecomments';
 
 const backButtonStyles = css`
   margin-left: 20px;
@@ -113,7 +113,7 @@ export default function ShowSingleRecipe(props) {
             }}
           >
             <h4>Leave a comment (max. 400 chars)</h4>
-            <input
+            <textarea
               value={comment}
               onChange={(event) => {
                 setComment(event.currentTarget.value);

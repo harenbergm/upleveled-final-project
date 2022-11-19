@@ -38,6 +38,8 @@ export default function ShowRecipes(props) {
           <div>
             <div key={recipe.id}>
               <h2>{recipe.recipesTitle}</h2>
+              <span> ID: {recipe.id}</span>
+              <br />
               <span>Preparation Time: {recipe.preparationTime} minutes</span> |
               <span> Difficulty: {recipe.difficultyName}</span>
               {/* <div>Ingredients {recipe.getRecipeIngredients(recipe.id)}</div> */}
@@ -47,7 +49,6 @@ export default function ShowRecipes(props) {
                 </a>
                 <p>Ingredients: {recipe.ingredientsName}</p>
                 <p>Instruction: {recipe.instruction}</p>
-                <span> ID: {recipe.id}</span>
               </div>
               {props.ingredients}
               {/* {console.log('props.ingredients', props.ingredients)} */}
@@ -66,13 +67,13 @@ export async function getServerSideProps() {
   const getRecipeIngredients = await getIngredientsByRecipeId();
 
   // calls arrays with ingredients
-  const ingredients = await getAllRecipes.map(async (recipe) => {
-    return Promise.all(
-      getIngredientsByRecipeId(recipe.id).then((ingredients) => {
-        console.log('ingredients', ingredients);
-      }),
-    );
-  });
+  // const ingredients = await getAllRecipes.map(async (recipe) => {
+  //   return Promise.all(
+  //     getIngredientsByRecipeId(recipe.id).then((ingredients) => {
+  //       console.log('ingredients', ingredients);
+  //     }),
+  //   );
+  // });
 
   return {
     props: {

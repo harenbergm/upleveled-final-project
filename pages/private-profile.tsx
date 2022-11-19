@@ -87,6 +87,7 @@ export default function UserProfile(props: Props) {
   const [preparationTime, setPreparationTime] = useState('');
   const [difficulty, setDifficulty] = useState(1);
   const [recipeInstructions, setRecipeInstructions] = useState('');
+  const [recipeCreated, setRecipeCreated] = useState('');
   const userAccountId = props.user.id;
 
   // selects and filter the ingredients
@@ -122,7 +123,9 @@ export default function UserProfile(props: Props) {
         },
       }),
     });
+
     const createdRecipeFromApiById = await response.json();
+    setRecipeCreated(createdRecipeFromApiById);
   }
 
   // Updates User Profile
@@ -240,7 +243,9 @@ export default function UserProfile(props: Props) {
             <form
               onSubmit={(event) => {
                 return (
-                  event.preventDefault(), createRecipeFromApiById(userAccountId)
+                  event.preventDefault(),
+                  createRecipeFromApiById(userAccountId),
+                  setRecipeCreated(event.currentTarget.value)
                 );
               }}
             >
@@ -298,7 +303,7 @@ export default function UserProfile(props: Props) {
               </div>
               <div>
                 <h4>6. Instruction (max. 1000 chars)</h4>
-                <input
+                <textarea
                   id="instructions"
                   value={recipeInstructions}
                   onChange={(event) => {
@@ -328,7 +333,6 @@ export default function UserProfile(props: Props) {
             </div>
           );
         })}
-        <div></div>
       </div>
     </>
   );
