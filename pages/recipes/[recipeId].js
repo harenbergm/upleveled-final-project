@@ -6,6 +6,7 @@ import { getRecipeById } from '../../database/recipes';
 import { getUserBySessionToken } from '../../database/users';
 
 const backButtonStyles = css`
+  margin-top: 30px;
   margin-left: 20px;
   border-radius: 4px;
   width: 80px;
