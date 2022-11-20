@@ -194,7 +194,7 @@ export async function getRecipesByUserId(userId) {
      recipes.id = recipes_ingredients.recipe_id AND
      recipes_ingredients.ingredient_id = ingredients.id AND
      recipes.difficulty_id = difficulties.id AND
-     user_id = 1
+     user_id = ${userId}
   ORDER BY
     recipes.id
   `;

@@ -21,6 +21,23 @@ import { getAllRecipesWithoutDuplicatesRecipeId } from '../../database/recipes';
 //   display: block;
 // `;
 
+const headlineStyles = css`
+  h1 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 40px;
+    margin: 0 auto;
+  }
+  h2 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 20px;
+    margin: 0 auto;
+  }
+`;
+
 export default function ShowRecipes(props) {
   return (
     <>
@@ -31,8 +48,11 @@ export default function ShowRecipes(props) {
           content="Here you yan see all cooking recipes created by users"
         />
       </Head>
-      <h1>Choose Your Ingredients</h1>
-      <p>You wish to include in your recipe</p>
+      <div css={headlineStyles}>
+        <h1>Find Your Recipes By Ingredients</h1>
+        <h2>You wish to have in your recipe</h2>
+      </div>
+
       {props.getAllRecipes.map((recipe) => {
         return (
           <div>

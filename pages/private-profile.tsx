@@ -343,15 +343,21 @@ export default function UserProfile(props: Props) {
         {props.userRecipes.map((userRecipe) => {
           return (
             <div key={userRecipe.id}>
-              <h3>Title: {userRecipe.recipesTitle}</h3>
-              <div>{userRecipe.id}</div>
-              <span>
-                Preparation Time: {userRecipe.preparationTime} minutes |
-                Difficulty: {userRecipe.difficultyName}
-              </span>
+              <h3>{userRecipe.recipesTitle}</h3>
+              <div>Recipe ID:{userRecipe.id} </div>
+              <div>
+                <p>Prep. Time: {userRecipe.preparationTime} minutes</p>
+                <p>Difficulty: {userRecipe.difficultyName}</p>
+              </div>
               <span>Ingredients: {userRecipe.ingredientsName}</span>
               <button>Edit</button>
-              <button>Delete</button>
+              <button
+                onClick={() => {
+                  deleteRecipeFromApiByRecipeId(userRecipe.id);
+                }}
+              >
+                Delete
+              </button>
               <br />
             </div>
           );

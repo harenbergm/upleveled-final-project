@@ -1,8 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import {
-  deleteRecipeByRecipeId,
-  getRecipesByUserId,
-} from '../../../database/recipes';
+import { deleteRecipeByRecipeId } from '../../../database/recipes';
 import { getValidSessionByToken } from '../../../database/sessions';
 import { getUserByValidSessionToken } from '../../../database/users';
 
@@ -44,7 +41,15 @@ export default async function handler(
   }
 
   if (request.method === 'DELETE') {
-    const deletedRecipe = await deleteRecipeByRecipeId(userId);
+    const recipeId = request.body?.recipeId;
+    console.log('recipeId', recipeId);
+    const deletedRecipe = await deleteRecipeByRecipeId(recipeId);
+
+    if (!deletedRecipe) {
+      return response.status(404).json({ message: 'Not a valid Id' });
+    }
+
+    return response.status(200).json(deletedRecipe);
   }
 
   if (request.method === 'POST') {
