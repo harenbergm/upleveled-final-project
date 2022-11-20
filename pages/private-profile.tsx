@@ -260,9 +260,8 @@ export default function UserProfile(props: Props) {
             <form
               onSubmit={(event) => {
                 return (
-                  event.preventDefault(),
-                  createRecipeFromApiById(userAccountId),
-                  setRecipeCreated(event.currentTarget.value)
+                  event.preventDefault(), createRecipeFromApiById(userAccountId)
+                  // setRecipeCreated(event.currentTarget.value)
                 );
               }}
             >

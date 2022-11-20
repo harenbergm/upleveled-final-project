@@ -11,7 +11,7 @@ import {
   getLastRecipeIdByUserId,
 } from '../../../database/recipes';
 import { getValidSessionByToken } from '../../../database/sessions';
-import { getUserBySessionToken } from '../../../database/users';
+import { getUserByValidSessionToken } from '../../../database/users';
 
 // type Props = {
 //   user: User;
@@ -22,7 +22,8 @@ export default async function handler(
   response: NextApiResponse,
 ) {
   if (request.method === 'POST') {
-    /*  // 1. Get the cookie from the request and use it to validate the session
+    // 1. check if session token exists
+    // console.log('request.query', request.query);
     const session =
       request.cookies.sessionToken &&
       (await getValidSessionByToken(request.cookies.sessionToken));
@@ -34,20 +35,13 @@ export default async function handler(
       return;
     }
 
-    // 2. Get the user from the token
-    const user = await getUserBySessionToken(session.token);
+    // 2. check if user exists and has a valid session token
+    const user = await getUserByValidSessionToken(request.cookies.sessionToken);
 
+    // 3. check if user exists in the database
     if (!user) {
-      response
-        .status(400)
-        .json({ errors: [{ message: 'Session token not valid' }] });
-      return;
+      return response.status(404).json({ message: 'User does not exist' });
     }
-
-    // return the user from the session token
-    response.status(200).json({ user: user });
-  } else {
-    response.status(405).json({ errors: [{ message: 'method not allowed' }] }); */
 
     // information coming from from createRecipeFromApiById();
 
@@ -111,26 +105,22 @@ export default async function handler(
         .status(400)
         .json({ message: 'Properties to create the receipe are missing' });
     }
+  }
 
-    /*     if (request.method === 'GET') {
-      const allRecipes = await getAllRecipesWithoutDuplicatesRecipeId();
+  if (request.method === 'GET') {
+    const allRecipes = await getAllRecipesWithoutDuplicatesRecipeId();
 
-      if (!allRecipes) {
-        return response.status(500).json({ message: 'Internal Server Error' });
-      }
-      return response.status(200).json(allRecipes);
+    if (!allRecipes) {
+      return response.status(500).json({ message: 'Internal Server Error' });
     }
+    return response.status(200).json(allRecipes);
+  }
 
-    if (request.method === 'PUT') {
-      response
-        .status(405)
-        .json({ errors: [{ message: 'method not allowed' }] });
-    }
+  if (request.method === 'PUT') {
+    response.status(405).json({ errors: [{ message: 'method not allowed' }] });
+  }
 
-    if (request.method === 'DELETE') {
-      response
-        .status(405)
-        .json({ errors: [{ message: 'method not allowed' }] });
-    } */
+  if (request.method === 'DELETE') {
+    response.status(405).json({ errors: [{ message: 'method not allowed' }] });
   }
 }

@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import { stringify } from 'node:querystring';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { getValidSessionByToken } from '../../../database/sessions';
 import {
+  deleteUserById,
   getUserByValidSessionToken,
   updateUserById,
-  deleteUserById,
 } from '../../../database/users';
 
 // import { validateTokenWithSecret } from '../../../utils/csrf';
@@ -13,7 +13,7 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse,
 ) {
-  // check if session token exists
+  // 1. check if session token exists
   // console.log('request.query', request.query);
   const session =
     request.cookies.sessionToken &&
@@ -28,15 +28,15 @@ export default async function handler(
 
   const userId = Number(request.query.profileId);
 
-  // check if the id is a number
+  // 2. check if the id is a number
   if (!userId) {
     return response.status(404).json({ message: 'Not a valid Id' });
   }
 
-  // check if user exists and has a valid session token
+  // 3. check if user exists and has a valid session token
   const user = await getUserByValidSessionToken(request.cookies.sessionToken);
 
-  // check if user exists in the database
+  // 4. check if user exists in the database
   if (!user) {
     return response
       .status(404)

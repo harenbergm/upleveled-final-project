@@ -17,7 +17,7 @@ test('navigation test', async ({ page }) => {
   await userinput.type('test');
 
   await page.locator('[data-test-id^="login"]').click();
-  await page.goto('http://localhost:3000/private-profile');
+  await await page.goto('http://localhost:3000/private-profile');
 
   await page.goto('http://localhost:3000/recipes');
 

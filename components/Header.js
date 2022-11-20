@@ -80,6 +80,7 @@ export default function Header(props) {
 
           {props.user ? (
             <Anchor
+              data-test-id={'logout'}
               css={css`
                 margin-left: 30px;
               `}
