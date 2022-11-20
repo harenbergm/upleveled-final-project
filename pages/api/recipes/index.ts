@@ -1,9 +1,4 @@
-import {
-  GetServerSidePropsContext,
-  NextApiRequest,
-  NextApiResponse,
-} from 'next';
-import postgres from 'postgres';
+import { NextApiRequest, NextApiResponse } from 'next';
 import {
   createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId,
   createRecipeByUserId,
@@ -13,17 +8,12 @@ import {
 import { getValidSessionByToken } from '../../../database/sessions';
 import { getUserByValidSessionToken } from '../../../database/users';
 
-// type Props = {
-//   user: User;
-// };
-
 export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse,
 ) {
   if (request.method === 'POST') {
     // 1. check if session token exists
-    // console.log('request.query', request.query);
     const session =
       request.cookies.sessionToken &&
       (await getValidSessionByToken(request.cookies.sessionToken));
@@ -86,13 +76,16 @@ export default async function handler(
 
     // get last created recipe id by user id
     const getRecipeIdFromCreatedRecipe = await getLastRecipeIdByUserId(userId);
+    console.log('getRecipeIdFromCreatedRecipe', getRecipeIdFromCreatedRecipe);
 
     // take recipe id and add ingredients
     const newRecipeIngredientsRecipeId =
-      await createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
+      createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
         getRecipeIdFromCreatedRecipe?.id,
         ingredientsSelected,
       );
+
+    console.log('newRecipeIngredientsRecipeId', newRecipeIngredientsRecipeId);
 
     if (
       !(

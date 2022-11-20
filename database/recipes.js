@@ -51,33 +51,6 @@ export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeI
     return ingredientId;
   });
 }
-
-// export async function getAllRecipes() {
-//   const allRecipes = await sql`
-//   SELECT
-//     recipes.id,
-//     recipes.name as recipes_title,
-//     recipes.preparation_time,
-//     recipes.imageurl,
-//     recipes.instruction,
-//     ingredients.name as ingredients_name,
-//     recipes_ingredients.ingredient_id as ingredient_id,
-//     recipes.difficulty_id,
-//     difficulties.name as difficulty_name
-//   FROM
-//     recipes,
-//     recipes_ingredients,
-//     ingredients,
-//     difficulties
-//   WHERE
-//     recipes.id = recipes_ingredients.recipe_id AND
-//      recipes_ingredients.ingredient_id = ingredients.id AND
-//      recipes.difficulty_id = difficulties.id
-//   `;
-
-//   return allRecipes;
-// }
-
 export async function getAllRecipesWithoutDuplicatesRecipeId() {
   const allRecipes = await sql`
   SELECT
@@ -104,47 +77,6 @@ export async function getAllRecipesWithoutDuplicatesRecipeId() {
 
   return allRecipes;
 }
-
-// export async function getAllRecipesWithoutDuplicatesRecipeId() {
-//   const allRecipes = await sql`
-//   SELECT
-//     DISTINCT ON (recipes.id) recipes.id,
-//     recipes.name as recipes_title,
-//     recipes.preparation_time,
-//     recipes.imageurl,
-//     recipes.instruction,
-//     difficulties.name as difficulty_name
-//   FROM
-//     recipes,
-//     recipes_ingredients,
-//     difficulties
-//   WHERE
-//     recipes.id = recipes_ingredients.recipe_id AND
-//     recipes.difficulty_id = difficulties.id
-//   ORDER BY
-//   recipes.id
-//   `;
-
-//   return allRecipes;
-// }
-
-// export async function getAllRecipesWithoutDuplicatesRecipeId() {
-//   const allRecipes = await sql`
-//   SELECT
-//     DISTINCT ON (recipe_id) recipe_id,
-//     ingredients.name as ingredients_name,
-//     recipes_ingredients.ingredient_id as ingredient_id
-
-//   FROM
-//     recipes_ingredients,
-//     ingredients
-
-//   ORDER BY
-//   recipe_id
-//   `;
-
-//   return allRecipes;
-// }
 
 export async function getRecipeById(recipeId) {
   const singleRecipe = await sql`

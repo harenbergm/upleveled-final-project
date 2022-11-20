@@ -91,6 +91,17 @@ export async function getServerSideProps() {
   // calls only 1 ingredient per recipe
   const getRecipeIngredients = await getIngredientsByRecipeId();
 
+  // // 2. versuch
+  // const Ingredients = async function getAllIngredientsByRecipesIds(
+  //   getAllRecipes,
+  // ) {
+  //   for (const getRecipe of getAllRecipes) {
+  //     Promise.all(getIngredientsByRecipeId(getRecipe.id));
+  //   }
+  // };
+  // console.log('Ingredients', Ingredients);
+
+  // 1.
   // calls arrays with ingredients
   // const ingredients = await getAllRecipes.map(async (recipe) => {
   //   return Promise.all(
