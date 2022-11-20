@@ -120,6 +120,7 @@ export default function Login(props: Props) {
         })}
         <div>
           <input
+            data-test-id={'username'}
             placeholder="Username"
             value={username}
             onChange={(event) => {
@@ -127,6 +128,7 @@ export default function Login(props: Props) {
             }}
           />
           <input
+            data-test-id={'password'}
             placeholder="Password"
             value={password}
             onChange={(event) => {
@@ -134,6 +136,7 @@ export default function Login(props: Props) {
             }}
           />
           <button
+            data-test-id={'login'}
             onClick={async () => {
               await loginHandler();
             }}

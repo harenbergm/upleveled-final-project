@@ -131,18 +131,23 @@ export default function ShowSingleRecipe(props) {
               css={css`
                 border-radius: 12px;
               `}
+              alt={`${props.singleRecipe[0].recipesTitle} Recipe`}
             />
             <div>
-              <span>
+              <span data-test-id={'preparation-time'}>
                 Preparation Time: {props.singleRecipe[0].preparationTime}{' '}
                 Minutes |
               </span>
               <span> Difficulty: {props.singleRecipe[0].difficultyName}</span>
             </div>
-            <p>Ingredients: {props.singleRecipe[0].ingredientsName}</p>
+            <p data-test-id={'ingredients'}>
+              Ingredients: {props.singleRecipe[0].ingredientsName}
+            </p>
             <h4>Preparation:</h4>
             <div>
-              <div id="preparation">{props.singleRecipe[0].instruction}</div>
+              <div id="preparation" data-test-id={'instruction'}>
+                {props.singleRecipe[0].instruction}
+              </div>
             </div>
             <hr width="576" />
           </div>
@@ -187,7 +192,9 @@ export default function ShowSingleRecipe(props) {
             }}
           />
           <br />
-          <button css={commentButtonStyles}>Comment</button>
+          <button css={commentButtonStyles} data-test-id={'comment-button'}>
+            Comment
+          </button>
         </form>
       </div>
     </>

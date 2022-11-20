@@ -57,7 +57,7 @@ export default function ShowRecipes(props) {
         return (
           <div>
             <div key={recipe.id}>
-              <h2>{recipe.recipesTitle}</h2>
+              <h3>{recipe.recipesTitle}</h3>
               <span> ID: {recipe.id}</span>
               <br />
               <span>Preparation Time: {recipe.preparationTime} minutes</span> |
@@ -65,7 +65,12 @@ export default function ShowRecipes(props) {
               {/* <div>Ingredients {recipe.getRecipeIngredients(recipe.id)}</div> */}
               <div>
                 <a href={`/recipes/${recipe.id}`}>
-                  <img width="576" heigth="384" src={`${recipe.imageurl}`} />
+                  <img
+                    width="576"
+                    heigth="384"
+                    src={`${recipe.imageurl}`}
+                    data-test-id={'recipe-link'}
+                  />
                 </a>
                 <p>Ingredients: {recipe.ingredientsName}</p>
                 <p>Instruction: {recipe.instruction}</p>

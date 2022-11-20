@@ -239,6 +239,7 @@ export default function UserProfile(props: Props) {
               </button>
             </label>
             <button
+              data-test-id={'delete-profile-button'}
               id="deleteProfile"
               onClick={() => {
                 deleteUserFromApiById(props.user.id);
@@ -265,7 +266,7 @@ export default function UserProfile(props: Props) {
                 );
               }}
             >
-              <h4>1. Upload Image</h4>
+              <h4 data-test-id={'upload-image'}>1. Upload Image</h4>
               <UploadImage setImageUrl={setImageUrl} />
 
               <h4>2. Choose a Title</h4>
