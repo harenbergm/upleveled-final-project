@@ -34,12 +34,31 @@ LIMIT 1
   return recipeId[0];
 }
 
+// export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
+//   recipeId,
+//   ingredientIds,
+// ) {
+//   const returnedIngredientId = await sql`
+
+//     INSERT INTO recipes_ingredients
+//       ( recipe_id, ingredient_id)
+//     VALUES
+//       (${recipeId}, ${ingredientIds})
+
+//     RETURNING *
+//   `;
+//   console.log('returnedIngredientIdFromQuery', returnedIngredientId);
+//   return returnedIngredientId;
+// }
+
 export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
   recipeId,
   ingredientIds,
 ) {
-  ingredientIds.forEach(async (ingredientId) => {
-    await sql`
+  const returnedIngredientIds = [];
+
+  for (const ingredientId of ingredientIds) {
+    const returnedIngredientId = await sql`
 
     INSERT INTO recipes_ingredients
       ( recipe_id, ingredient_id)
@@ -48,9 +67,11 @@ export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeI
 
     RETURNING *
   `;
-    return ingredientId;
-  });
+    returnedIngredientIds.push(returnedIngredientId);
+  }
+  return returnedIngredientIds;
 }
+
 export async function getAllRecipesWithoutDuplicatesRecipeId() {
   const allRecipes = await sql`
   SELECT

@@ -45,6 +45,16 @@ export default async function handler(
     const difficultySelected = recipe.difficultyId;
     const ingredientsSelected = recipeIngredients.selectedIngredients;
 
+    // console.log('recipe', recipe);
+    // console.log('recipeIngredients', recipeIngredients);
+    // console.log('userId', userId);
+    // console.log('titleSelected', titleSelected);
+    // console.log('preparationTimeSelected', preparationTimeSelected);
+    // console.log('imageURL', imageURL);
+    // console.log('recipeInstructionsSelected', recipeInstructionsSelected);
+    console.log('difficultySelected', difficultySelected);
+    console.log('ingredientsSelected', ingredientsSelected);
+
     // Check if all the information exist to create the recipe
     if (
       !(
@@ -65,7 +75,7 @@ export default async function handler(
 
     // create recipe
 
-    const createNewRecipe = createRecipeByUserId(
+    const createNewRecipe = await createRecipeByUserId(
       titleSelected,
       userId,
       preparationTimeSelected,
@@ -74,13 +84,15 @@ export default async function handler(
       recipeInstructionsSelected,
     );
 
+    console.log('createNewRecipe', createNewRecipe);
+
     // get last created recipe id by user id
     const getRecipeIdFromCreatedRecipe = await getLastRecipeIdByUserId(userId);
     console.log('getRecipeIdFromCreatedRecipe', getRecipeIdFromCreatedRecipe);
 
     // take recipe id and add ingredients
     const newRecipeIngredientsRecipeId =
-      createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
+      await createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
         getRecipeIdFromCreatedRecipe?.id,
         ingredientsSelected,
       );
@@ -97,6 +109,12 @@ export default async function handler(
       return response
         .status(400)
         .json({ message: 'Properties to create the receipe are missing' });
+    } else {
+      {
+        return response
+          .status(200)
+          .json({ message: 'Recipe successfully created' });
+      }
     }
   }
 

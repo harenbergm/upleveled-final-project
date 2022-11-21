@@ -92,14 +92,14 @@ export async function getServerSideProps() {
   const getRecipeIngredients = await getIngredientsByRecipeId();
 
   // // 2. versuch
-  // const Ingredients = async function getAllIngredientsByRecipesIds(
+  // const ingredients = async function getAllIngredientsByRecipesIds(
   //   getAllRecipes,
   // ) {
   //   for (const getRecipe of getAllRecipes) {
   //     Promise.all(getIngredientsByRecipeId(getRecipe.id));
   //   }
   // };
-  // console.log('Ingredients', Ingredients);
+  // console.log('ingredients', ingredients);
 
   // 1.
   // calls arrays with ingredients

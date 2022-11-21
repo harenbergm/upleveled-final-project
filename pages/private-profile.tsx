@@ -89,10 +89,11 @@ export default function UserProfile(props: Props) {
   const [difficulty, setDifficulty] = useState(1);
   const [recipeInstructions, setRecipeInstructions] = useState('');
   const [recipeCreated, setRecipeCreated] = useState(false);
+  const [profileInfoUpdated, setProfileInfoUpdated] = useState(false);
   const userAccountId = props.user.id;
 
   // selects and filter the ingredients
-  function handleCheck(index: number) {
+  function handleCheck(index: never) {
     if (ingredients.includes(index)) {
       const filteredIngredient = ingredients.filter((ingredient) => {
         return ingredient !== index;
@@ -127,8 +128,16 @@ export default function UserProfile(props: Props) {
     });
 
     const createdRecipeFromApiById = await response.json();
-    setRecipeCreated(true);
+    console.log('createdRecipeFromApiById', createdRecipeFromApiById);
   }
+
+  useEffect(() => {
+    setRecipeCreated(false);
+  }, [recipeCreated]);
+
+  useEffect(() => {
+    setProfileInfoUpdated(true);
+  }, [profileInfoUpdated]);
 
   // Updates User Profile
   async function updateUserFromApiById(id: number) {
@@ -217,6 +226,7 @@ export default function UserProfile(props: Props) {
             <button
               onClick={() => {
                 updateUserFromApiById(props.user.id);
+                setProfileInfoUpdated(true);
               }}
             >
               Save Changes
@@ -233,6 +243,7 @@ export default function UserProfile(props: Props) {
               <button
                 onClick={() => {
                   updateUserFromApiById(props.user.id);
+                  setProfileInfoUpdated(true);
                 }}
               >
                 Save Changes
@@ -259,10 +270,7 @@ export default function UserProfile(props: Props) {
           <div>
             <form
               onSubmit={(event) => {
-                return (
-                  event.preventDefault(), createRecipeFromApiById(userAccountId)
-                  // setRecipeCreated(event.currentTarget.value)
-                );
+                return event.preventDefault(), setRecipeCreated(true);
               }}
             >
               <h4 data-test-id={'upload-image'}>1. Upload Image</h4>
@@ -277,7 +285,7 @@ export default function UserProfile(props: Props) {
               />
               <div>
                 <h4>3. Choose Ingredients</h4>
-                {props.ingredients.map((ingredient: any, index: any) => {
+                {props.ingredients.map((ingredient: any, index: number) => {
                   return (
                     <label key={index}>
                       {ingredient.name}

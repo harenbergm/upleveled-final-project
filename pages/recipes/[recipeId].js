@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getCommentByRecipeId } from '../../database/recipecomments';
 import { getRecipeById } from '../../database/recipes';
 import { getUserBySessionToken } from '../../database/users';
@@ -69,13 +69,20 @@ const formStyles = css`
   }
 `;
 
+//
+
 export default function ShowSingleRecipe(props) {
   let currentDate = new Date().toJSON().slice(0, 10);
   const [comment, setComment] = useState('');
+  const [sentComment, setSentComment] = useState(false);
   const userAccountId = props.user.id;
   const recipeId = props.singleRecipe[0].id;
   const username = props.user.username;
   // console.log('user', props.user);
+
+  useEffect(() => {
+    setSentComment(false);
+  }, [sentComment]);
 
   // creates comment
   async function createCommentFromApiByUserId(userAccountId) {
@@ -178,7 +185,8 @@ export default function ShowSingleRecipe(props) {
           onSubmit={(event) => {
             return (
               event.preventDefault(),
-              createCommentFromApiByUserId(userAccountId)
+              createCommentFromApiByUserId(userAccountId),
+              setSentComment(true)
             );
           }}
         >
