@@ -27,9 +27,13 @@ const headerStyles = css`
   }
 `;
 
+const headerStyles1 = css`
+  position: fixed;
+`;
+
 const navStyles = css`
   padding: 10px 100px 20px;
-  margin-bottom: -20px;
+  margin-bottom: -23px;
   display: flex;
   justify-content: space-between;
   background-color: transparent;
@@ -69,25 +73,21 @@ export default function Header(props) {
           <Link href="/private-profile">Create Recipe</Link>
         </div>
         <div>
-          {/* <div
-            css={css`
-              border: 1px solid black;
-              border-radius: 50%;
-            `}
-          > */}
-          {props.user && props.user.username}
-          {/* </div> */}
+          {/* {props.user && props.user.username} */}
 
           {props.user ? (
-            <Anchor
-              data-test-id={'logout'}
-              css={css`
-                margin-left: 30px;
-              `}
-              href="/logout"
-            >
-              Logout
-            </Anchor>
+            <>
+              <Link href="/login">Private Profile</Link>
+              <Anchor
+                data-test-id={'logout'}
+                css={css`
+                  margin-left: 30px;
+                `}
+                href="/logout"
+              >
+                Logout
+              </Anchor>
+            </>
           ) : (
             <>
               <Link href="/login">Login</Link>

@@ -5,14 +5,25 @@ export default function Home() {
   const homeStyles = css`
     justify-content: center;
     text-align: center;
-    margin: 0px auto;
     position: relative;
-  `;
 
-  const headlineStyles = css`
-    margin-top: 100px;
-    color: white;
-    margin-top: 100px;
+    h1 {
+      padding-top: 21%;
+      font-size: 38px;
+      color: #244444;
+    }
+    div :nth-child(2) {
+      color: #244444;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: white;
+      border-radius: 8px;
+      width: 200px;
+      height: 25px;
+      margin-bottom: 17%;
+    }
   `;
 
   return (
@@ -27,18 +38,20 @@ export default function Home() {
         <div css={homeStyles}>
           <div
             style={{
-              zIndex: -1,
+              zIndex: -100,
               position: 'fixed',
               width: '100vw',
               height: '100vh',
             }}
           >
-            <img src={'/home2resized.png'} width="100%" height="100%" />
+            <img src={'/homepage-hero-image.png'} width="100%" height="100%" />
           </div>
-          <div css={{ headlineStyles }}>
+          <div>
             <h1>Get new delicious recipes every day</h1>
-            <p>Select what you have at home and get surprised</p>
-            <button>Hi</button>
+
+            <button>
+              <a href="/recipes">Show Recipes</a>
+            </button>
           </div>
         </div>
       </main>

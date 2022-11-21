@@ -204,7 +204,7 @@ export default function UserProfile(props: Props) {
       </Head>
 
       <div css={profileStyles}>
-        <h1>Private Profile</h1>
+        <h1>{props.user.username}'s Private Profile</h1>
         <hr />
         <h2>Personal Information</h2>
         <span> Account ID: {props.user.id}</span>
