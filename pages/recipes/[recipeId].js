@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { getIngredientsByRecipeId } from '../../database/ingredients';
 import { getCommentByRecipeId } from '../../database/recipecomments';
 import { getRecipeByRecipeId } from '../../database/recipes';
 import { getUserBySessionToken } from '../../database/users';
@@ -148,7 +149,10 @@ export default function ShowSingleRecipe(props) {
               <span> Difficulty: {props.singleRecipe[0].difficultyName}</span>
             </div>
             <p data-test-id={'ingredients'}>
-              Ingredients: {props.singleRecipe[0].ingredientsName}
+              Ingredients:
+              {props.ingredients.map((ingredient) => {
+                return <div>{ingredient.name}</div>;
+              })}
             </p>
             <h4>Preparation:</h4>
             <div>
@@ -215,13 +219,14 @@ export async function getServerSideProps(context) {
   const singleRecipe = await getRecipeByRecipeId(recipeId);
   const token = context.req.cookies.sessionToken;
   const user = token && (await getUserBySessionToken(token));
-
+  const ingredients = await getIngredientsByRecipeId(recipeId);
+  console.log('ingredients', ingredients);
   return {
     props: {
       user: user,
       singleRecipe: singleRecipe,
       comments: comments,
-      // allIngredients: allIngredients,
+      ingredients: ingredients,
     },
   };
 }

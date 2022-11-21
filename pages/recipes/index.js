@@ -53,7 +53,7 @@ export default function ShowRecipes(props) {
         <h2>You wish to have in your recipe</h2>
       </div>
 
-      {props.getAllRecipes.map((recipe) => {
+      {props.allRecipes.map((recipe) => {
         return (
           <div>
             <div key={recipe.id}>
@@ -75,8 +75,27 @@ export default function ShowRecipes(props) {
                 <p>Ingredients: {recipe.ingredientsName}</p>
                 <p>Instruction: {recipe.instruction}</p>
               </div>
-              {props.ingredients}
-              {/* {console.log('props.ingredients', props.ingredients)} */}
+              <hr />
+              {/* {props.allIngredients.map((ingredients) => {
+                return (
+                  ingredients[0].name,
+                  console.log('ingredients[0].name', ingredients[0].name)
+                );
+              })} */}
+              {/* // console.log('ingredient', ingredient), //
+              console.log('ingredient.name', ingredient.name)
+              console.log('props.allIngredients', props.allIngredients); */}
+              {/* {props.allIngredients.map((ingredients) => {
+                ingredients.map((ingredient) => {
+                  return (
+                    (<div>HERE !!{ingredient.name}</div>),
+                    console.log('ingredient', ingredient),
+                    console.log('ingredient.name', ingredient.name)
+                  );
+                });
+                console.log('props.allIngredients', props.allIngredients);
+              })} */}
+              <hr />
             </div>
           </div>
         );
@@ -87,30 +106,26 @@ export default function ShowRecipes(props) {
 
 export async function getServerSideProps() {
   // calls all recipes without duplicates
-  const getAllRecipes = await getAllRecipesWithoutDuplicatesRecipeId();
+  const allRecipes = await getAllRecipesWithoutDuplicatesRecipeId();
   // calls only 1 ingredient per recipe
   const getRecipeIngredients = await getIngredientsByRecipeId();
 
-  // const ingredients = async function getAllIngredientsByRecipesIds(
-  //   getAllRecipes,
-  // ) {
-  //   const ingredients = [];
+  // get all ingredients by recipe id
+  let ingredients;
+  const allIngredients = [];
 
-  //   for (const getRecipe of getAllRecipes) {
-  //     ingredients.push(
-  //       await Promise.all(getIngredientsByRecipeId(getRecipe.id)),
-  //     );
-  //   }
+  for (const recipe of allRecipes) {
+    ingredients = await getIngredientsByRecipeId(recipe.id);
+    allIngredients.push(ingredients);
+  }
 
-  //   return ingredients;
-  // };
-  // console.log(await Promise.all(ingredients()));
+  console.log('arraypush', allIngredients);
 
   return {
     props: {
-      getAllRecipes: getAllRecipes,
+      allRecipes: allRecipes,
       getRecipeIngredients: getRecipeIngredients,
-      // ingredients: ingredients,
+      allIngredients: allIngredients,
     },
   };
 }
