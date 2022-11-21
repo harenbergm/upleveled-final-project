@@ -99,7 +99,7 @@ export async function getAllRecipesWithoutDuplicatesRecipeId() {
   return allRecipes;
 }
 
-export async function getRecipeById(recipeId) {
+export async function getRecipeByRecipeId(recipeId) {
   const singleRecipe = await sql`
   SELECT
     recipes.id as id,

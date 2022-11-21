@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getCommentByRecipeId } from '../../database/recipecomments';
-import { getRecipeById } from '../../database/recipes';
+import { getRecipeByRecipeId } from '../../database/recipes';
 import { getUserBySessionToken } from '../../database/users';
 
 const backButtonStyles = css`
@@ -212,7 +212,7 @@ export default function ShowSingleRecipe(props) {
 export async function getServerSideProps(context) {
   const recipeId = parseInt(context.query.recipeId);
   const comments = await getCommentByRecipeId(recipeId);
-  const singleRecipe = await getRecipeById(recipeId);
+  const singleRecipe = await getRecipeByRecipeId(recipeId);
   const token = context.req.cookies.sessionToken;
   const user = token && (await getUserBySessionToken(token));
 

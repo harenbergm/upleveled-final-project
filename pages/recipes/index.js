@@ -38,19 +38,6 @@ const headlineStyles = css`
   }
 `;
 
-const ingredients = async function getAllIngredientsByRecipesIds(
-  getAllRecipes,
-) {
-  const x = [];
-
-  for (const getRecipe of getAllRecipes) {
-    x.push(await Promise.all(getIngredientsByRecipeId(getRecipe.id)));
-  }
-
-  return x;
-};
-console.log(await Promise.all(ingredients()));
-
 export default function ShowRecipes(props) {
   return (
     <>
@@ -104,17 +91,19 @@ export async function getServerSideProps() {
   // calls only 1 ingredient per recipe
   const getRecipeIngredients = await getIngredientsByRecipeId();
 
-  const ingredients = async function getAllIngredientsByRecipesIds(
-    getAllRecipes,
-  ) {
-    const x = [];
+  // const ingredients = async function getAllIngredientsByRecipesIds(
+  //   getAllRecipes,
+  // ) {
+  //   const ingredients = [];
 
-    for (const getRecipe of getAllRecipes) {
-      x.push(await Promise.all(getIngredientsByRecipeId(getRecipe.id)));
-    }
+  //   for (const getRecipe of getAllRecipes) {
+  //     ingredients.push(
+  //       await Promise.all(getIngredientsByRecipeId(getRecipe.id)),
+  //     );
+  //   }
 
-    return x;
-  };
+  //   return ingredients;
+  // };
   // console.log(await Promise.all(ingredients()));
 
   return {
