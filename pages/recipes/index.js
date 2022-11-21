@@ -4,23 +4,6 @@ import Image from 'next/image';
 import { getIngredientsByRecipeId } from '../../database/ingredients';
 import { getAllRecipesWithoutDuplicatesRecipeId } from '../../database/recipes';
 
-// const gridStyles = css`
-//   display: grid;
-//   grid-template-columns: 420px 420px 420px 420px;
-//   grid-template-rows: 420px 420px 420px 420px;
-//   grid-gap: 10px;
-//   justify-content: center;
-//   align-items: center;
-// `;
-
-// const gridboxStyles = css`
-//   grid-auto-flow: row;
-//   width: 420px;
-//   height: 280px;
-//   border-radius: 12px;
-//   display: block;
-// `;
-
 const headlineStyles = css`
   h1 {
     display: flex;
@@ -38,6 +21,48 @@ const headlineStyles = css`
   }
 `;
 
+const recipeWrapper = css`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 30px 5%;
+`;
+
+const recipeStyles = css`
+  border: 1px solid lightgray;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px;
+`;
+
+const img = css`
+  border-radius: 12px;
+  max-width: 432;
+  height: 288px;
+`;
+
+const preparationTimeIcon = css`
+  height: 13px;
+  width: 13px;
+  margin-right: 5px;
+`;
+
+const recipeDescriptionStyles = css`
+  margin-left: 10px;
+
+  span {
+    justify-content: center;
+    margin-right: 20px;
+  }
+
+  .instructions {
+    max-width: 432px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+  }
+`;
+
 export default function ShowRecipes(props) {
   return (
     <>
@@ -48,58 +73,58 @@ export default function ShowRecipes(props) {
           content="Here you yan see all cooking recipes created by users"
         />
       </Head>
+
       <div css={headlineStyles}>
         <h1>Find Your Recipes By Ingredients</h1>
         <h2>You wish to have in your recipe</h2>
       </div>
+      <div>{props.allRecipes.length} Recipes found</div>
 
-      {props.allRecipes.map((recipe) => {
-        return (
-          <div>
-            <div key={recipe.id}>
-              <h3>{recipe.recipesTitle}</h3>
-              <span> ID: {recipe.id}</span>
-              <br />
-              <span>Preparation Time: {recipe.preparationTime} minutes</span> |
-              <span> Difficulty: {recipe.difficultyName}</span>
-              {/* <div>Ingredients {recipe.getRecipeIngredients(recipe.id)}</div> */}
-              <div>
-                <a href={`/recipes/${recipe.id}`}>
-                  <img
-                    width="576"
-                    heigth="384"
-                    src={`${recipe.imageurl}`}
-                    data-test-id={'recipe-link'}
-                  />
-                </a>
-                <p>Ingredients: {recipe.ingredientsName}</p>
-                <p>Instruction: {recipe.instruction}</p>
+      <div css={recipeWrapper}>
+        {props.allRecipes.map((recipe) => {
+          return (
+            <div>
+              <div key={recipe.id} css={recipeStyles}>
+                <div>
+                  <a href={`/recipes/${recipe.id}`}>
+                    <img
+                      css={img}
+                      src={`${recipe.imageurl}`}
+                      data-test-id={'recipe-link'}
+                    />
+                  </a>
+                </div>
+                <div css={recipeDescriptionStyles}>
+                  <h3>{recipe.recipesTitle}</h3>
+                  {/* <span> ID: {recipe.id}</span> */}
+                  <span>
+                    <img
+                      src="/icon-watch.png"
+                      alt=".."
+                      css={preparationTimeIcon}
+                    />
+                    {recipe.preparationTime} minutes
+                  </span>
+                  |
+                  <span>
+                    <img
+                      src="/difficulty.png"
+                      alt=".."
+                      width="15"
+                      heigth="15"
+                    />{' '}
+                    {recipe.difficultyName}
+                  </span>
+                  {/* <p>Ingredients: {recipe.ingredientsName}</p> */}
+                  <p className="instructions">
+                    Instruction: {recipe.instruction}
+                  </p>
+                </div>
               </div>
-              <hr />
-              {/* {props.allIngredients.map((ingredients) => {
-                return (
-                  ingredients[0].name,
-                  console.log('ingredients[0].name', ingredients[0].name)
-                );
-              })} */}
-              {/* // console.log('ingredient', ingredient), //
-              console.log('ingredient.name', ingredient.name)
-              console.log('props.allIngredients', props.allIngredients); */}
-              {/* {props.allIngredients.map((ingredients) => {
-                ingredients.map((ingredient) => {
-                  return (
-                    (<div>HERE !!{ingredient.name}</div>),
-                    console.log('ingredient', ingredient),
-                    console.log('ingredient.name', ingredient.name)
-                  );
-                });
-                console.log('props.allIngredients', props.allIngredients);
-              })} */}
-              <hr />
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </>
   );
 }

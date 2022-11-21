@@ -148,12 +148,13 @@ export default function ShowSingleRecipe(props) {
               </span>
               <span> Difficulty: {props.singleRecipe[0].difficultyName}</span>
             </div>
-            <p data-test-id={'ingredients'}>
+            <div>
               Ingredients:
               {props.ingredients.map((ingredient) => {
                 return <div>{ingredient.name}</div>;
               })}
-            </p>
+            </div>
+            <p data-test-id={'ingredients'}></p>
             <h4>Preparation:</h4>
             <div>
               <div id="preparation" data-test-id={'instruction'}>
