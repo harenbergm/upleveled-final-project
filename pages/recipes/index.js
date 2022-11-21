@@ -38,6 +38,19 @@ const headlineStyles = css`
   }
 `;
 
+const ingredients = async function getAllIngredientsByRecipesIds(
+  getAllRecipes,
+) {
+  const x = [];
+
+  for (const getRecipe of getAllRecipes) {
+    x.push(await Promise.all(getIngredientsByRecipeId(getRecipe.id)));
+  }
+
+  return x;
+};
+console.log(await Promise.all(ingredients()));
+
 export default function ShowRecipes(props) {
   return (
     <>
@@ -91,25 +104,18 @@ export async function getServerSideProps() {
   // calls only 1 ingredient per recipe
   const getRecipeIngredients = await getIngredientsByRecipeId();
 
-  // // 2. versuch
-  // const ingredients = async function getAllIngredientsByRecipesIds(
-  //   getAllRecipes,
-  // ) {
-  //   for (const getRecipe of getAllRecipes) {
-  //     Promise.all(getIngredientsByRecipeId(getRecipe.id));
-  //   }
-  // };
-  // console.log('ingredients', ingredients);
+  const ingredients = async function getAllIngredientsByRecipesIds(
+    getAllRecipes,
+  ) {
+    const x = [];
 
-  // 1.
-  // calls arrays with ingredients
-  // const ingredients = await getAllRecipes.map(async (recipe) => {
-  //   return Promise.all(
-  //     getIngredientsByRecipeId(recipe.id).then((ingredients) => {
-  //       console.log('ingredients', ingredients);
-  //     }),
-  //   );
-  // });
+    for (const getRecipe of getAllRecipes) {
+      x.push(await Promise.all(getIngredientsByRecipeId(getRecipe.id)));
+    }
+
+    return x;
+  };
+  // console.log(await Promise.all(ingredients()));
 
   return {
     props: {
