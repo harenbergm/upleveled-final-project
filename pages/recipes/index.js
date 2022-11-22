@@ -5,12 +5,16 @@ import { getIngredientsByRecipeId } from '../../database/ingredients';
 import { getAllRecipesWithoutDuplicatesRecipeId } from '../../database/recipes';
 
 const headlineStyles = css`
+  margin-top: 80px;
+
   h1 {
     display: flex;
     justify-content: center;
     text-align: center;
     padding-top: 40px;
     margin: 0 auto;
+    font-size: 50px;
+    color: #007e58;
   }
   h2 {
     display: flex;
@@ -18,14 +22,39 @@ const headlineStyles = css`
     text-align: center;
     padding-top: 20px;
     margin: 0 auto;
+    font-size: 30px;
+    color: #007e58;
+    margin-bottom: 60px;
+  }
+
+  div {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: -40px;
   }
 `;
 
 const recipeWrapper = css`
+  /* margin-left: 40%;
+  margin-right: 10%; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin: 30px 5%;
+
+  h3 {
+    font-size: 22px;
+  }
+
+  span {
+    display: inline-block;
+    justify-content: center;
+    text-align: center;
+    margin-right: 10%;
+    color: green;
+    margin-bottom: 10px;
+  }
 `;
 
 const recipeStyles = css`
@@ -77,8 +106,8 @@ export default function ShowRecipes(props) {
       <div css={headlineStyles}>
         <h1>Find Your Recipes By Ingredients</h1>
         <h2>You wish to have in your recipe</h2>
+        <div>{props.allRecipes.length} Recipes found</div>
       </div>
-      <div>{props.allRecipes.length} Recipes found</div>
 
       <div css={recipeWrapper}>
         {props.allRecipes.map((recipe) => {
@@ -107,7 +136,7 @@ export default function ShowRecipes(props) {
                     />
                     {recipe.preparationTime} minutes
                   </span>
-                  |
+
                   <span>
                     <img
                       src="/difficulty.png"
@@ -118,9 +147,9 @@ export default function ShowRecipes(props) {
                     {recipe.difficultyName}
                   </span>
                   {/* <p>Ingredients: {recipe.ingredientsName}</p> */}
-                  <p className="instructions">
+                  <div className="instructions">
                     Instruction: {recipe.instruction}
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

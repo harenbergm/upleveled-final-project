@@ -15,11 +15,12 @@ const loginStyles = css`
   justify-content: center;
   text-align: center;
   padding-top: 20px;
-  margin: 8% auto;
+  margin: 14% auto;
   width: 350px;
   height: 380px;
-  border: 1px solid black;
+  border: 1px solid #007e58;
   border-radius: 12px;
+  color: #007e58;
 
   p {
     width: 300px;
@@ -34,15 +35,24 @@ const loginStyles = css`
     width: 300px;
     margin-bottom: 15px;
     border-radius: 8px;
+    border: 1px solid #007e58;
   }
 
   button {
     height: 30px;
     width: 300px;
-    background-color: #89da59;
+    font-size: 14px;
+    border-radius: 20px;
+    background-color: #007e58;
+    color: white;
     margin-top: 20px;
     border-radius: 8px;
     border: 1px solid black;
+  }
+  button:hover {
+    background-color: white;
+    color: #007e58;
+    border: 1px solid #007e58;
   }
 `;
 
@@ -147,7 +157,10 @@ export default function Login(props: Props) {
           <div css={signupStyles}>
             <hr />
             <span>
-              Don't have an account? <Link href="/signup">Sign Up!</Link>
+              Don't have an account?{' '}
+              <Link href="/register">
+                <b>Register here!</b>
+              </Link>
             </span>
           </div>
         </div>

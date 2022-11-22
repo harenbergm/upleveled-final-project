@@ -27,10 +27,6 @@ import Link from 'next/link';
 //   }
 // `;
 
-const headerStyles1 = css`
-  position: fixed;
-`;
-
 const navStyles = css`
   padding: 10px 100px 20px;
   font-weight: 600;
@@ -91,7 +87,7 @@ export default function Header(props) {
           ) : (
             <>
               <Link href="/login">Login</Link>
-              <Link href="/signup">Signup</Link>
+              <Link href="/register">Register</Link>
             </>
           )}
         </div>
