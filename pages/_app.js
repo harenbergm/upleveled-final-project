@@ -1,6 +1,9 @@
 import { css, Global } from '@emotion/react';
+import { Lobster } from '@next/font/google';
 import { useCallback, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
+
+const lobster = Lobster({ subsets: ['latin'], weight: '400' });
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState();
@@ -39,9 +42,11 @@ function MyApp({ Component, pageProps }) {
           }
         `}
       />
-      <Layout user={user}>
-        <Component {...pageProps} refreshUserProfile={refreshUserProfile} />
-      </Layout>
+      <main className={lobster.className}>
+        <Layout user={user}>
+          <Component {...pageProps} refreshUserProfile={refreshUserProfile} />
+        </Layout>
+      </main>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getIngredientsByRecipeId } from '../../database/ingredients';
 import { getCommentByRecipeId } from '../../database/recipecomments';
@@ -70,23 +71,22 @@ const formStyles = css`
   }
 `;
 
-//
-
 export default function ShowSingleRecipe(props) {
   let currentDate = new Date().toJSON().slice(0, 10);
   const [comment, setComment] = useState('');
-  const [sentComment, setSentComment] = useState(false);
-  const userAccountId = props.user.id;
+  const [commentList, setcommentList] = useState(props.comments);
+  const router = useRouter();
+  const userAccountId = props.user?.id;
   const recipeId = props.singleRecipe[0].id;
-  const username = props.user.username;
-  // console.log('user', props.user);
-
-  useEffect(() => {
-    setSentComment(false);
-  }, [sentComment]);
+  const username = props.user?.username;
 
   // creates comment
   async function createCommentFromApiByUserId(userAccountId) {
+    // ask the user to login if it did not
+    if (!props.user) {
+      await router.push(`/login?returnTo=/recipes/${recipeId}`);
+      return;
+    }
     const response = await fetch(`/api/comments`, {
       method: 'POST',
       headers: {
@@ -103,6 +103,11 @@ export default function ShowSingleRecipe(props) {
       }),
     });
     const createdCommentFromApiByUserId = await response.json();
+    setcommentList([
+      ...commentList,
+      createdCommentFromApiByUserId.newComment[0],
+    ]);
+    setComment('');
   }
 
   return (
@@ -166,13 +171,14 @@ export default function ShowSingleRecipe(props) {
         </div>
       </div>
 
-      {props.comments ? (
-        props.comments.map((comment) => {
+      {commentList.length > 0 ? (
+        commentList.map((comment) => {
           return (
-            <div css={{ marginLeft: 470 }}>
+            <div css={{ marginLeft: 470, maxHeight: 500 }}>
               <p>
                 <b>
-                  {comment.userName} on {comment.date}
+                  {comment.userName} {''}
+                  on {comment.date}
                 </b>
               </p>
               <div css={{ marginBottom: 30 }}>
@@ -190,8 +196,7 @@ export default function ShowSingleRecipe(props) {
           onSubmit={(event) => {
             return (
               event.preventDefault(),
-              createCommentFromApiByUserId(userAccountId),
-              setSentComment(true)
+              createCommentFromApiByUserId(userAccountId)
             );
           }}
         >
@@ -221,7 +226,17 @@ export async function getServerSideProps(context) {
   const token = context.req.cookies.sessionToken;
   const user = token && (await getUserBySessionToken(token));
   const ingredients = await getIngredientsByRecipeId(recipeId);
-  console.log('ingredients', ingredients);
+
+  if (!user) {
+    return {
+      props: {
+        singleRecipe: singleRecipe,
+        comments: comments,
+        ingredients: ingredients,
+      },
+    };
+  }
+
   return {
     props: {
       user: user,

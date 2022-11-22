@@ -52,8 +52,8 @@ export default async function handler(
     // console.log('preparationTimeSelected', preparationTimeSelected);
     // console.log('imageURL', imageURL);
     // console.log('recipeInstructionsSelected', recipeInstructionsSelected);
-    console.log('difficultySelected', difficultySelected);
-    console.log('ingredientsSelected', ingredientsSelected);
+    // console.log('difficultySelected', difficultySelected);
+    // console.log('ingredientsSelected', ingredientsSelected);
 
     // Check if all the information exist to create the recipe
     if (
@@ -73,6 +73,35 @@ export default async function handler(
       });
     }
 
+    // Check if all the information exist to create the recipe
+    if (
+      !(
+        titleSelected &&
+        userId &&
+        preparationTimeSelected &&
+        difficultySelected &&
+        imageURL &&
+        recipeInstructionsSelected &&
+        ingredientsSelected
+      )
+    )
+      if (
+        !(
+          titleSelected &&
+          userId &&
+          preparationTimeSelected &&
+          difficultySelected &&
+          imageURL &&
+          recipeInstructionsSelected &&
+          ingredientsSelected
+        )
+      ) {
+        return response.status(400).json({
+          message:
+            'property title, user Id, preparation time, difficulty, imageUrl, recipe instructions and/or ingedients missing',
+        });
+      }
+
     // create recipe
 
     const createNewRecipe = await createRecipeByUserId(
@@ -84,11 +113,11 @@ export default async function handler(
       recipeInstructionsSelected,
     );
 
-    console.log('createNewRecipe', createNewRecipe);
+    // console.log('createNewRecipe', createNewRecipe);
 
     // get last created recipe id by user id
     const getRecipeIdFromCreatedRecipe = await getLastRecipeIdByUserId(userId);
-    console.log('getRecipeIdFromCreatedRecipe', getRecipeIdFromCreatedRecipe);
+    // console.log('getRecipeIdFromCreatedRecipe', getRecipeIdFromCreatedRecipe);
 
     // take recipe id and add ingredients
     const newRecipeIngredientsRecipeId =
@@ -97,25 +126,34 @@ export default async function handler(
         ingredientsSelected,
       );
 
-    console.log('newRecipeIngredientsRecipeId', newRecipeIngredientsRecipeId);
+    // console.log('newRecipeIngredientsRecipeId', newRecipeIngredientsRecipeId);
 
+    // Check if all the information exist to create the recipe
     if (
       !(
         createNewRecipe ||
         getRecipeIdFromCreatedRecipe ||
         newRecipeIngredientsRecipeId
       )
-    ) {
-      return response
-        .status(400)
-        .json({ message: 'Properties to create the receipe are missing' });
-    } else {
-      {
+    )
+      if (
+        !(
+          createNewRecipe ||
+          getRecipeIdFromCreatedRecipe ||
+          newRecipeIngredientsRecipeId
+        )
+      ) {
         return response
-          .status(200)
-          .json({ message: 'Recipe successfully created' });
+          .status(405)
+          .json({ errors: [{ message: 'method not allowed' }] });
       }
-    }
+    // return the user from the session token
+    return response
+      .status(200)
+      .json([
+        { createNewRecipe: createNewRecipe },
+        { newRecipeIngredientsRecipeId: newRecipeIngredientsRecipeId },
+      ]);
   }
 
   if (request.method === 'GET') {

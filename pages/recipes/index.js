@@ -29,7 +29,7 @@ const recipeWrapper = css`
 `;
 
 const recipeStyles = css`
-  border: 1px solid lightgray;
+  box-shadow: 4px 6px #888888;
   border-radius: 20px;
   padding: 10px;
   margin: 10px;
@@ -37,7 +37,7 @@ const recipeStyles = css`
 
 const img = css`
   border-radius: 12px;
-  max-width: 432;
+  max-width: 432px;
   height: 288px;
 `;
 
@@ -91,6 +91,8 @@ export default function ShowRecipes(props) {
                       css={img}
                       src={`${recipe.imageurl}`}
                       data-test-id={'recipe-link'}
+                      width="432"
+                      height="288"
                     />
                   </a>
                 </div>
@@ -144,7 +146,7 @@ export async function getServerSideProps() {
     allIngredients.push(ingredients);
   }
 
-  console.log('arraypush', allIngredients);
+  // console.log('arraypush', allIngredients);
 
   return {
     props: {

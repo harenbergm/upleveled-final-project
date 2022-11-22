@@ -1,14 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createCommentByUserId } from '../../../database/recipecomments';
-// import { getValidSessionByToken } from '../../../database/sessions';
-// import { getUserBySessionToken } from '../../../database/users';
+import { getValidSessionByToken } from '../../../database/sessions';
+import { getUserBySessionToken } from '../../../database/users';
 
 export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse,
 ) {
   if (request.method === 'POST') {
-    /* // 1. Get the cookie from the request and use it to validate the session
+    // 1. Get the cookie from the request and use it to validate the session
     const session =
       request.cookies.sessionToken &&
       (await getValidSessionByToken(request.cookies.sessionToken));
@@ -30,11 +30,6 @@ export default async function handler(
       return;
     }
 
-    // return the user from the session token
-    response.status(200).json({ user: user });
-  } else {
-    response.status(405).json({ errors: [{ message: 'method not allowed' }] }); */
-
     // information coming from from createCommentFromApiById();
     const recipeId = request.body.comment.recipeId;
     const userId = request.body.comment.userAccountId;
@@ -42,13 +37,7 @@ export default async function handler(
     const date = request.body.comment.currentDate;
     const username = request.body.comment.username;
 
-    console.log('recipeId', recipeId);
-    console.log('userId', userId);
-    console.log('content', content);
-    console.log('date', date);
-    console.log('username', username);
-
-    // Check if all the information exist to create the recipe
+    // Check if all the information exist to create the comment
     if (!(recipeId && userId && content && username && date)) {
       return response.status(400).json({
         message:
@@ -66,23 +55,25 @@ export default async function handler(
     );
     console.log('newComment', newComment);
 
-    /*  if (request.method === 'GET') {
-      response
+    if (!newComment) {
+      return response
         .status(405)
         .json({ errors: [{ message: 'method not allowed' }] });
     }
 
-    if (request.method === 'PUT') {
-      response
-        .status(405)
-        .json({ errors: [{ message: 'method not allowed' }] });
-    }
+    // return the user from the session token
+    return response.status(200).json({ newComment: newComment });
+  }
 
-    if (request.method === 'DELETE') {
-      response
-        .status(405)
-        .json({ errors: [{ message: 'method not allowed' }] });
-    }
-  } */
+  if (request.method === 'GET') {
+    response.status(405).json({ errors: [{ message: 'method not allowed' }] });
+  }
+
+  if (request.method === 'PUT') {
+    response.status(405).json({ errors: [{ message: 'method not allowed' }] });
+  }
+
+  if (request.method === 'DELETE') {
+    response.status(405).json({ errors: [{ message: 'method not allowed' }] });
   }
 }

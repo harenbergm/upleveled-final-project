@@ -38,6 +38,7 @@ export default async function handler(
   }
 
   if (request.method === 'PUT') {
+    return response.status(404).json({ message: 'Not a valid Id' });
   }
 
   if (request.method === 'DELETE') {

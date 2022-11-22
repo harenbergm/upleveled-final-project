@@ -121,6 +121,7 @@ export default function Register(props: Props) {
           }}
         />
         <input
+          type="password"
           placeholder="Password"
           value={password}
           onChange={(event) => {

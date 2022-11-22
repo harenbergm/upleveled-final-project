@@ -8,21 +8,28 @@ export default function Home() {
     position: relative;
 
     h1 {
-      padding-top: 21%;
-      font-size: 38px;
-      color: #244444;
+      padding-top: 20%;
+      font-size: 64px;
+      color: #007e58;
     }
-    div :nth-child(2) {
-      color: #244444;
-      font-size: 16px;
+
+    h2 {
+      font-size: 48px;
+      color: #007e58;
     }
 
     button {
-      background-color: white;
-      border-radius: 8px;
+      border-radius: 20px;
       width: 200px;
-      height: 25px;
-      margin-bottom: 17%;
+      padding: 8px;
+      font-size: 16px;
+      background-color: #007e58;
+      color: white;
+      border: 1px solid white;
+    }
+    button:hover {
+      background-color: white;
+      color: #007e58;
     }
   `;
 
@@ -47,11 +54,12 @@ export default function Home() {
             <img src={'/homepage-hero-image.png'} width="100%" height="100%" />
           </div>
           <div>
-            <h1>Get new delicious recipes every day</h1>
+            <h1>Nasch</h1>
+            <h2>Get new delicious recipes every day</h2>
 
-            <button>
-              <a href="/recipes">Show Recipes</a>
-            </button>
+            <a href="/recipes">
+              <button>Show Recipes</button>
+            </a>
           </div>
         </div>
       </main>

@@ -6,7 +6,7 @@ export default function Layout(props) {
     <div>
       <Header user={props.user} />
       {props.children}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

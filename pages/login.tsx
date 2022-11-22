@@ -128,6 +128,7 @@ export default function Login(props: Props) {
             }}
           />
           <input
+            type="password"
             data-test-id={'password'}
             placeholder="Password"
             value={password}
