@@ -59,13 +59,13 @@ export default async function handler(
 
     // Create the user using the database util function
     const newUser = await updateUserById(userId, userName, eMail);
-
+    console.log('newUser', newUser);
     if (!newUser) {
       return response.status(404).json({ message: 'Not a valid Username' });
     }
 
     // response with the new created user
-    return response.status(200).json(newUser);
+    return response.status(200).json({ newUser: newUser });
   }
 
   if (request.method === 'DELETE') {

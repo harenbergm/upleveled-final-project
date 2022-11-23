@@ -300,7 +300,7 @@ margin-right: 10%; */
       </Head>
 
       <div css={profileStyles}>
-        <h1>{props.user.username}'s Private Profile</h1>
+        <h1>{username}'s Private Profile</h1>
         <hr />
         <h2>Personal Information</h2>
         <span> Account ID: {props.user.id}</span>
@@ -406,8 +406,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const difficulties = await getDifficulties();
   const token = context.req.cookies.sessionToken;
   const user = token && (await getUserBySessionToken(token));
-  const userId = user!.id;
-  const userRecipes = await getRecipesByUserId(userId);
 
   if (!user) {
     return {
@@ -417,6 +415,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
+
+  const userId = user!.id;
+  const userRecipes = await getRecipesByUserId(userId);
 
   return {
     props: {

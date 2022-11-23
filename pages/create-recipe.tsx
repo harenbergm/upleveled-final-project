@@ -26,56 +26,75 @@ export default function UserProfile(props: Props) {
     }
   `;
 
-  const personalInformationStyles = css`
-    label {
-      display: inline-block;
-      border-radius: 4px;
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-
-    input {
-      margin-left: 50px;
-      margin-right: 30px;
-    }
-
-    button {
-      border: 2px solid green;
-      display: inline-block;
-      border-radius: 4px;
-      background-color: white;
-      color: green;
-    }
-    #deleteProfile {
-      display: block;
-      margin-top: 20px;
-      border: red 1px solid;
-      border-radius: 4px;
-      background-color: white;
-      color: red;
-      margin-bottom: 30px;
-    }
-  `;
-
   const recipeStyles = css`
-    h4 {
+    h1 {
+      display: flex;
+      justify-content: left;
+      text-align: center;
+      padding-top: 40px;
+      margin: 0 auto;
+      font-size: 50px;
+      color: #007e58;
+    }
+
+    p {
+      font-size: 20px;
+    }
+    h2 {
       margin-top: 40px;
+      color: #007e58;
+    }
+
+    .text-preptime {
+      height: 30px;
+      width: 300px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #007e58;
+    }
+    .instruction {
+      border-radius: 8px;
+      border: 1px solid #007e58;
+      font-size: 16px;
+    }
+
+    #selectList {
+      height: 30px;
+      width: 300px;
+      font-size: 16px;
+      border-radius: 20px;
+      background-color: white;
+      color: #007e58;
+      border-radius: 8px;
+      border: 1px solid #007e58;
     }
     #ingredients {
       margin-right: 10px;
       margin-bottom: 10px;
+      height: 15px;
+      width: 15px;
     }
+
     #instructions {
       width: 100%;
       height: 300px;
     }
     button {
-      margin-top: 20px;
-      border: 2px solid green;
-      display: inline-block;
-      border-radius: 4px;
+      height: 30px;
+      width: 300px;
+      font-size: 14px;
+      border-radius: 20px;
+      background-color: #007e58;
+      color: white;
+      margin: 20px 0px 20px;
+      border-radius: 8px;
+      border: none;
+    }
+    button:hover {
       background-color: white;
-      color: green;
+      color: #007e58;
+      border: 1px solid #007e58;
     }
   `;
 
@@ -158,10 +177,9 @@ export default function UserProfile(props: Props) {
 
       <div css={profileStyles}>
         <div css={recipeStyles}>
-          <h2>Share Your Recipes</h2>
+          <h1>Share Your Recipes</h1>
           <p>
-            Share your recipes in four easy steps and get in touch with
-            like-minded cooking lovers!
+            Share your recipes and get in touch with like-minded cooking lovers!
           </p>
           <div>
             <form
@@ -169,21 +187,23 @@ export default function UserProfile(props: Props) {
                 return event.preventDefault(), setRecipeCreated(true);
               }}
             >
-              <h4 data-test-id={'upload-image'}>1. Upload Image</h4>
+              <h2 data-test-id={'upload-image'}>1. Upload Image</h2>
               <UploadImage setImageUrl={setImageUrl} />
 
-              <h4>2. Choose a Title</h4>
+              <h2>2. Choose a Title</h2>
               <input
+                placeholder="My Recipe Title"
+                className="text-preptime"
                 value={recipeTitle}
                 onChange={(event) => {
                   setRecipeTitle(event?.currentTarget.value);
                 }}
               />
               <div>
-                <h4>3. Choose Ingredients</h4>
+                <h2>3. Choose Ingredients</h2>
                 {props.ingredients.map((ingredient: any, index: number) => {
                   return (
-                    <label key={index}>
+                    <label id="ingredients" key={index}>
                       {ingredient.name}
                       <input
                         id="ingredients"
@@ -197,15 +217,17 @@ export default function UserProfile(props: Props) {
                   );
                 })}
               </div>
-              <h4>4. Preparation Time in minutes</h4>
+              <h2>4. Preparation Time in minutes</h2>
               <input
+                placeholder="e.g. 60"
+                className="text-preptime"
                 value={preparationTime}
                 onChange={(event) => {
                   setPreparationTime(event?.currentTarget.value);
                 }}
               />
               <div>
-                <h4>5. Select Difficulty</h4>
+                <h2>5. Select Difficulty</h2>
 
                 <select
                   name="selectList"
@@ -222,8 +244,10 @@ export default function UserProfile(props: Props) {
                 </select>
               </div>
               <div>
-                <h4>6. Instruction (max. 1000 chars)</h4>
+                <h2>6. Instruction (max. 1000 chars)</h2>
                 <textarea
+                  placeholder="Share your cooking secrets here :-)"
+                  className="instruction"
                   id="instructions"
                   value={recipeInstructions}
                   onChange={(event) => {
@@ -251,8 +275,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const difficulties = await getDifficulties();
   const token = context.req.cookies.sessionToken;
   const user = token && (await getUserBySessionToken(token));
-  const userId = user!.id;
-  const userRecipes = await getRecipesByUserId(userId);
 
   if (!user) {
     return {
@@ -262,6 +284,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
+
+  const userId = user!.id;
+  const userRecipes = await getRecipesByUserId(userId);
 
   return {
     props: {

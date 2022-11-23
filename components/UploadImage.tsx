@@ -1,4 +1,5 @@
 // child component for image upload
+
 import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 
@@ -16,7 +17,7 @@ export function UploadImage({ setImageUrl }: Props) {
 
     /* Creating an URL for the file. */
     setPreview(URL.createObjectURL(newFile));
-    console.log('newFile', newFile);
+    // console.log('newFile', newFile);
 
     /* Creating a form data object and appending the file and the upload preset to it. */
     const formData = new FormData();

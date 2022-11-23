@@ -30,6 +30,7 @@ export default function Home() {
     button:hover {
       background-color: white;
       color: #007e58;
+      border: 1px solid #007e58;
     }
   `;
 
