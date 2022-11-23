@@ -1,10 +1,6 @@
-import { string } from '../string';
-
-test('if input type is string', () => {
-  expect(string('input').toBe(string));
-});
+import { stringTest } from '../string';
 
 test('throws when argument is not a string', () => {
-  expect(() => string(123).toThrow());
-  expect(() => string('123').not.toThrow());
+  expect(() => stringTest(123).toThrow());
+  expect(() => stringTest('123').not.toThrow());
 });

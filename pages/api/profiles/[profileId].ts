@@ -70,12 +70,13 @@ export default async function handler(
 
   if (request.method === 'DELETE') {
     const deletedUser = await deleteUserById(userId);
+    console.log('deletedUser', deletedUser);
 
     if (!deletedUser) {
       return response.status(404).json({ message: 'Not a valid Id' });
     }
 
-    return response.status(200).json(user);
+    return response.status(200).json({ deletedUser: deletedUser });
   }
 }
 

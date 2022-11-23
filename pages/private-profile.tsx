@@ -14,9 +14,11 @@ type Props = {
   ingredients: Awaited<ReturnType<typeof getIngredients>>;
   difficulties: Awaited<ReturnType<typeof getDifficulties>>;
   userRecipes: Awaited<ReturnType<typeof getRecipesByUserId>>;
+  refreshUserProfile: () => void;
 };
 
 export default function UserProfile(props: Props) {
+  console.log('userRecipes', props.userRecipes);
   const profileStyles = css`
     margin: 100px 200px 0px;
 
@@ -104,6 +106,7 @@ margin-right: 10%; */
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
+
     /* margin: 30px 5%; */
 
     /* h3 {
@@ -127,6 +130,7 @@ margin-right: 10%; */
     margin: 10px;
     background-color: #31b67c;
     justify-content: center;
+    max-width: 200px;
 
     #editbutton {
       width: 60px;
@@ -185,8 +189,15 @@ margin-right: 10%; */
   const [recipeInstructions, setRecipeInstructions] = useState('');
   const [recipeCreated, setRecipeCreated] = useState(false);
   const [profileInfoUpdated, setProfileInfoUpdated] = useState(false);
+  const [deletedUser, setDeletedUser] = useState(0);
+  const [recipiesList, setRecipiesList] = useState(props.userRecipes);
   const router = useRouter();
+  // const recipeId = asd;
   const userAccountId = props.user.id;
+
+  useEffect(() => {
+    setDeletedUser(0);
+  }, [deletedUser]);
 
   // selects and filter the ingredients
   function handleCheck(index: never) {
@@ -259,6 +270,15 @@ margin-right: 10%; */
       }),
     });
     const deletedUserFromApiById = await response.json();
+    // console.log('deletedUserFromApiById', deletedUserFromApiById);
+    // console.log(
+    //   'deletedUserFromApiById.deletedUser.id',
+    //   deletedUserFromApiById.deletedUser.id,
+    // );
+
+    setDeletedUser(deletedUserFromApiById.deletedUser.id);
+    props.refreshUserProfile();
+    await router.push(`/logout`);
   }
 
   // deletes recipe by recipe id
@@ -272,7 +292,7 @@ margin-right: 10%; */
         recipeId: recipeId,
       }),
     });
-    console.log('recipeId', recipeId);
+    // console.log('recipeId', recipeId);
     const deletedRecipeFromApiByRecipeId = await response.json();
     console.log(
       'deletedRecipeFromApiByRecipeId',
@@ -303,6 +323,7 @@ margin-right: 10%; */
         <h1>{username}'s Private Profile</h1>
         <hr />
         <h2>Personal Information</h2>
+        <p>{deletedUser}</p>
         <span> Account ID: {props.user.id}</span>
         <form
           onSubmit={(event) => {
@@ -361,11 +382,10 @@ margin-right: 10%; */
         </form>
         <h2>My Created Recipes</h2>
         <div css={createdrecipeWrapper}>
-          {props.userRecipes.map((userRecipe) => {
+          {recipiesList.map((userRecipe) => {
             return (
               <div key={userRecipe.id} css={cards}>
                 <h3>{userRecipe.recipesTitle}</h3>
-
                 <div>
                   <p>
                     <img
@@ -380,8 +400,8 @@ margin-right: 10%; */
                     {userRecipe.difficultyName}
                   </p>
                 </div>
-                <span>Ingredients: {userRecipe.ingredientsName}..</span>
 
+                <span>Ingredients: {userRecipe.ingredientsName}..</span>
                 <button id="editbutton">Edit</button>
                 <button
                   id="deletebutton"

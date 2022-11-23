@@ -42,15 +42,17 @@ export default async function handler(
   }
 
   if (request.method === 'DELETE') {
-    const recipeId = request.body?.recipeId;
+    const recipeId = request.body?.recipesId;
+    console.log('request.body?.recipeId', request.body?.recipeId);
     console.log('recipeId', recipeId);
     const deletedRecipe = await deleteRecipeByRecipeId(recipeId);
+    console.log('deletedRecipe', deletedRecipe);
 
     if (!deletedRecipe) {
       return response.status(404).json({ message: 'Not a valid Id' });
     }
 
-    return response.status(200).json(deletedRecipe);
+    return response.status(200).json({ deletedRecipe: deletedRecipe });
   }
 
   if (request.method === 'POST') {

@@ -34,23 +34,6 @@ LIMIT 1
   return recipeId[0];
 }
 
-// export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
-//   recipeId,
-//   ingredientIds,
-// ) {
-//   const returnedIngredientId = await sql`
-
-//     INSERT INTO recipes_ingredients
-//       ( recipe_id, ingredient_id)
-//     VALUES
-//       (${recipeId}, ${ingredientIds})
-
-//     RETURNING *
-//   `;
-//   console.log('returnedIngredientIdFromQuery', returnedIngredientId);
-//   return returnedIngredientId;
-// }
-
 export async function createInsertIntoRecipesIngredientsIngredientsIdsAndRecipeId(
   recipeId,
   ingredientIds,

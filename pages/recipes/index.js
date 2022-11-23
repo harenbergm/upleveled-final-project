@@ -104,8 +104,8 @@ export default function ShowRecipes(props) {
       </Head>
 
       <div css={headlineStyles}>
-        <h1>Find Your Recipes By Ingredients</h1>
-        <h2>You wish to have in your recipe</h2>
+        <h1>Find Delicoius Recipes Everyday</h1>
+        <h2>And Share Yours With Others</h2>
         <div>{props.allRecipes.length} Recipes found</div>
       </div>
 
@@ -117,9 +117,9 @@ export default function ShowRecipes(props) {
                 <div>
                   <a href={`/recipes/${recipe.id}`}>
                     <img
+                      data-test-id={`/recipes/${recipe.id}`}
                       css={img}
                       src={`${recipe.imageurl}`}
-                      data-test-id={'recipe-link'}
                       width="432"
                       height="288"
                     />
