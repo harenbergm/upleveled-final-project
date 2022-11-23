@@ -10,7 +10,7 @@ import { getUserBySessionToken } from '../../database/users';
 const backButtonStyles = css`
   margin-top: 50px;
   margin-left: 20px;
-  border-radius: 12px;
+  border-radius: 10px;
   width: 80px;
   border: 1px solid white;
   background-color: #007e58;
@@ -22,19 +22,8 @@ const backButtonStyles = css`
   }
 `;
 
-// const recipeWrapper = css`
-//   /* margin-left: 40%;
-//   margin-right: 10%; */
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: center;
-//   margin: 30px 5%;
-//   border: 2px solid pink;
-// `;
-
 const recipeStyles = css`
   width: 576px;
-  /* border: 2px solid blue; */
   justify-content: center;
   margin: 0 auto;
 
@@ -48,25 +37,10 @@ const recipeStyles = css`
     font-size: 50px;
   }
 
-  img {
-    /* box-shadow: 4px 6px #888888;
-    border-radius: 20px;
-    padding: 10px;
-    margin: 10px; */
-  }
-
   div {
     display: flex;
     justify-content: center;
   }
-  /* div :nth-child(3) {
-  }
-
-  div :nth-child(4) {
-    display: flex;
-    justify-content: left;
-    color: yellow;
-  } */
 
   span {
     padding: 15px 0px 15px;
@@ -123,24 +97,48 @@ const difficultyIcon = css`
 `;
 
 const formStyles = css`
-  justify-content: center;
   margin: 0 auto;
-  div > * {
-    /* display: block;
-    justify-content: right;
-    margin: 0 auto; */
-    justify-content: center;
-    margin: 0 auto;
-  }
+  text-align: center;
+  justify-content: center;
+  border: 1px solid black;
+  width: 576px;
+  height: 376px;
+  overflow-y: scroll;
+  border-radius: 4px;
 `;
 
+const commentHeadlineStyles = css`
+  width: 576px;
+  margin: 0 auto;
+
+  h4 {
+    font-size: 26px;
+    color: #007e58;
+  }
+`;
+const commentSytles = css`
+  width: 576px;
+  margin: 0 auto;
+
+  h4 {
+    font-size: 26px;
+    color: #007e58;
+  }
+
+  textarea {
+    width: 576px;
+    height: 150px;
+    border-radius: 4px;
+  }
+`;
 const commentButtonStyles = css`
-  border-radius: 12px;
+  border-radius: 10px;
   width: 80px;
   padding: 2px;
   background-color: #007e58;
   border: 1px solid white;
   color: white;
+  margin: 10px 0px 50px;
   :hover {
     background-color: white;
     color: #007e58;
@@ -206,7 +204,7 @@ export default function ShowSingleRecipe(props) {
       <div>
         <div css={recipeStyles}>
           <h1>{props.singleRecipe[0].recipesTitle}</h1>
-          {/* </div> */}
+
           <div>
             <img
               src={`${props.singleRecipe[0].imageurl}`}
@@ -241,29 +239,33 @@ export default function ShowSingleRecipe(props) {
           </div>
         </div>
         <hr width="576" />
+        <div css={commentHeadlineStyles}>
+          <h4>User comments</h4>
+        </div>
 
-        {commentList.length > 0 ? (
-          commentList.map((comment) => {
-            return (
-              <div css={{ marginLeft: 470, maxHeight: 500 }}>
-                <p>
-                  <b>
-                    {comment.userName} {''}
-                    on {comment.date}
-                  </b>
-                </p>
-                <div css={{ marginBottom: 30 }}>
-                  <i>{comment.content}</i>
+        <div id="comments" css={formStyles}>
+          {commentList.length > 0 ? (
+            commentList.map((comment) => {
+              return (
+                <div>
+                  <p>
+                    <b>
+                      {comment.userName} {''}
+                      on {comment.date}
+                    </b>
+                  </p>
+                  <div css={{ marginBottom: 30 }}>
+                    <i>{comment.content}</i>
+                  </div>
                 </div>
-              </div>
-            );
-          })
-        ) : (
-          <></>
-        )}
-
-        <div css={formStyles}>
-          <div>
+              );
+            })
+          ) : (
+            <></>
+          )}
+        </div>
+        <div>
+          <div css={commentSytles}>
             <form
               onSubmit={(event) => {
                 return (
@@ -272,11 +274,10 @@ export default function ShowSingleRecipe(props) {
                 );
               }}
             >
-              <h4 css={{ marginTop: 40 }}>Leave a comment</h4>
+              <h4>Leave a comment</h4>
 
               <textarea
                 placeholder="max. 400 characters"
-                css={{ width: 350 }}
                 value={comment}
                 onChange={(event) => {
                   setComment(event.currentTarget.value);

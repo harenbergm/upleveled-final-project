@@ -18,7 +18,7 @@ type Props = {
 
 export default function UserProfile(props: Props) {
   const profileStyles = css`
-    margin: 50px 200px 0px;
+    margin: 100px 200px 0px;
 
     span {
       display: block;
@@ -37,23 +37,35 @@ export default function UserProfile(props: Props) {
     input {
       margin-left: 50px;
       margin-right: 30px;
+      border-radius: 4px;
+      border: 1px solid #007e58;
     }
 
     button {
-      border: 2px solid green;
+      border: 1px solid green;
       display: inline-block;
-      border-radius: 4px;
+      border-radius: 14px;
+      background-color: #007e58;
+      color: white;
+    }
+    button:hover {
       background-color: white;
-      color: green;
+      color: #007e58;
+      border: 1px solid #007e58;
     }
     #deleteProfile {
       display: block;
       margin-top: 20px;
       border: red 1px solid;
-      border-radius: 4px;
+      border-radius: 14px;
+      color: white;
+      background-color: red;
+      margin-bottom: 30px;
+    }
+    #deleteProfile:hover {
       background-color: white;
       color: red;
-      margin-bottom: 30px;
+      border: 1px solid red;
     }
   `;
 
@@ -76,6 +88,83 @@ export default function UserProfile(props: Props) {
       border-radius: 4px;
       background-color: white;
       color: green;
+    }
+  `;
+
+  const createdrecipeWrapper = css`
+    /* margin-left: 40%;
+margin-right: 10%; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    /* margin: 30px 5%; */
+
+    /* h3 {
+      font-size: 22px;
+    }
+
+    span {
+      display: inline-block;
+      justify-content: center;
+      text-align: center;
+      margin-right: 10%;
+      color: green;
+      margin-bottom: 10px;
+    } */
+  `;
+
+  const cards = css`
+    box-shadow: 4px 6px #888888;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #31b67c;
+    justify-content: center;
+
+    #editbutton {
+      width: 60px;
+      border-radius: 8px;
+      border: 1px solid white;
+      margin: 0px 10px 5px 10px;
+      background-color: #31b67c;
+      color: white;
+      border: 1px solid white;
+    }
+    #editbutton:hover {
+      color: #31b67c;
+      background-color: white;
+      border: 1px solid white;
+    }
+
+    #deletebutton {
+      width: 60px;
+      border-radius: 8px;
+      border: 1px solid white;
+      background-color: red;
+      color: white;
+      border: 1px solid white;
+    }
+    #deletebutton:hover {
+      color: red;
+      background-color: white;
+      border: 1px solid white;
+    }
+  `;
+
+  const preparationTimeIcon = css`
+    height: 13px;
+    width: 13px;
+    margin-right: 5px;
+  `;
+
+  const difficultyIcon = css`
+    height: 13px;
+    width: 13px;
+    margin-right: 5px;
+
+    span {
+      justify-content: center;
+      margin-right: 20px;
     }
   `;
 
@@ -262,28 +351,42 @@ export default function UserProfile(props: Props) {
           </div>
         </form>
         <h2>My Created Recipes</h2>
-        {props.userRecipes.map((userRecipe) => {
-          return (
-            <div key={userRecipe.id}>
-              <h3>{userRecipe.recipesTitle}</h3>
-              <div>Recipe ID:{userRecipe.id} </div>
-              <div>
-                <p>Prep. Time: {userRecipe.preparationTime} minutes</p>
-                <p>Difficulty: {userRecipe.difficultyName}</p>
+        <div css={createdrecipeWrapper}>
+          {props.userRecipes.map((userRecipe) => {
+            return (
+              <div key={userRecipe.id} css={cards}>
+                <h3>{userRecipe.recipesTitle}</h3>
+
+                <div>
+                  <p>
+                    <img
+                      src="/icon-watch.png"
+                      alt=".."
+                      css={preparationTimeIcon}
+                    />{' '}
+                    {userRecipe.preparationTime} minutes
+                  </p>
+                  <p>
+                    <img src="/difficulty.png" alt=".." css={difficultyIcon} />{' '}
+                    {userRecipe.difficultyName}
+                  </p>
+                </div>
+                <span>Ingredients: {userRecipe.ingredientsName}..</span>
+
+                <button id="editbutton">Edit</button>
+                <button
+                  id="deletebutton"
+                  onClick={() => {
+                    deleteRecipeFromApiByRecipeId(userRecipe.id);
+                  }}
+                >
+                  Delete
+                </button>
+                <br />
               </div>
-              <span>Ingredients: {userRecipe.ingredientsName}</span>
-              {/* <button>Edit</button> */}
-              <button
-                onClick={() => {
-                  deleteRecipeFromApiByRecipeId(userRecipe.id);
-                }}
-              >
-                Delete
-              </button>
-              <br />
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </>
   );

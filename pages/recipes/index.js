@@ -146,7 +146,7 @@ export default function ShowRecipes(props) {
                     />{' '}
                     {recipe.difficultyName}
                   </span>
-                  {/* <p>Ingredients: {recipe.ingredientsName}</p> */}
+
                   <div className="instructions">
                     Instruction: {recipe.instruction}
                   </div>

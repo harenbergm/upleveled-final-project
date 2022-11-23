@@ -47,7 +47,7 @@ const loginStyles = css`
     color: white;
     margin-top: 20px;
     border-radius: 8px;
-    border: 1px solid black;
+    border: none;
   }
   button:hover {
     background-color: white;

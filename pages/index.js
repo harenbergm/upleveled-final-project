@@ -19,7 +19,7 @@ export default function Home() {
     }
 
     button {
-      border-radius: 20px;
+      border-radius: 18px;
       width: 200px;
       padding: 8px;
       font-size: 16px;
