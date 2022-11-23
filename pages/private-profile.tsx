@@ -34,7 +34,14 @@ export default function UserProfile(props: Props) {
       font-weight: 500;
     }
 
-    input {
+    .username {
+      margin-left: 28px;
+      margin-right: 30px;
+      border-radius: 4px;
+      border: 1px solid #007e58;
+    }
+
+    .email {
       margin-left: 50px;
       margin-right: 30px;
       border-radius: 4px;
@@ -304,8 +311,9 @@ margin-right: 10%; */
         >
           <div css={personalInformationStyles}>
             <label>
-              Username:
+              Edit Username:
               <input
+                className="username"
                 value={username}
                 onChange={(event) => {
                   setUsername(event?.currentTarget.value);
@@ -322,8 +330,9 @@ margin-right: 10%; */
             </button>
             <br />
             <label>
-              E-Mail:
+              Edit E-Mail:
               <input
+                className="email"
                 value={email}
                 onChange={(event) => {
                   setEmail(event?.currentTarget.value);
