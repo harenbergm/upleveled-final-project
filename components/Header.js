@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import Link from 'next/link';
 
 const navStyles = css`
-  position: fixed;
   padding: 10px 100px 20px;
   font-size: 20px;
   font-weight: 500;

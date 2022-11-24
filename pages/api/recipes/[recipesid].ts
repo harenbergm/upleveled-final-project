@@ -8,7 +8,7 @@ export default async function handler(
   response: NextApiResponse,
 ) {
   // check if session token exists
-  console.log('request.query', request.query);
+  // console.log('request.query', request.query);
   const session =
     request.cookies.sessionToken &&
     (await getValidSessionByToken(request.cookies.sessionToken));
@@ -20,7 +20,8 @@ export default async function handler(
     return;
   }
 
-  const userId = Number(request.query.profileId);
+  const userId = Number(request.body?.userAccountId);
+  // console.log('userId', userId);
 
   // check if the id is a number
   if (!userId) {
@@ -42,17 +43,17 @@ export default async function handler(
   }
 
   if (request.method === 'DELETE') {
-    const recipeId = request.body?.recipesId;
-    console.log('request.body?.recipeId', request.body?.recipeId);
-    console.log('recipeId', recipeId);
-    const deletedRecipe = await deleteRecipeByRecipeId(recipeId);
-    console.log('deletedRecipe', deletedRecipe);
+    const recipeId = request.query?.recipesId;
+    // console.log('request.body?.recipeId', request.body?.recipeId);
+    // console.log('recipeId', recipeId);
+    const deletedRecipeFromApi = await deleteRecipeByRecipeId(recipeId);
+    console.log('deletedRecipeFromApi', deletedRecipeFromApi);
 
-    if (!deletedRecipe) {
+    if (!deletedRecipeFromApi) {
       return response.status(404).json({ message: 'Not a valid Id' });
     }
 
-    return response.status(200).json({ deletedRecipe: deletedRecipe });
+    return response.status(200).json({ deletedRecipeFromApi });
   }
 
   if (request.method === 'POST') {

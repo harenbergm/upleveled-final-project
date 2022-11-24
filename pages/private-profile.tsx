@@ -19,7 +19,7 @@ type Props = {
 };
 
 export default function UserProfile(props: Props) {
-  console.log('userRecipes', props.userRecipes);
+  // console.log('userRecipes', props.userRecipes);
   const profileStyles = css`
     margin: 100px 200px 0px;
 
@@ -154,8 +154,9 @@ export default function UserProfile(props: Props) {
   const [deletedUser, setDeletedUser] = useState(0);
   const [recipiesList, setRecipiesList] = useState(props.userRecipes);
   const router = useRouter();
-  // const recipeId = asd;
   const userAccountId = props.user.id;
+
+  console.log('recipiesList', recipiesList);
 
   useEffect(() => {
     setDeletedUser(0);
@@ -200,7 +201,7 @@ export default function UserProfile(props: Props) {
     await router.push(`/recipes/`);
     return;
 
-    console.log('createdRecipeFromApiById', createdRecipeFromApiById);
+    // console.log('createdRecipeFromApiById', createdRecipeFromApiById);
   }
 
   // Updates User Profile
@@ -239,7 +240,10 @@ export default function UserProfile(props: Props) {
   }
 
   // deletes recipe by recipe id
-  async function deleteRecipeFromApiByRecipeId(recipeId: number) {
+  async function deleteRecipeFromApiByRecipeId(
+    recipeId: number,
+    recipiesList: array,
+  ) {
     const response = await fetch(`/api/recipes/${recipeId}`, {
       method: 'DELETE',
       headers: {
@@ -247,14 +251,19 @@ export default function UserProfile(props: Props) {
       },
       body: JSON.stringify({
         recipeId: recipeId,
+        userAccountId: userAccountId,
       }),
     });
     // console.log('recipeId', recipeId);
-    const deletedRecipeFromApiByRecipeId = await response.json();
-    console.log(
-      'deletedRecipeFromApiByRecipeId',
-      deletedRecipeFromApiByRecipeId,
-    );
+    const deletedRecipeResponse = await response.json();
+
+    console.log('deletedRecipeResponse', deletedRecipeResponse.id);
+
+    // const recipeListFiltered = recipiesList.filter((recipe: any) => {
+    //   recipe[0].id !== recipeId;
+    //   console.log('recipeId', recipeId);
+    //   console.log('recipeListFiltered', recipeListFiltered);
+    // });
   }
 
   if (!props.user) {
@@ -335,7 +344,7 @@ export default function UserProfile(props: Props) {
             <hr />
           </div>
         </form>
-        {console.log('userRecipe.id', props.userRecipes[5]?.id)}
+        {/* {console.log('userRecipe.id', props.userRecipes[5]?.id)} */}
         <h2>My Created Recipes</h2>
         <div css={createdrecipeWrapper}>
           {recipiesList.map((userRecipe) => {
@@ -355,19 +364,20 @@ export default function UserProfile(props: Props) {
                     <img src="/difficulty.png" alt=".." css={difficultyIcon} />{' '}
                     {userRecipe.difficultyName}
                   </p>
-                </div>
+                  {console.log('userRecipe.id', userRecipe.id)}
 
-                <span>Ingredients: {userRecipe.ingredientsName}..</span>
-                <button id="editbutton">Edit</button>
-                <button
-                  id="deletebutton"
-                  onClick={() => {
-                    deleteRecipeFromApiByRecipeId(userRecipe.id);
-                  }}
-                >
-                  Delete
-                </button>
-                <br />
+                  <span>Ingredients: {userRecipe.ingredientsName}..</span>
+                  <button id="editbutton">Edit</button>
+                  <button
+                    id="deletebutton"
+                    onClick={() => {
+                      deleteRecipeFromApiByRecipeId(userRecipe.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                  <br />
+                </div>
               </div>
             );
           })}

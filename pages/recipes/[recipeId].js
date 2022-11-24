@@ -215,15 +215,6 @@ export default function ShowSingleRecipe(props) {
               src={`${props.singleRecipe[0].imageurl}`}
               alt={`${props.singleRecipe[0].recipesTitle} Recipe`}
             />
-            {/* <img
-              src={`${props.singleRecipe[0].imageurl}`}
-              width="576"
-              height="432"
-              css={css`
-                border-radius: 12px;
-              `}
-              alt={`${props.singleRecipe[0].recipesTitle} Recipe`}
-            /> */}
           </div>
           <div>
             <span data-test-id={'preparation-time'}>
