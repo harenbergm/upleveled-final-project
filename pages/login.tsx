@@ -18,9 +18,9 @@ const loginStyles = css`
   margin: 14% auto;
   width: 350px;
   height: 380px;
-  border: 1px solid #007e58;
+  border: 1px solid #006b4a;
   border-radius: 12px;
-  color: #007e58;
+  color: #006b4a;
 
   p {
     width: 300px;
@@ -35,7 +35,7 @@ const loginStyles = css`
     width: 300px;
     margin-bottom: 15px;
     border-radius: 8px;
-    border: 1px solid #007e58;
+    border: 1px solid #006b4a;
   }
 
   button {
@@ -43,7 +43,7 @@ const loginStyles = css`
     width: 300px;
     font-size: 14px;
     border-radius: 20px;
-    background-color: #007e58;
+    background-color: #006b4a;
     color: white;
     margin-top: 20px;
     border-radius: 8px;
@@ -52,7 +52,7 @@ const loginStyles = css`
   button:hover {
     background-color: white;
     color: #007e58;
-    border: 1px solid #007e58;
+    border: 1px solid #006b4a;
   }
 `;
 
@@ -112,7 +112,6 @@ export default function Login(props: Props) {
         <meta name="description" content="Login new users" />
       </Head>
       <div css={loginStyles}>
-        <div>LOGO</div>
         <h1>Login</h1>
         {errors.map((error) => {
           return (

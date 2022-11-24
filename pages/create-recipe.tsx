@@ -34,7 +34,7 @@ export default function UserProfile(props: Props) {
       padding-top: 40px;
       margin: 0 auto;
       font-size: 50px;
-      color: #007e58;
+      color: #006b4a;
     }
 
     p {
@@ -42,7 +42,7 @@ export default function UserProfile(props: Props) {
     }
     h2 {
       margin-top: 40px;
-      color: #007e58;
+      color: #006b4a;
     }
 
     .text-preptime {
@@ -51,11 +51,11 @@ export default function UserProfile(props: Props) {
       font-size: 16px;
       margin-bottom: 15px;
       border-radius: 8px;
-      border: 1px solid #007e58;
+      border: 1px solid #006b4a;
     }
     .instruction {
       border-radius: 8px;
-      border: 1px solid #007e58;
+      border: 1px solid #006b4a;
       font-size: 16px;
     }
 
@@ -65,9 +65,9 @@ export default function UserProfile(props: Props) {
       font-size: 16px;
       border-radius: 20px;
       background-color: white;
-      color: #007e58;
+      color: #006b4a;
       border-radius: 8px;
-      border: 1px solid #007e58;
+      border: 1px solid #006b4a;
     }
     #ingredients {
       margin-right: 10px;
@@ -85,7 +85,7 @@ export default function UserProfile(props: Props) {
       width: 300px;
       font-size: 14px;
       border-radius: 20px;
-      background-color: #007e58;
+      background-color: #006b4a;
       color: white;
       margin: 20px 0px 20px;
       border-radius: 8px;
@@ -93,8 +93,8 @@ export default function UserProfile(props: Props) {
     }
     button:hover {
       background-color: white;
-      color: #007e58;
-      border: 1px solid #007e58;
+      color: #006b4a;
+      border: 1px solid #006b4a;
     }
   `;
 

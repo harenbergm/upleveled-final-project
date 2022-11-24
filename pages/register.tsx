@@ -17,9 +17,9 @@ const signupStyles = css`
   margin: 14% auto;
   width: 350px;
   height: 380px;
-  border: 1px solid #007e58;
+  border: 1px solid #006b4a;
   border-radius: 12px;
-  color: #007e58;
+  color: #006b4a;
 
   p {
     width: 300px;
@@ -35,7 +35,7 @@ const signupStyles = css`
     width: 300px;
     margin-bottom: 15px;
     border-radius: 8px;
-    border: 1px solid #007e58;
+    border: 1px solid #006b4a;
   }
 
   button {
@@ -43,7 +43,7 @@ const signupStyles = css`
     width: 300px;
     font-size: 14px;
     border-radius: 20px;
-    background-color: #007e58;
+    background-color: #006b4a;
     color: white;
     margin-top: 20px;
     border-radius: 8px;
@@ -51,8 +51,8 @@ const signupStyles = css`
   }
   button:hover {
     background-color: white;
-    color: #007e58;
-    border: 1px solid #007e58;
+    color: #006b4a;
+    border: 1px solid #006b4a;
   }
 `;
 
@@ -106,7 +106,6 @@ export default function Register(props: Props) {
         <meta name="description" content="Sign up new users" />
       </Head>
       <div css={signupStyles}>
-        <div>LOGO</div>
         <h1>Register</h1>
         <p>By creating an account you are accepting our cookie policy.</p>
         {errors.map((error) => {
@@ -152,7 +151,7 @@ export default function Register(props: Props) {
             await registerHandler();
           }}
         >
-          Sign Up
+          Register Now
         </button>
       </div>
     </>

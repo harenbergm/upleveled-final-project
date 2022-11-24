@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { Merriweather } from '@next/font/google';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -13,12 +14,12 @@ const backButtonStyles = css`
   border-radius: 10px;
   width: 80px;
   border: 1px solid white;
-  background-color: #007e58;
+  background-color: #006b4a;
   color: white;
   :hover {
     background-color: white;
-    color: #007e58;
-    border: 1px solid #007e58;
+    color: #006b4a;
+    border: 1px solid #006b4a;
   }
 `;
 
@@ -31,7 +32,7 @@ const recipeStyles = css`
     display: flex;
     justify-content: center;
     text-align: center;
-    color: #007e58;
+    color: #006b4a;
     padding-top: 20px;
     margin-bottom: 60px;
     font-size: 50px;
@@ -44,14 +45,14 @@ const recipeStyles = css`
 
   span {
     padding: 15px 0px 15px;
-    color: green;
+    color: #006b4a;
   }
 
   h4 {
     width: 576px;
     display: flex;
     justify-content: right;
-    color: green;
+    color: #006b4a;
     justify-content: left;
   }
 
@@ -73,13 +74,6 @@ const recipeStyles = css`
     width: 576px;
     margin-bottom: 30px;
     justify-content: left;
-
-    /* hyphens: auto; */
-    /* inline-size: 350px; */
-    /* overflow-wrap: break-word; */
-    overflow-x: scroll;
-    overflow-y: scroll;
-    word-wrap: break-word;
   }
 `;
 
@@ -102,7 +96,7 @@ const formStyles = css`
   justify-content: center;
   border: 1px solid black;
   width: 576px;
-  height: 376px;
+  max-height: 376px;
   overflow-y: scroll;
   border-radius: 4px;
 `;
@@ -113,7 +107,7 @@ const commentHeadlineStyles = css`
 
   h4 {
     font-size: 26px;
-    color: #007e58;
+    color: #006b4a;
   }
 `;
 const commentSytles = css`
@@ -122,7 +116,7 @@ const commentSytles = css`
 
   h4 {
     font-size: 26px;
-    color: #007e58;
+    color: #006b4a;
   }
 
   textarea {
@@ -135,16 +129,21 @@ const commentButtonStyles = css`
   border-radius: 10px;
   width: 80px;
   padding: 2px;
-  background-color: #007e58;
+  background-color: #006b4a;
   border: 1px solid white;
   color: white;
   margin: 10px 0px 50px;
   :hover {
     background-color: white;
-    color: #007e58;
-    border: 1px solid #007e58;
+    color: #006b4a;
+    border: 1px solid #006b4a;
   }
 `;
+
+const merriweather = Merriweather({
+  subsets: ['latin'],
+  weight: ['700'],
+});
 
 export default function ShowSingleRecipe(props) {
   let currentDate = new Date().toJSON().slice(0, 10);
@@ -240,7 +239,7 @@ export default function ShowSingleRecipe(props) {
         </div>
         <hr width="576" />
         <div css={commentHeadlineStyles}>
-          <h4>User comments</h4>
+          <h4 className={merriweather.className}>User comments</h4>
         </div>
 
         <div id="comments" css={formStyles}>
@@ -274,7 +273,7 @@ export default function ShowSingleRecipe(props) {
                 );
               }}
             >
-              <h4>Leave a comment</h4>
+              <h4 className={merriweather.className}>Leave a comment</h4>
 
               <textarea
                 placeholder="max. 400 characters"

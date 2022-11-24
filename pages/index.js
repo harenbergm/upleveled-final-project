@@ -10,12 +10,12 @@ export default function Home() {
     h1 {
       padding-top: 20%;
       font-size: 64px;
-      color: #007e58;
+      color: #006b4a;
     }
 
     h2 {
       font-size: 48px;
-      color: #007e58;
+      color: #006b4a;
     }
 
     button {
@@ -23,7 +23,7 @@ export default function Home() {
       width: 200px;
       padding: 8px;
       font-size: 16px;
-      background-color: #007e58;
+      background-color: #006b4a;
       color: white;
       border: 1px solid white;
     }

@@ -14,7 +14,7 @@ const headlineStyles = css`
     padding-top: 40px;
     margin: 0 auto;
     font-size: 50px;
-    color: #007e58;
+    color: #006b4a;
   }
   h2 {
     display: flex;
@@ -23,7 +23,7 @@ const headlineStyles = css`
     padding-top: 20px;
     margin: 0 auto;
     font-size: 30px;
-    color: #007e58;
+    color: #006b4a;
     margin-bottom: 60px;
   }
 
@@ -36,8 +36,6 @@ const headlineStyles = css`
 `;
 
 const recipeWrapper = css`
-  /* margin-left: 40%;
-  margin-right: 10%; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -52,7 +50,7 @@ const recipeWrapper = css`
     justify-content: center;
     text-align: center;
     margin-right: 10%;
-    color: green;
+    color: #006b4a;
     margin-bottom: 10px;
   }
 `;
@@ -88,7 +86,7 @@ const recipeDescriptionStyles = css`
     max-width: 432px;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* white-space: nowrap; */
+    white-space: nowrap;
   }
 `;
 

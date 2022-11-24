@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { Lobster } from '@next/font/google';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -40,27 +41,27 @@ export default function UserProfile(props: Props) {
       margin-left: 28px;
       margin-right: 30px;
       border-radius: 4px;
-      border: 1px solid #007e58;
+      border: 1px solid #006b4a;
     }
 
     .email {
       margin-left: 50px;
       margin-right: 30px;
       border-radius: 4px;
-      border: 1px solid #007e58;
+      border: 1px solid #006b4a;
     }
 
     button {
       border: 1px solid green;
       display: inline-block;
       border-radius: 14px;
-      background-color: #007e58;
+      background-color: #006b4a;
       color: white;
     }
     button:hover {
       background-color: white;
-      color: #007e58;
-      border: 1px solid #007e58;
+      color: #006b4a;
+      border: 1px solid #006b4a;
     }
     #deleteProfile {
       display: block;
@@ -78,49 +79,10 @@ export default function UserProfile(props: Props) {
     }
   `;
 
-  const recipeStyles = css`
-    h4 {
-      margin-top: 40px;
-    }
-    #ingredients {
-      margin-right: 10px;
-      margin-bottom: 10px;
-    }
-    #instructions {
-      width: 100%;
-      height: 300px;
-    }
-    button {
-      margin-top: 20px;
-      border: 2px solid green;
-      display: inline-block;
-      border-radius: 4px;
-      background-color: white;
-      color: green;
-    }
-  `;
-
   const createdrecipeWrapper = css`
-    /* margin-left: 40%;
-margin-right: 10%; */
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
-
-    /* margin: 30px 5%; */
-
-    /* h3 {
-      font-size: 22px;
-    }
-
-    span {
-      display: inline-block;
-      justify-content: center;
-      text-align: center;
-      margin-right: 10%;
-      color: green;
-      margin-bottom: 10px;
-    } */
   `;
 
   const cards = css`
@@ -130,13 +92,13 @@ margin-right: 10%; */
     margin: 10px;
     background-color: #31b67c;
     justify-content: center;
-    max-width: 200px;
+    max-width: 140px;
 
     #editbutton {
       width: 60px;
       border-radius: 8px;
       border: 1px solid white;
-      margin: 0px 10px 5px 10px;
+      margin-right: 0px;
       background-color: #31b67c;
       color: white;
       border: 1px solid white;
@@ -270,11 +232,6 @@ margin-right: 10%; */
       }),
     });
     const deletedUserFromApiById = await response.json();
-    // console.log('deletedUserFromApiById', deletedUserFromApiById);
-    // console.log(
-    //   'deletedUserFromApiById.deletedUser.id',
-    //   deletedUserFromApiById.deletedUser.id,
-    // );
 
     setDeletedUser(deletedUserFromApiById.deletedUser.id);
     props.refreshUserProfile();
@@ -323,8 +280,6 @@ margin-right: 10%; */
         <h1>{username}'s Private Profile</h1>
         <hr />
         <h2>Personal Information</h2>
-        <p>{deletedUser}</p>
-        <span> Account ID: {props.user.id}</span>
         <form
           onSubmit={(event) => {
             event.preventDefault();
@@ -380,6 +335,7 @@ margin-right: 10%; */
             <hr />
           </div>
         </form>
+        {console.log('userRecipe.id', props.userRecipes[5]?.id)}
         <h2>My Created Recipes</h2>
         <div css={createdrecipeWrapper}>
           {recipiesList.map((userRecipe) => {

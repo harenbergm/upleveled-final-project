@@ -3,17 +3,18 @@ import Link from 'next/link';
 
 const navStyles = css`
   padding: 10px 100px 20px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 500;
   margin-bottom: -45px;
   display: flex;
   color: white;
   justify-content: space-between;
-  background-color: lightblue;
+  background-color: #97afb9;
   > div > a {
     margin-left: 40px;
   }
   a {
-    color: black;
+    color: white;
   }
 
   > div > Link {
@@ -36,7 +37,7 @@ export default function Header(props) {
       <nav css={navStyles}>
         {/* Using a Link component is faster than an <a> tag */}
         <div>
-          <Link href="/">Logo</Link>
+          <Link href="/">Home</Link>
         </div>
         <div>
           <Link href="/recipes">Recipes</Link>
