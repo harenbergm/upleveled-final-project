@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { CldImage } from 'next-cloudinary';
 import Head from 'next/head';
 import Image from 'next/image';
 import { getIngredientsByRecipeId } from '../../database/ingredients';
@@ -114,13 +115,19 @@ export default function ShowRecipes(props) {
               <div key={recipe.id} css={recipeStyles}>
                 <div>
                   <a href={`/recipes/${recipe.id}`}>
-                    <img
+                    <CldImage
+                      css={img}
+                      width="432"
+                      height="288"
+                      src={`${recipe.imageurl}`}
+                    />
+                    {/* <img
                       data-test-id={`/recipes/${recipe.id}`}
                       css={img}
                       src={`${recipe.imageurl}`}
                       width="432"
                       height="288"
-                    />
+                    /> */}
                   </a>
                 </div>
                 <div css={recipeDescriptionStyles}>

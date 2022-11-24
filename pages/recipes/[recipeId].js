@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { Merriweather } from '@next/font/google';
+import { CldImage } from 'next-cloudinary';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -205,7 +206,16 @@ export default function ShowSingleRecipe(props) {
           <h1>{props.singleRecipe[0].recipesTitle}</h1>
 
           <div>
-            <img
+            <CldImage
+              css={css`
+                border-radius: 12px;
+              `}
+              width="576"
+              height="432"
+              src={`${props.singleRecipe[0].imageurl}`}
+              alt={`${props.singleRecipe[0].recipesTitle} Recipe`}
+            />
+            {/* <img
               src={`${props.singleRecipe[0].imageurl}`}
               width="576"
               height="432"
@@ -213,7 +223,7 @@ export default function ShowSingleRecipe(props) {
                 border-radius: 12px;
               `}
               alt={`${props.singleRecipe[0].recipesTitle} Recipe`}
-            />
+            /> */}
           </div>
           <div>
             <span data-test-id={'preparation-time'}>
