@@ -36,6 +36,43 @@ function MyApp({ Component, pageProps }) {
 
           body {
             margin: 0px;
+            --main-text-color: #006b4a;
+          }
+
+          h1 {
+            color: var(--main-text-color);
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            font-size: 50px;
+          }
+
+          h2 {
+            color: var(--main-text-color);
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            font-size: 30px;
+          }
+
+          h4 {
+            width: 576px;
+            display: flex;
+            color: var(--main-text-color);
+            justify-content: left;
+          }
+
+          button {
+            border: 1px solid green;
+            display: inline-block;
+            border-radius: 14px;
+            background-color: var(--main-text-color);
+            color: white;
+          }
+          button:hover {
+            background-color: white;
+            color: var(--main-text-color);
+            border: 1px solid var(--main-text-color);
           }
         `}
       />

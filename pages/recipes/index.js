@@ -8,22 +8,14 @@ const headlineStyles = css`
   margin-top: 80px;
 
   h1 {
-    display: flex;
-    justify-content: center;
-    text-align: center;
     padding-top: 40px;
     margin: 0 auto;
     font-size: 50px;
     color: #006b4a;
   }
   h2 {
-    display: flex;
-    justify-content: center;
-    text-align: center;
     padding-top: 20px;
     margin: 0 auto;
-    font-size: 30px;
-    color: #006b4a;
     margin-bottom: 60px;
   }
 

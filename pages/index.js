@@ -10,27 +10,23 @@ export default function Home() {
     h1 {
       padding-top: 20%;
       font-size: 64px;
-      color: #006b4a;
     }
 
     h2 {
       font-size: 48px;
-      color: #006b4a;
     }
 
     button {
-      border-radius: 18px;
+      border-radius: 20px;
       width: 200px;
       padding: 8px;
       font-size: 16px;
-      background-color: #006b4a;
-      color: white;
       border: 1px solid white;
     }
     button:hover {
       background-color: white;
-      color: #007e58;
-      border: 1px solid #007e58;
+      color: var(--main-text-color);
+      border: 1px solid var(--main-text-color);
     }
   `;
 

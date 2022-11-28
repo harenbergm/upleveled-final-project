@@ -28,13 +28,13 @@ export default function UserProfile(props: Props) {
 
   const recipeStyles = css`
     h1 {
-      display: flex;
+      /* display: flex; */
       justify-content: left;
-      text-align: center;
-      padding-top: 40px;
-      margin: 0 auto;
-      font-size: 50px;
-      color: #006b4a;
+      /* text-align: center;  */
+      /* padding-top: 40px; */
+      /* margin: 0 auto; */
+      /* font-size: 50px;
+      color: #006b4a; */
     }
 
     p {
@@ -42,7 +42,9 @@ export default function UserProfile(props: Props) {
     }
     h2 {
       margin-top: 40px;
-      color: #006b4a;
+      /* color: #006b4a; */
+      padding: none;
+      justify-content: left;
     }
 
     .text-preptime {

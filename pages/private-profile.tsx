@@ -21,6 +21,14 @@ export default function UserProfile(props: Props) {
   const profileStyles = css`
     margin: 100px 200px 0px;
 
+    h1 {
+      justify-content: left;
+    }
+
+    h2 {
+      justify-content: left;
+    }
+
     span {
       display: block;
       margin-bottom: 20px;
@@ -49,18 +57,6 @@ export default function UserProfile(props: Props) {
       border: 1px solid #006b4a;
     }
 
-    button {
-      border: 1px solid green;
-      display: inline-block;
-      border-radius: 14px;
-      background-color: #006b4a;
-      color: white;
-    }
-    button:hover {
-      background-color: white;
-      color: #006b4a;
-      border: 1px solid #006b4a;
-    }
     #deleteProfile {
       display: block;
       margin-top: 20px;

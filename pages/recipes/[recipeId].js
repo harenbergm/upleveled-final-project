@@ -14,13 +14,13 @@ const backButtonStyles = css`
   margin-left: 20px;
   border-radius: 10px;
   width: 80px;
-  border: 1px solid white;
+  /* border: 1px solid white;
   background-color: #006b4a;
-  color: white;
+  color: white; */
   :hover {
-    background-color: white;
+    /* background-color: white;
     color: #006b4a;
-    border: 1px solid #006b4a;
+    border: 1px solid #006b4a; */
   }
 `;
 
@@ -30,13 +30,13 @@ const recipeStyles = css`
   margin: 0 auto;
 
   h1 {
-    display: flex;
+    /* display: flex;
     justify-content: center;
     text-align: center;
-    color: #006b4a;
+    color: #006b4a; */
     padding-top: 20px;
     margin-bottom: 60px;
-    font-size: 50px;
+    /* font-size: 50px; */
   }
 
   div {
@@ -50,11 +50,11 @@ const recipeStyles = css`
   }
 
   h4 {
-    width: 576px;
+    /* width: 576px;
     display: flex;
     justify-content: right;
     color: #006b4a;
-    justify-content: left;
+    justify-content: left; */
   }
 
   div > span {
@@ -127,17 +127,17 @@ const commentSytles = css`
   }
 `;
 const commentButtonStyles = css`
-  border-radius: 10px;
-  width: 80px;
+  /* border-radius: 10px; */
+  /* width: 80px;
   padding: 2px;
   background-color: #006b4a;
   border: 1px solid white;
-  color: white;
+  color: white;  */
   margin: 10px 0px 50px;
   :hover {
-    background-color: white;
+    /* background-color: white;
     color: #006b4a;
-    border: 1px solid #006b4a;
+    border: 1px solid #006b4a; */
   }
 `;
 
