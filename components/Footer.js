@@ -34,7 +34,7 @@ export default function Footer() {
         <div>
           <Link href="/recipes">Recipes</Link>
           <Link href="/login">Login</Link>
-          <Link href="/signup">Sign Up</Link>
+          <Link href="/register">Register</Link>
         </div>
       </nav>
     </footer>

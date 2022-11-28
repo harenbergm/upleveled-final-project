@@ -188,6 +188,7 @@ export default function UserProfile(props: Props) {
               }}
             >
               <h2 data-test-id={'upload-image'}>1. Upload Image</h2>
+              {/* Image Upload component */}
               <UploadImage setImageUrl={setImageUrl} />
 
               <h2>2. Choose a Title</h2>

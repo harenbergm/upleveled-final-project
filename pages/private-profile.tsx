@@ -1,10 +1,8 @@
 import { css } from '@emotion/react';
-import { Lobster } from '@next/font/google';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import UploadImage from '../components/UploadImage';
 import getDifficulties from '../database/difficulties';
 import getIngredients from '../database/ingredients';
 import { getRecipesByUserId } from '../database/recipes';
@@ -174,36 +172,6 @@ export default function UserProfile(props: Props) {
     }
   }
 
-  // creates recipe
-
-  async function createRecipeFromApiById(userAccountId: number) {
-    const response = await fetch(`/api/recipes`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        recipe: {
-          userAccountId: userAccountId,
-          titleSelected: recipeTitle,
-          preparationTimeSelected: preparationTime,
-          imageURL: imageUrl,
-          recipeInstructionsSelected: recipeInstructions,
-          difficultyId: difficulty,
-        },
-        recipeIngredients: {
-          selectedIngredients: ingredients,
-        },
-      }),
-    });
-
-    const createdRecipeFromApiById = await response.json();
-    await router.push(`/recipes/`);
-    return;
-
-    // console.log('createdRecipeFromApiById', createdRecipeFromApiById);
-  }
-
   // Updates User Profile
   async function updateUserFromApiById(id: number) {
     const response = await fetch(`/api/profiles/${id}`, {
@@ -242,7 +210,7 @@ export default function UserProfile(props: Props) {
   // deletes recipe by recipe id
   async function deleteRecipeFromApiByRecipeId(
     recipeId: number,
-    recipiesList: array,
+    // recipiesList: array,
   ) {
     const response = await fetch(`/api/recipes/${recipeId}`, {
       method: 'DELETE',
@@ -254,7 +222,7 @@ export default function UserProfile(props: Props) {
         userAccountId: userAccountId,
       }),
     });
-    // console.log('recipeId', recipeId);
+
     const deletedRecipeResponse = await response.json();
 
     console.log('deletedRecipeResponse', deletedRecipeResponse.id);
@@ -344,7 +312,6 @@ export default function UserProfile(props: Props) {
             <hr />
           </div>
         </form>
-        {/* {console.log('userRecipe.id', props.userRecipes[5]?.id)} */}
         <h2>My Created Recipes</h2>
         <div css={createdrecipeWrapper}>
           {recipiesList.map((userRecipe) => {
@@ -364,7 +331,6 @@ export default function UserProfile(props: Props) {
                     <img src="/difficulty.png" alt=".." css={difficultyIcon} />{' '}
                     {userRecipe.difficultyName}
                   </p>
-                  {console.log('userRecipe.id', userRecipe.id)}
 
                   <span>Ingredients: {userRecipe.ingredientsName}..</span>
                   <button id="editbutton">Edit</button>

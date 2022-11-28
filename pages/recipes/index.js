@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 import { CldImage } from 'next-cloudinary';
 import Head from 'next/head';
-import Image from 'next/image';
 import { getIngredientsByRecipeId } from '../../database/ingredients';
 import { getAllRecipesWithoutDuplicatesRecipeId } from '../../database/recipes';
 
@@ -95,10 +94,10 @@ export default function ShowRecipes(props) {
   return (
     <>
       <Head>
-        <title>Show cooking recipes</title>
+        <title>Nasch Cooking Recipes</title>
         <meta
           name="Show cooking recipes"
-          content="Here you yan see all cooking recipes created by users"
+          content="Find delicoius recipes everyday"
         />
       </Head>
 
@@ -107,32 +106,25 @@ export default function ShowRecipes(props) {
         <h2>And Share Yours With Others</h2>
         <div>{props.allRecipes.length} Recipes found</div>
       </div>
-
       <div css={recipeWrapper}>
+        {/* get Recipes from the database */}
         {props.allRecipes.map((recipe) => {
           return (
             <div>
               <div key={recipe.id} css={recipeStyles}>
                 <div>
                   <a href={`/recipes/${recipe.id}`}>
+                    {/* CldImage to display cloudinary images properly */}
                     <CldImage
                       css={img}
                       width="432"
                       height="288"
                       src={`${recipe.imageurl}`}
                     />
-                    {/* <img
-                      data-test-id={`/recipes/${recipe.id}`}
-                      css={img}
-                      src={`${recipe.imageurl}`}
-                      width="432"
-                      height="288"
-                    /> */}
                   </a>
                 </div>
                 <div css={recipeDescriptionStyles}>
                   <h3>{recipe.recipesTitle}</h3>
-                  {/* <span> ID: {recipe.id}</span> */}
                   <span>
                     <img
                       src="/icon-watch.png"
@@ -141,14 +133,13 @@ export default function ShowRecipes(props) {
                     />
                     {recipe.preparationTime} minutes
                   </span>
-
                   <span>
                     <img
                       src="/difficulty.png"
                       alt=".."
                       width="15"
                       heigth="15"
-                    />{' '}
+                    />
                     {recipe.difficultyName}
                   </span>
 
@@ -179,8 +170,6 @@ export async function getServerSideProps() {
     ingredients = await getIngredientsByRecipeId(recipe.id);
     allIngredients.push(ingredients);
   }
-
-  // console.log('arraypush', allIngredients);
 
   return {
     props: {

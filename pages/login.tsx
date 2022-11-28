@@ -109,7 +109,7 @@ export default function Login(props: Props) {
     <>
       <Head>
         <title>Login</title>
-        <meta name="description" content="Login new users" />
+        <meta name="login" content="Login to your private profile." />
       </Head>
       <div css={loginStyles}>
         <h1>Login</h1>

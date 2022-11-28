@@ -102,8 +102,11 @@ export default function Register(props: Props) {
   return (
     <>
       <Head>
-        <title>Sign Up</title>
-        <meta name="description" content="Sign up new users" />
+        <title>Register</title>
+        <meta
+          name="register"
+          content="Register, share recipes and get in touch with like-minded people"
+        />
       </Head>
       <div css={signupStyles}>
         <h1>Register</h1>

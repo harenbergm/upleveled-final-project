@@ -157,7 +157,7 @@ export default function ShowSingleRecipe(props) {
 
   // creates comment
   async function createCommentFromApiByUserId(userAccountId) {
-    // ask the user to login if it did not
+    // requires user login
     if (!props.user) {
       await router.push(`/login?returnTo=/recipes/${recipeId}`);
       return;
@@ -188,10 +188,11 @@ export default function ShowSingleRecipe(props) {
   return (
     <>
       <Head>
-        <title>The best cooking recipes </title>
+        <title>{props.singleRecipe[0].recipesTitle} </title>"See the best
+        recipes in detail"
         <meta
-          name="NFT #1"
-          content="Buy, sell and trade NFTs and become a virtual art collector!"
+          name="recipe"
+          content={`${props.singleRecipe[0].recipesTitle} Recipe. Get all details to the best recipes. Read now.`}
         />
         <link rel="icon" href="/2.jpg" />
       </Head>
@@ -242,7 +243,7 @@ export default function ShowSingleRecipe(props) {
         <div css={commentHeadlineStyles}>
           <h4 className={merriweather.className}>User comments</h4>
         </div>
-
+        {/* Get all comments  */}
         <div id="comments" css={formStyles}>
           {commentList.length > 0 ? (
             commentList.map((comment) => {
@@ -261,9 +262,10 @@ export default function ShowSingleRecipe(props) {
               );
             })
           ) : (
-            <></>
+            <>No user comments existing</>
           )}
         </div>
+
         <div>
           <div css={commentSytles}>
             <form
