@@ -22,12 +22,12 @@ Nasch is an application to finde, create and share recipes with like-minded peop
 - Cloudinary
 - Fly.io
 
-![Homepage](../../../../../C:/Users/haren/projects/upleveled-final-project/public/homepage.png)
-![Recipes Overview](../../../../../C:/Users/haren/projects/upleveled-final-project/public/recipes.png)
-![Single Recipe](../../../../../C:/Users/haren/projects/upleveled-final-project/public/single%20recipe.png)
-![Create Recipe](../../../../../C:/Users/haren/projects/upleveled-final-project/public/Create%20Recipe.png)
-![Private Profile](../../../../../C:/Users/haren/projects/upleveled-final-project/public/Private%20Profile.png)
-![DrawSQL Database Structure](../../../../../C:/Users/haren/projects/upleveled-final-project/public/drawsql.png)
+[Alt text](../../../../../C:/Users/haren/projects/upleveled-final-project/public/homepage.png)
+[Recipes Overview](../../../../../C:/Users/haren/projects/upleveled-final-project/public/recipes.png)
+[Single Recipe](../../../../../C:/Users/haren/projects/upleveled-final-project/public/single%20recipe.png)
+[Create Recipe](../../../../../C:/Users/haren/projects/upleveled-final-project/public/Create%20Recipe.png)
+[Private Profile](../../../../../C:/Users/haren/projects/upleveled-final-project/public/Private%20Profile.png)
+[DrawSQL Database Structure](../../../../../C:/Users/haren/projects/upleveled-final-project/public/drawsql.png)
 
 The database structure was chosen in a way to be editable and flexible in the long run. Recipes and ingredients are managed in a join table making the ingredients easy to change/update. Same applies to the difficulties table.
 
@@ -37,7 +37,7 @@ The recipe creation and display is managed in three steps:
 2. The recipes table is filtered by userid and the last recipe id the user created. This recipe id is saved into the recipes_ingredients table and the corresponding ingredients are added.
 3. Due to the structure of the recipes_ingredients table, all recipes are filtered and duplicates are excluded. Afterwards all recipes are display in the frontend.
 
-![Figma Wireframes](../../../../../C:/Users/haren/projects/upleveled-final-project/public/figma.png)
+[Figma Wireframes](../../../../../C:/Users/haren/projects/upleveled-final-project/public/figma.png)
 
 ## Setup instructions
 
