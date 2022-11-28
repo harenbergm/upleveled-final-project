@@ -1,34 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Nasch - Share Your Recipe with like-minded people
 
-## Getting Started
+Nasch is an application to finde, create and share recipes with like-minded people. The application contains
 
-First, run the development server:
+- A landing page
+- An overview of all user created recipes
+- The single recipe page, where the user can see additional information as ingredients, cooking instructions and user comments. Only logged in users are authorized to leave acomment. Otherwise the user will be reroutet to the login page
+- A login and register page
+- A private profile page, where the user can update his/her account information, delete his/her account, see created recipes and delete them
+- A create recipe page. Only logged in users are authorized to create a recipe
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Technologies
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Next.js
+- Figma
+- PostgreSQL
+- DrawSQL
+- React
+- JavaScript
+- Typescript
+- REST API
+- Cloudinary
+- Fly.io
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+![Homepage](../../../../../C:/Users/haren/projects/upleveled-final-project/public/homepage.png)
+![Recipes Overview](../../../../../C:/Users/haren/projects/upleveled-final-project/public/recipes.png)
+![Single Recipe](../../../../../C:/Users/haren/projects/upleveled-final-project/public/single%20recipe.png)
+![Create Recipe](../../../../../C:/Users/haren/projects/upleveled-final-project/public/Create%20Recipe.png)
+![Private Profile](../../../../../C:/Users/haren/projects/upleveled-final-project/public/Private%20Profile.png)
+![DrawSQL Database Structure](../../../../../C:/Users/haren/projects/upleveled-final-project/public/drawsql.png)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+The database structure was chosen in a way to be editable and flexible in the long run. Recipes and ingredients are managed in a join table making the ingredients easy to change/update. Same applies to the difficulties table.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+The recipe creation and display is managed in three steps:
 
-## Learn More
+1. The user creates a recipe and the recipes table receive the corresponding information
+2. The recipes table is filtered by userid and the last recipe id the user created. This recipe id is saved into the recipes_ingredients table and the corresponding ingredients are added.
+3. Due to the structure of the recipes_ingredients table, all recipes are filtered and duplicates are excluded. Afterwards all recipes are display in the frontend.
 
-To learn more about Next.js, take a look at the following resources:
+![Figma Wireframes](../../../../../C:/Users/haren/projects/upleveled-final-project/public/figma.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Setup instructions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Clone the repository
+- Setup a PostgreSQL database - Create a user and a database
+- Create a .env file
+- Copy the environment variables from .env-example into .env
+- Replace the placeholders xxxxx with your username, password and name of database
+- Install dotenv-cli
+- Run yarn install in your command line
+- Run the migrations with yarn migrate up
+- Start the server by running yarn dev

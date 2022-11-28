@@ -94,7 +94,7 @@ export default function ShowRecipes(props) {
       </Head>
 
       <div css={headlineStyles}>
-        <h1>Find Delicoius Recipes Everyday</h1>
+        <h1>Find Delicious Recipes Everyday</h1>
         <h2>And Share Yours With Others</h2>
         <div>{props.allRecipes.length} Recipes found</div>
       </div>
