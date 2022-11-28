@@ -21,12 +21,15 @@ Nasch is an application to finde, create and share recipes with like-minded peop
 - REST API
 - Cloudinary
 - Fly.io
-  ![Homepage](/public/homepage.png)
-  ![Recipes Overview](/public/recipes.png)
-  ![Single Recipe](/public/single%20recipe.png)
-  ![Create Recipe](/public/Create%20Recipe.png)
-  ![Private Profile](/public/Private%20Profile.png)
-  ![DrawSQL Database Structure](/public/drawsql.png)
+
+## Screenshots
+
+![Homepage](/public/homepage.png)
+![Recipes Overview](/public/recipes.png)
+![Single Recipe](/public/single%20recipe.png)
+![Create Recipe](/public/Create%20Recipe.png)
+![Private Profile](/public/Private%20Profile.png)
+![DrawSQL Database Structure](/public/drawsql.png)
 
 The database structure was chosen in a way to be editable and flexible in the long run. Recipes and ingredients are managed in a join table making the ingredients easy to change/update. Same applies to the difficulties table.
 
