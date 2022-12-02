@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Nasch - Get your delicours recipes daily</title>
+        <title>Nasch - Get your delicious recipes every day</title>
         <meta
           name="description"
           content="Find and share recipes with like-minded people"
