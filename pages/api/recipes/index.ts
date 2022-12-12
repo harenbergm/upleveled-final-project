@@ -46,7 +46,7 @@ export default async function handler(
     const ingredientsSelected = recipeIngredients.selectedIngredients;
 
     // console.log('recipe', recipe);
-    // console.log('recipeIngredients', recipeIngredients);
+    console.log('recipeIngredients', recipeIngredients);
     // console.log('userId', userId);
     // console.log('titleSelected', titleSelected);
     // console.log('preparationTimeSelected', preparationTimeSelected);

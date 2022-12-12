@@ -1,8 +1,10 @@
 import { css } from '@emotion/react';
+// import { SearchSource } from 'jest';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import SearchBar from '../components/SearchBar';
 import UploadImage from '../components/UploadImage';
 import getDifficulties from '../database/difficulties';
 import getIngredients from '../database/ingredients';
@@ -114,14 +116,25 @@ export default function UserProfile(props: Props) {
   const userAccountId = props.user.id;
 
   // selects and filter the ingredients
-  function handleCheck(index: never) {
-    if (ingredients.includes(index)) {
-      const filteredIngredient = ingredients.filter((ingredient) => {
-        return ingredient !== index;
+  // function handleCheck(index: never) {
+  //   if (ingredients.includes(index)) {
+  //     const filteredIngredient = ingredients.filter((ingredient) => {
+  //       return ingredient !== index;
+  //     });
+  //     setIngredients(filteredIngredient);
+  //   } else {
+  //     setIngredients([...ingredients, index]);
+  //   }
+  // }
+
+  function handleCheck(id) {
+    if (ingredients.includes(id)) {
+      const filteredIngredient = ingredients.filter((value) => {
+        return value !== id;
       });
       setIngredients(filteredIngredient);
     } else {
-      setIngredients([...ingredients, index]);
+      setIngredients([...ingredients, id]);
     }
   }
 
@@ -204,6 +217,12 @@ export default function UserProfile(props: Props) {
               />
               <div>
                 <h2>3. Choose Ingredients</h2>
+                <SearchBar
+                  placeholder="Search ingredients"
+                  data={props.ingredients}
+                  handleCheck={handleCheck}
+                />
+                {/* <hr />
                 {props.ingredients.map((ingredient: any, index: number) => {
                   return (
                     <label id="ingredients" key={index}>
@@ -218,7 +237,7 @@ export default function UserProfile(props: Props) {
                       />
                     </label>
                   );
-                })}
+                })} */}
               </div>
               <h2>4. Preparation Time in minutes</h2>
               <input
