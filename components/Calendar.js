@@ -90,7 +90,7 @@
 //         <input type="submit" value="save" />
 //       </form>
 
-//       <Calendar
+//       <Calender
 //         localizer={localizer}
 //         events={allEvents}
 //         startAccessor="start"

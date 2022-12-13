@@ -30,13 +30,7 @@ export default function UserProfile(props: Props) {
 
   const recipeStyles = css`
     h1 {
-      /* display: flex; */
       justify-content: left;
-      /* text-align: center;  */
-      /* padding-top: 40px; */
-      /* margin: 0 auto; */
-      /* font-size: 50px;
-      color: #006b4a; */
     }
 
     p {
@@ -222,22 +216,6 @@ export default function UserProfile(props: Props) {
                   data={props.ingredients}
                   handleCheck={handleCheck}
                 />
-                {/* <hr />
-                {props.ingredients.map((ingredient: any, index: number) => {
-                  return (
-                    <label id="ingredients" key={index}>
-                      {ingredient.name}
-                      <input
-                        id="ingredients"
-                        value={ingredient.id}
-                        type="checkbox"
-                        onChange={() => {
-                          handleCheck(index + 1);
-                        }}
-                      />
-                    </label>
-                  );
-                })} */}
               </div>
               <h2>4. Preparation Time in minutes</h2>
               <input

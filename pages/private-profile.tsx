@@ -2,7 +2,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'add-to-calendar-button/assets/css/atcb.css';
 import { css } from '@emotion/react';
-import { atcb_action, atcb_init } from 'add-to-calendar-button';
+import { atcb_action } from 'add-to-calendar-button';
 import format from 'date-fns/format';
 import getDay from 'date-fns/getDay';
 import parse from 'date-fns/parse';
@@ -26,8 +26,10 @@ type Props = {
   refreshUserProfile: () => void;
 };
 
+// type Props = {
+//   user: User;
+
 export default function UserProfile(props: Props) {
-  // console.log('userRecipes', props.userRecipes);
   const profileStyles = css`
     margin: 100px 200px 0px;
 
@@ -211,20 +213,6 @@ export default function UserProfile(props: Props) {
     locales,
   });
 
-  // const events = [
-  //   {
-  //     title: 'Spaghetti Class',
-  //     allDay: true,
-  //     start: new Date(2022, 11, 3),
-  //     end: new Date(2022, 11, 5),
-  //   },
-  //   {
-  //     title: 'Makeing tasty Burger ',
-  //     start: new Date(2022, 11, 13),
-  //     end: new Date(2022, 11, 15),
-  //   },
-  // ];
-
   const [username, setUsername] = useState(props.user.username);
   const [email, setEmail] = useState(props.user.eMail);
   const [imageUrl, setImageUrl] = useState('');
@@ -249,18 +237,6 @@ export default function UserProfile(props: Props) {
   useEffect(() => {
     setDeletedUser(0);
   }, [deletedUser]);
-
-  // selects and filter the ingredients
-  function handleCheck(index: never) {
-    if (ingredients.includes(index)) {
-      const filteredIngredient = ingredients.filter((ingredient) => {
-        return ingredient !== index;
-      });
-      setIngredients(filteredIngredient);
-    } else {
-      setIngredients([...ingredients, index]);
-    }
-  }
 
   // Updates User Profile
   async function updateUserFromApiById(id: number) {
@@ -315,7 +291,7 @@ export default function UserProfile(props: Props) {
 
     const deletedRecipeResponse = await response.json();
 
-    console.log('deletedRecipeResponse', deletedRecipeResponse.id);
+    // console.log('deletedRecipeResponse', deletedRecipeResponse.id);
 
     // const recipeListFiltered = recipiesList.filter((recipe: any) => {
     //   recipe[0].id !== recipeId;
@@ -440,7 +416,7 @@ export default function UserProfile(props: Props) {
         </div>
         <hr />
         <div css={calendarStyles}>
-          <h2>Join me on my cooking classes!</h2>
+          <h2>Join my cooking classes!</h2>
 
           <div>
             <input
@@ -469,7 +445,7 @@ export default function UserProfile(props: Props) {
               />
             </div>
             <div>
-              <button onClick={handleAddEvents}>Add cooking class</button>
+              <button onClick={handleAddEvents}>Add Cooking Class</button>
             </div>
           </div>
         </div>

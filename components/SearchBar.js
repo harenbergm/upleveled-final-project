@@ -26,40 +26,6 @@ export default function SearchBar({ handleCheck, placeholder, data }) {
       background-color: red;
     }
   `;
-  // const [selectedIngredients, setSelectedIngredients] = useState([]);
-
-  // function ShowIngredients() {
-  //   const selectedIngr = data.filter((ingr) => {
-  //     return ingr.id === ingredients.id;
-  //   });
-  //   // setSelectedIngredients(selectedIngr);
-  //   console.log('selectedIngr', selectedIngr);
-  // }
-
-  // function handleCheck(value) {
-  //   if (ingredients.includes(value)) {
-  //     const filteredIngredient = ingredients.filter((ingredient) => {
-  //       return ingredient !== value;
-  //     });
-  //     setIngredients(filteredIngredient);
-  //   } else {
-  //     setIngredients([...ingredients, value]);
-  //     console.log('value', value);
-  //   }
-  // }
-
-  // selects and filter the ingredients
-  // function handleCheck(id) {
-  //   if (ingredients.includes(id)) {
-  //     const filteredIngredient = ingredients.filter((value) => {
-  //       return value !== id;
-  //     });
-  //     setIngredients(filteredIngredient);
-  //   } else {
-  //     setIngredients([...ingredients, id]);
-  //   }
-  //   props.ingredientsChosen(ingredients);
-  // }
 
   // console.log('data', data);
   // console.log('ingredients', ingredients);
@@ -67,13 +33,15 @@ export default function SearchBar({ handleCheck, placeholder, data }) {
   function handleFilter(event) {
     const searchIngredient = event.target.value;
     setIngredientEntered(searchIngredient);
-    const filteredIngredients = data.filter((value) => {
-      return value.name.toLowerCase().includes(ingredientEntered.toLowerCase());
+    const filteredIngredients = data.filter((filteredIngredient) => {
+      return filteredIngredient.name
+        .toLowerCase()
+        .includes(ingredientEntered.toLowerCase());
     });
     setFilteredData(filteredIngredients);
   }
 
-  function resetFilter() {
+  function resetSearchFilter() {
     setFilteredData(data);
     setIngredientEntered('');
   }
@@ -88,20 +56,18 @@ export default function SearchBar({ handleCheck, placeholder, data }) {
           onChange={handleFilter}
         />
         <button
-          className="searchIcon"
           onClick={() => {
-            resetFilter();
+            resetSearchFilter();
           }}
         >
           X
         </button>
       </div>
-      <div className="dataResult">
+      <div>
         {filteredData.map((value) => {
           return (
             <label id="ingredients" key={value.id}>
               {value.name}
-              {value.id}
               <input
                 id="ingredients"
                 value={value.id}
@@ -115,6 +81,7 @@ export default function SearchBar({ handleCheck, placeholder, data }) {
         })}
       </div>
       <hr />
+      Selected Ingredients:
     </div>
   );
 }
