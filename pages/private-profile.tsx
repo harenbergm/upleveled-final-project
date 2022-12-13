@@ -1,18 +1,8 @@
-// import 'react-big-calendar/lib/css/react-big-calendar.css';
-// import 'react-datepicker/dist/react-datepicker.css';
-// import 'add-to-calendar-button/assets/css/atcb.css';
 import { css } from '@emotion/react';
-// import { atcb_action } from 'add-to-calendar-button';
-// import format from 'date-fns/format';
-// import getDay from 'date-fns/getDay';
-// import parse from 'date-fns/parse';
-// import startOfWeek from 'date-fns/startOfWeek';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-// import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
-// import DatePicker from 'react-datepicker';
 import getDifficulties from '../database/difficulties';
 import getIngredients from '../database/ingredients';
 import { getRecipesByUserId } from '../database/recipes';
@@ -25,9 +15,6 @@ type Props = {
   userRecipes: Awaited<ReturnType<typeof getRecipesByUserId>>;
   refreshUserProfile: () => void;
 };
-
-// type Props = {
-//   user: User;
 
 export default function UserProfile(props: Props) {
   const profileStyles = css`
@@ -147,72 +134,6 @@ export default function UserProfile(props: Props) {
     }
   `;
 
-  // const calendarStyles = css`
-  //   h2 {
-  //     justify-content: left;
-  //     text-align: center;
-  //     margin: 50px 0px 50px;
-  //   }
-
-  //   div {
-  //     justify-content: center;
-  //     display: flex;
-  //   }
-
-  //   div > input {
-  //     margin-right: 20px;
-  //     width: 200px;
-  //     display: flex;
-  //   }
-
-  //   button {
-  //     border-radius: 2px;
-  //     height: 30px;
-  //     min-width: 100px;
-  //   }
-  // `;
-
-  // const addEventToCalendarStyles = css`
-  //   justify-content: center;
-  //   margin-left: 250px;
-
-  //   select {
-  //     height: 30px;
-  //     color: var(--main-text-color);
-  //     justify-content: center;
-  //     margin: 0 auto;
-  //     min-width: 100px;
-  //     border-radius: 3px;
-  //     border: 1px solid var(--main-text-color);
-  //   }
-
-  //   input {
-  //     height: 30px;
-  //     width: 120px;
-  //     border-radius: 3px;
-  //     border: 1px solid white;
-  //     margin: -10px 0px 10px 10px;
-  //     background-color: var(--main-text-color);
-  //     color: white;
-  //   }
-
-  //   input:hover {
-  //     color: var(--main-text-color);
-  //     border: 1px solid var(--main-text-color);
-  //     background-color: white;
-  //   }
-  // `;
-
-  // const locales = { 'de-de': require('date-fns/locale/de') };
-
-  // const localizer = dateFnsLocalizer({
-  //   format,
-  //   parse,
-  //   startOfWeek,
-  //   getDay,
-  //   locales,
-  // });
-
   const [username, setUsername] = useState(props.user.username);
   const [email, setEmail] = useState(props.user.eMail);
   const [imageUrl, setImageUrl] = useState('');
@@ -227,12 +148,6 @@ export default function UserProfile(props: Props) {
   const [recipiesList, setRecipiesList] = useState(props.userRecipes);
   const router = useRouter();
   const userAccountId = props.user.id;
-  // const [newEvent, setNewEvent] = useState({ title: '', start: '', end: '' });
-  // const [allEvents, setAllEvents] = useState([]);
-
-  // function handleAddEvents() {
-  //   setAllEvents([...allEvents, newEvent]);
-  // }
 
   useEffect(() => {
     setDeletedUser(0);
@@ -414,82 +329,7 @@ export default function UserProfile(props: Props) {
             );
           })}
         </div>
-
-        {/*  <div css={calendarStyles}> */}
-        {/*   <h2>Join my cooking classes!</h2>
-
-          <div>
-            <input
-              placeholder="Add cooking event"
-              value={newEvent.title}
-              onChange={(event) => {
-                setNewEvent({ ...newEvent, title: event.target.value });
-              }}
-            />
-            <div>
-              <DatePicker
-                placeholderText="Start Date"
-                selected={newEvent.start}
-                onChange={(start) => {
-                  setNewEvent({ ...newEvent, start });
-                }}
-              />
-            </div>
-            <div>
-              <DatePicker
-                placeholderText="End Date"
-                selected={newEvent.end}
-                onChange={(end) => {
-                  setNewEvent({ ...newEvent, end });
-                }}
-              />
-            </div>
-            <div>
-              <button onClick={handleAddEvents}>Add Cooking Class</button>
-            </div>
-          </div>
-        </div> */}
-
-        {/*  <Calendar
-          localizer={localizer}
-          events={allEvents}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 500, margin: '50px' }}
-        /> */}
       </div>
-      {/*  <form
-        css={addEventToCalendarStyles}
-        onSubmit={(e) => {
-          e.preventDefault();
-          atcb_action({
-            name: newEvent.title,
-            startDate: newEvent.start,
-            endDate: newEvent.end,
-            options: [
-              'Apple',
-              'Google',
-              'iCal',
-              'Microsoft365',
-              'Outlook.com',
-              'Yahoo',
-            ],
-            timeZone: 'Europe/Berlin',
-            iCalFileName: 'Reminder-Event',
-          });
-        }}
-      >
-        <select
-          onChange={(event) => {
-            setDifficulty(event?.target.value);
-          }}
-        >
-          {allEvents.map((event) => {
-            return <option value={event.title}>{event.title}</option>;
-          })}
-        </select>
-        <input type="submit" value="Add to Calendar" />
-      </form> */}
     </>
   );
 }
