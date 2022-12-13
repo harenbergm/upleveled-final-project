@@ -1,18 +1,18 @@
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import 'react-datepicker/dist/react-datepicker.css';
-import 'add-to-calendar-button/assets/css/atcb.css';
+// import 'react-big-calendar/lib/css/react-big-calendar.css';
+// import 'react-datepicker/dist/react-datepicker.css';
+// import 'add-to-calendar-button/assets/css/atcb.css';
 import { css } from '@emotion/react';
-import { atcb_action } from 'add-to-calendar-button';
-import format from 'date-fns/format';
-import getDay from 'date-fns/getDay';
-import parse from 'date-fns/parse';
-import startOfWeek from 'date-fns/startOfWeek';
+// import { atcb_action } from 'add-to-calendar-button';
+// import format from 'date-fns/format';
+// import getDay from 'date-fns/getDay';
+// import parse from 'date-fns/parse';
+// import startOfWeek from 'date-fns/startOfWeek';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
-import DatePicker from 'react-datepicker';
+// import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+// import DatePicker from 'react-datepicker';
 import getDifficulties from '../database/difficulties';
 import getIngredients from '../database/ingredients';
 import { getRecipesByUserId } from '../database/recipes';
@@ -147,71 +147,71 @@ export default function UserProfile(props: Props) {
     }
   `;
 
-  const calendarStyles = css`
-    h2 {
-      justify-content: left;
-      text-align: center;
-      margin: 50px 0px 50px;
-    }
+  // const calendarStyles = css`
+  //   h2 {
+  //     justify-content: left;
+  //     text-align: center;
+  //     margin: 50px 0px 50px;
+  //   }
 
-    div {
-      justify-content: center;
-      display: flex;
-    }
+  //   div {
+  //     justify-content: center;
+  //     display: flex;
+  //   }
 
-    div > input {
-      margin-right: 20px;
-      width: 200px;
-      display: flex;
-    }
+  //   div > input {
+  //     margin-right: 20px;
+  //     width: 200px;
+  //     display: flex;
+  //   }
 
-    button {
-      border-radius: 2px;
-      height: 30px;
-      min-width: 100px;
-    }
-  `;
+  //   button {
+  //     border-radius: 2px;
+  //     height: 30px;
+  //     min-width: 100px;
+  //   }
+  // `;
 
-  const addEventToCalendarStyles = css`
-    justify-content: center;
-    margin-left: 250px;
+  // const addEventToCalendarStyles = css`
+  //   justify-content: center;
+  //   margin-left: 250px;
 
-    select {
-      height: 30px;
-      color: var(--main-text-color);
-      justify-content: center;
-      margin: 0 auto;
-      min-width: 100px;
-      border-radius: 3px;
-      border: 1px solid var(--main-text-color);
-    }
+  //   select {
+  //     height: 30px;
+  //     color: var(--main-text-color);
+  //     justify-content: center;
+  //     margin: 0 auto;
+  //     min-width: 100px;
+  //     border-radius: 3px;
+  //     border: 1px solid var(--main-text-color);
+  //   }
 
-    input {
-      height: 30px;
-      width: 120px;
-      border-radius: 3px;
-      border: 1px solid white;
-      margin: -10px 0px 10px 10px;
-      background-color: var(--main-text-color);
-      color: white;
-    }
+  //   input {
+  //     height: 30px;
+  //     width: 120px;
+  //     border-radius: 3px;
+  //     border: 1px solid white;
+  //     margin: -10px 0px 10px 10px;
+  //     background-color: var(--main-text-color);
+  //     color: white;
+  //   }
 
-    input:hover {
-      color: var(--main-text-color);
-      border: 1px solid var(--main-text-color);
-      background-color: white;
-    }
-  `;
+  //   input:hover {
+  //     color: var(--main-text-color);
+  //     border: 1px solid var(--main-text-color);
+  //     background-color: white;
+  //   }
+  // `;
 
-  const locales = { 'de-de': require('date-fns/locale/de') };
+  // const locales = { 'de-de': require('date-fns/locale/de') };
 
-  const localizer = dateFnsLocalizer({
-    format,
-    parse,
-    startOfWeek,
-    getDay,
-    locales,
-  });
+  // const localizer = dateFnsLocalizer({
+  //   format,
+  //   parse,
+  //   startOfWeek,
+  //   getDay,
+  //   locales,
+  // });
 
   const [username, setUsername] = useState(props.user.username);
   const [email, setEmail] = useState(props.user.eMail);
@@ -227,12 +227,12 @@ export default function UserProfile(props: Props) {
   const [recipiesList, setRecipiesList] = useState(props.userRecipes);
   const router = useRouter();
   const userAccountId = props.user.id;
-  const [newEvent, setNewEvent] = useState({ title: '', start: '', end: '' });
-  const [allEvents, setAllEvents] = useState([]);
+  // const [newEvent, setNewEvent] = useState({ title: '', start: '', end: '' });
+  // const [allEvents, setAllEvents] = useState([]);
 
-  function handleAddEvents() {
-    setAllEvents([...allEvents, newEvent]);
-  }
+  // function handleAddEvents() {
+  //   setAllEvents([...allEvents, newEvent]);
+  // }
 
   useEffect(() => {
     setDeletedUser(0);
@@ -414,9 +414,9 @@ export default function UserProfile(props: Props) {
             );
           })}
         </div>
-        <hr />
-        <div css={calendarStyles}>
-          <h2>Join my cooking classes!</h2>
+
+        {/*  <div css={calendarStyles}> */}
+        {/*   <h2>Join my cooking classes!</h2>
 
           <div>
             <input
@@ -448,17 +448,17 @@ export default function UserProfile(props: Props) {
               <button onClick={handleAddEvents}>Add Cooking Class</button>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <Calendar
+        {/*  <Calendar
           localizer={localizer}
           events={allEvents}
           startAccessor="start"
           endAccessor="end"
           style={{ height: 500, margin: '50px' }}
-        />
+        /> */}
       </div>
-      <form
+      {/*  <form
         css={addEventToCalendarStyles}
         onSubmit={(e) => {
           e.preventDefault();
@@ -488,9 +488,8 @@ export default function UserProfile(props: Props) {
             return <option value={event.title}>{event.title}</option>;
           })}
         </select>
-        {/* <input value={newEvent.title} onChange={newEvent.title} /> */}
         <input type="submit" value="Add to Calendar" />
-      </form>
+      </form> */}
     </>
   );
 }

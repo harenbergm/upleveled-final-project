@@ -1,7 +1,12 @@
 import { css } from '@emotion/react';
 import { useState } from 'react';
 
-export default function SearchBar({ handleCheck, placeholder, data }) {
+export default function SearchBar({
+  handleCheck,
+  placeholder,
+  data,
+  ingredients,
+}) {
   const [filteredData, setFilteredData] = useState(data);
   const [ingredientEntered, setIngredientEntered] = useState('');
 
@@ -68,8 +73,10 @@ export default function SearchBar({ handleCheck, placeholder, data }) {
           return (
             <label id="ingredients" key={value.id}>
               {value.name}
+
               <input
                 id="ingredients"
+                checked={ingredients.includes(value.id)}
                 value={value.id}
                 type="checkbox"
                 onChange={() => {
@@ -80,8 +87,6 @@ export default function SearchBar({ handleCheck, placeholder, data }) {
           );
         })}
       </div>
-      <hr />
-      Selected Ingredients:
     </div>
   );
 }

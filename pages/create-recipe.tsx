@@ -215,6 +215,7 @@ export default function UserProfile(props: Props) {
                   placeholder="Search ingredients"
                   data={props.ingredients}
                   handleCheck={handleCheck}
+                  ingredients={ingredients}
                 />
               </div>
               <h2>4. Preparation Time in minutes</h2>
