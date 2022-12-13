@@ -123,8 +123,8 @@ export default function UserProfile(props: Props) {
 
   function handleCheck(id) {
     if (ingredients.includes(id)) {
-      const filteredIngredient = ingredients.filter((value) => {
-        return value !== id;
+      const filteredIngredient = ingredients.filter((ingredient) => {
+        return ingredient !== id;
       });
       setIngredients(filteredIngredient);
     } else {
@@ -159,7 +159,7 @@ export default function UserProfile(props: Props) {
     await router.push(`/recipes/`);
     return;
 
-    console.log('createdRecipeFromApiById', createdRecipeFromApiById);
+    // console.log('createdRecipeFromApiById', createdRecipeFromApiById);
   }
 
   if (!props.user) {
